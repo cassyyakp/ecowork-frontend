@@ -1,12 +1,20 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Register from "./authentification/register";
+import Login1 from "./authentification/Login1";
 
-function App() {
-  
 
+import "./index.css";
+
+
+export default function App() {
   return (
-    <>
-      <p className="text-center text-2xl text-purple-600">je teste tailwind</p>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+       <Route path="/" element={<Register/>} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login1 />} /> 
+      </Routes>
+  
+    </BrowserRouter>
+  );
 }
-
-export default App
