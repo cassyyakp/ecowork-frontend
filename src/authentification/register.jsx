@@ -215,59 +215,7 @@ export default function RegisterForm() {
               />
             </div>
 
-            {/* Type de compte */}
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-semibold uppercase tracking-widest" style={{ color: "#7BDFF2" }}>
-                Type de compte
-              </label>
-              <div className="flex gap-3">
-                {/* Option 1 */}
-                <label
-                  className="flex-1 flex items-center justify-center gap-2 rounded-xl py-3 cursor-pointer text-sm font-semibold transition-all"
-                  style={{
-                    border: formData.id_type_compte === "1"
-                      ? "2px solid #7BDFF2"
-                      : "1.5px solid #B2F7EF",
-                    backgroundColor: formData.id_type_compte === "1" ? "#B2F7EF" : "#EFF7F6",
-                    color: "#333",
-                  }}
-                >
-                  <input
-                    type="radio"
-                    name="id_type_compte"
-                    value="1"
-                    checked={formData.id_type_compte === "1"}
-                    onChange={handleChange}
-                    className="hidden"
-                    required
-                  />
-                  1
-                </label>
-
-               
-                <label
-                  className="flex-1 flex items-center justify-center gap-2 rounded-xl py-3 cursor-pointer text-sm font-semibold transition-all"
-                  style={{
-                    border: formData.id_type_compte === "2"
-                      ? "2px solid #7BDFF2"
-                      : "1.5px solid #B2F7EF",
-                    backgroundColor: formData.id_type_compte === "2" ? "#B2F7EF" : "#EFF7F6",
-                    color: "#333",
-                  }}
-                >
-                  <input
-                    type="radio"
-                    name="id_type_compte"
-                    value="2"
-                    checked={formData.id_type_compte === "2"}
-                    onChange={handleChange}
-                    className="hidden"
-                  />
-                 2
-                </label>
-              </div>
-            </div>
-
+            
             {/* Submit */}
             <button
               type="submit"
