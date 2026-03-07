@@ -114,14 +114,18 @@ function ListeUtilisateur() {
                                 <td className="px-6 py-4">{utilisateur.telephone}</td>
                                 <td className="px-6 py-4">{utilisateur.adresse}</td>
                                 <td className="px-6 py-4 flex gap-4">
-                                    <a href="#" className="font-medium text-fg-brand hover:underline">Show</a>
-                                    <a href="#" className="font-medium text-fg-brand hover:underline">Edit</a>
+                                    <a href="#" className="font-medium text-fg-brand hover:underline">
+                                        <i className="fi fi-ss-eye text-purple-500"></i>
+                                    </a>
+                                    <a href="#" className="font-medium text-fg-brand hover:underline">
+                                        <i className="fi fi-sr-pencil text-green-500"></i>
+                                    </a>
                                     <button
                                         onClick={() => handleDelete(utilisateur.id_utilisateur)}
                                         className="font-medium text-red-500 hover:underline">
-                                        Delete
+                                        <i className="fi fi-sr-trash"></i>
                                     </button>
-                                </td>
+                                </td>   
                             </tr>
                         ))}
                     </tbody>
