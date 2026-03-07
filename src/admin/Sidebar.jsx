@@ -1,11 +1,11 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const navLinks = [
-  { label: "Utilisateurs", path: "/dashboard/utilisateurs" },
-  { label: "Salles", path: "/dashboard/salles" },
-  { label: "Équipements", path: "/dashboard/equipements" },
-  { label: "Réservations", path: "/dashboard/reservations" },
-  { label: "Factures", path: "/dashboard/factures" },
+  { label: "Utilisateurs", path: "/admin/utilisateurs" },
+  { label: "Salles", path: "/admin/salles" },
+  { label: "Équipements", path: "/admin/equipements" },
+  { label: "Réservations", path: "/admin/reservations" },
+  { label: "Factures", path: "/admin/factures" },
 ];
 
 function Sidebar() {

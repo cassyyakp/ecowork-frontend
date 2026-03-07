@@ -17,11 +17,11 @@ export default function App() {
         {/* Routes avec sidebar */}
         <Route element={<Layout />}>
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/utilisateurs" element={<Dashboard />} />
-          <Route path="/dashboard/salles" element={<Dashboard />} />
-          <Route path="/dashboard/equipements" element={<Dashboard />} />
-          <Route path="/dashboard/reservations" element={<Dashboard />} />
-          <Route path="/dashboard/factures" element={<Dashboard />} />
+          <Route path="/admin/utilisateurs" element={<Dashboard />} />
+          <Route path="/admin/espaces" element={<Dashboard />} />
+          <Route path="/admin/equipements" element={<Dashboard />} />
+          <Route path="/admin/reservations" element={<Dashboard />} />
+          <Route path="/admin/factures" element={<Dashboard />} />
         </Route>
       </Routes>
     </BrowserRouter>
