@@ -8,6 +8,8 @@ import Facture from "./admin/Facture";
 import Espace from "./admin/Espace";
 import Equipement from "./admin/Equipement";
 import Reservation from "./admin/Reservation";
+import ListeUtilisateur from "./admin/utilisateurs/ListeUtilisateur";
+
 
 
 
@@ -29,6 +31,9 @@ export default function App() {
           <Route path="/admin/equipements" element={<Equipement />} />
           <Route path="/admin/reservations" element={<Reservation />} />
           <Route path="/admin/factures" element={<Facture />} />
+
+          <Route path="/admin/utilisateurs/ListeUtilisateur" element={<ListeUtilisateur />} />
+
         </Route>
       </Routes>
     </BrowserRouter>
