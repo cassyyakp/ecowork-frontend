@@ -60,7 +60,7 @@ export default function RegisterForm() {
         className="w-full max-w-lg rounded-3xl shadow-xl overflow-hidden"
         style={{ backgroundColor: "#ffffff" }}
       >
-        {/* Top banner */}
+    
         <div
           className="px-10 py-8 text-center"
           style={{ backgroundColor: "#7BDFF2" }}
