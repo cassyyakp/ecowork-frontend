@@ -1,8 +1,9 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const navLinks = [
+  { label: "Dashboard", path: "/admin/dashboard" },
   { label: "Utilisateurs", path: "/admin/utilisateurs" },
-  { label: "Salles", path: "/admin/salles" },
+  { label: "Espaces", path: "/admin/espaces" },
   { label: "Équipements", path: "/admin/equipements" },
   { label: "Réservations", path: "/admin/reservations" },
   { label: "Factures", path: "/admin/factures" },
