@@ -5,7 +5,6 @@ import Dashboard from "./admin/Dashboard";
 import Layout from "./admin/layout";
 import Facture from "./admin/Facture";
 import Equipement from "./admin/Equipement";
-import Reservation from "./admin/Reservation";
 import EspaceLayout from "./admin/Espaces/EspaceLayout";
 import AjoutEspace from "./admin/Espaces/AjoutEspace";
 import EspaceShow from "./admin/Espaces/EspaceShow";
@@ -14,6 +13,9 @@ import ListeUtilisateur from "./admin/utilisateurs/ListeUtilisateur";
 import EditUtilisateur from "./admin/utilisateurs/EditUtilisateur";
 import ShowUtilisateur from "./admin/utilisateurs/ShowUtilisateur";
 import CreateAdmin from "./admin/utilisateurs/CreateAdmin";
+import ReservationLayout from "./admin/Reservations/ReservationLayout";
+import ReservationShow from "./admin/Reservations/ReservationShow";
+import ReservationUpdate from "./admin/Reservations/ReservationUpdate";
 import "./index.css";
 
 export default function App() {
@@ -39,9 +41,13 @@ export default function App() {
           <Route path="/admin/espaces/update/:id" element={<EspaceUpdate />} />
           <Route path="/admin/espaces/ajout" element={<AjoutEspace />} />
 
+          {/* Réservations */}
+          <Route path="/admin/reservations" element={<ReservationLayout />} />
+          <Route path="/admin/reservations/show/:id" element={<ReservationShow />} />
+          <Route path="/admin/reservations/update/:id" element={<ReservationUpdate />} />
+
           {/* Autres */}
           <Route path="/admin/equipements" element={<Equipement />} />
-          <Route path="/admin/reservations" element={<Reservation />} />
           <Route path="/admin/factures" element={<Facture />} />
         </Route>
       </Routes>
