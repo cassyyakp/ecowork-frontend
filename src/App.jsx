@@ -9,9 +9,10 @@ import Equipement from "./admin/Equipement";
 import Reservation from "./admin/Reservation";
 import EspaceLayout from "./admin/Espaces/EspaceLayout";
 import AjoutEspace from "./admin/Espaces/AjoutEspace";
-
+import EspaceShow from "./admin/Espaces/EspaceShow";
 import "./index.css";
 import ListeUtilisateur from "./admin/utilisateurs/ListeUtilisateur";
+import EspaceUpdate from "./admin/Espaces/EspaceUpadate";
 
 export default function App() {
   return (
@@ -25,13 +26,16 @@ export default function App() {
           <Route path="/admin/dashboard" element={<Dashboard />} />
           <Route path="/admin/utilisateurs" element={<Utilisateur />} />
           <Route path="/admin/espaces" element={<EspaceLayout />} />
+          <Route path="/admin/espaces/show/:id" element={<EspaceShow />} />
+          <Route path="/admin/espaces/update/:id"element={<EspaceUpdate />}/>
           <Route path="/admin/espaces/ajout" element={<AjoutEspace />} />
           <Route path="/admin/equipements" element={<Equipement />} />
           <Route path="/admin/reservations" element={<Reservation />} />
           <Route path="/admin/factures" element={<Facture />} />
-
-          <Route path="/admin/utilisateurs/listeUtilisateur" element={<ListeUtilisateur />} />
-
+          <Route
+            path="/admin/utilisateurs/listeUtilisateur"
+            element={<ListeUtilisateur />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

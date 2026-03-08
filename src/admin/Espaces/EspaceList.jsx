@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function EspaceList() {
+function EspaceList({ search }) {
   const navigate = useNavigate();
   const [espaces, setEspaces] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,7 +23,6 @@ function EspaceList() {
         setLoading(false);
       }
     };
-
     fetchEspaces();
   }, []);
 
@@ -43,9 +42,14 @@ function EspaceList() {
     }
   };
 
+  const filtered = espaces.filter((e) =>
+    e.nom.toLowerCase().includes((search ?? "").toLowerCase()),
+  );
+
   if (loading) return <p className="text-sm text-gray-400">Chargement...</p>;
 
-  if (espaces.length === 0) return <p className="text-sm text-gray-400">Aucun espace enregistré.</p>;
+  if (filtered.length === 0)
+    return <p className="text-sm text-gray-400">Aucun espace trouvé.</p>;
 
   return (
     <div className="overflow-x-auto rounded-2xl border border-[#B2F7EF]">
@@ -60,7 +64,7 @@ function EspaceList() {
           </tr>
         </thead>
         <tbody>
-          {espaces.map((espace) => (
+          {filtered.map((espace) => (
             <tr
               key={espace.id_espace}
               className="border-t border-[#B2F7EF] hover:bg-[#EFF7F6] transition-all"
@@ -78,13 +82,27 @@ function EspaceList() {
                   </div>
                 )}
               </td>
-              <td className="px-6 py-4 font-medium text-[#3a3a3a]">{espace.nom}</td>
+              <td className="px-6 py-4 font-medium text-[#3a3a3a]">
+                {espace.nom}
+              </td>
               <td className="px-6 py-4 text-gray-500">{espace.surface} m²</td>
-              <td className="px-6 py-4 text-gray-500">{espace.prix_reservation} FCFA</td>
+              <td className="px-6 py-4 text-gray-500">
+                {espace.prix_reservation} FCFA
+              </td>
               <td className="px-6 py-4">
                 <div className="flex gap-2">
                   <button
-                    onClick={() => navigate(`/admin/espaces/modifier/${espace.id_espace}`)}
+                    onClick={() =>
+                      navigate(`/admin/espaces/show/${espace.id_espace}`)
+                    }
+                    className="px-4 py-2 rounded-xl text-sm font-medium bg-gray-100 text-gray-600 hover:bg-gray-200 transition-all"
+                  >
+                    Voir
+                  </button>
+                  <button
+                    onClick={() =>
+                      navigate(`/admin/espaces/update/${espace.id_espace}`)
+                    }
                     className="px-4 py-2 rounded-xl text-sm font-medium bg-[#7BDFF2] text-white hover:bg-cyan-400 transition-all"
                   >
                     Modifier
@@ -105,4 +123,4 @@ function EspaceList() {
   );
 }
 
-export default  EspaceList;
+export default EspaceList;
