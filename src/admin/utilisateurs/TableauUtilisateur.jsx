@@ -15,7 +15,7 @@ function TableauUtilisateur({ utilisateursFiltres, loading, handleDelete }) {
                         <th scope="col" className="px-6 py-3 font-medium">Type de compte</th>
                         <th scope="col" className="px-6 py-3 font-medium">Téléphone</th>
                         <th scope="col" className="px-6 py-3 font-medium">Adresse</th>
-                        <th scope="col" className="px-6 py-3 font-medium"></th>
+                        <th scope="col" className="px-6 py-3 font-medium">Actions</th>
                     </tr>
                 </thead>
                 <tbody className="bg-[#EFF7F6]">

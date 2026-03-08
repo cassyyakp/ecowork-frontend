@@ -17,6 +17,10 @@ import ReservationLayout from "./admin/Reservations/ReservationLayout";
 import ReservationShow from "./admin/Reservations/ReservationShow";
 import ReservationUpdate from "./admin/Reservations/ReservationUpdate";
 import "./index.css";
+import LayoutEquipement from "./admin/equipements/LayoutEquipement";
+import CreateEquipement from "./admin/equipements/CreateEquipement";
+import EditEquipement from "./admin/equipements/EditEquipement";
+import ShowEquipement from "./admin/equipements/ShowEquipement";
 
 export default function App() {
   return (
@@ -46,8 +50,13 @@ export default function App() {
           <Route path="/admin/reservations/show/:id" element={<ReservationShow />} />
           <Route path="/admin/reservations/update/:id" element={<ReservationUpdate />} />
 
+          {/* Equipements */}
+          <Route path="/admin/equipements" element={<LayoutEquipement/>} />
+          <Route path="/admin/equipements/show/:id" element={<ShowEquipement />} />
+          <Route path="/admin/equipements/update/:id" element={<EditEquipement />} />
+          <Route path="/admin/equipements/ajout" element={<CreateEquipement />} />
+
           {/* Autres */}
-          <Route path="/admin/equipements" element={<Equipement />} />
           <Route path="/admin/factures" element={<Facture />} />
         </Route>
       </Routes>
