@@ -43,7 +43,19 @@ export default function Login() {
             localStorage.setItem("user", JSON.stringify(data.user));
 
             setStatus("success");
-            navigate("/dashboard");
+
+            if (data.user.id_type_compte === 1) {
+                navigate("/admin/dashboard");
+            } else {
+                navigate("/dashboard");
+            }
+
+            setStatus("success");
+            if (data.user.id_type_compte === 1) {
+                navigate("/admin/dashboard");
+            } else {
+                navigate("/dashboard");
+            }
         } catch (err) {
             setStatus("error");
             setErrorMsg(err.message);
@@ -106,7 +118,7 @@ export default function Login() {
                     {status === "loading" ? "Connexion..." : "Se connecter"}
                 </button>
 
-                
+
                 <p className="text-center text-sm mt-6 text-[#3a3a3a]">
                     Pas encore de compte ?{' '}
                     <Link to="/register"
