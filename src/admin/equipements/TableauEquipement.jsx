@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function TableauEquipement({ refresh }) {
+function TableauEquipement({ refresh, search }) {
     const navigate = useNavigate();
     const [equipements, setEquipements] = useState([]);
     const [loading, setLoading] = useState(true);
-
 
     useEffect(() => {
         const fetchEquipements = async () => {
@@ -43,6 +42,10 @@ function TableauEquipement({ refresh }) {
         }
     };
 
+    const filtered = equipements.filter(item =>
+        item.nom.toLowerCase().includes((search ?? "").toLowerCase())
+    );
+
     return (
         <div className="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default mt-4">
             <table className="w-full text-sm text-left text-body">
@@ -63,14 +66,14 @@ function TableauEquipement({ refresh }) {
                             </td>
                         </tr>
                     )}
-                    {!loading && equipements.length === 0 && (
+                    {!loading && filtered.length === 0 && (
                         <tr>
                             <td colSpan="5" className="text-center py-6 text-gray-400">
                                 Aucun équipement trouvé
                             </td>
                         </tr>
                     )}
-                    {equipements.map((equipement, index) => (
+                    {filtered.map((equipement, index) => (
                         <tr key={equipement.id_equipement}
                             className="border-b border-default">
                             <td className="px-6 py-4 font-medium">{index + 1}</td>

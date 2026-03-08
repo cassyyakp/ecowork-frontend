@@ -1,7 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 
-function TableauUtilisateur({ utilisateursFiltres, loading, handleDelete }) {
+function TableauUtilisateur({ utilisateursFiltres, loading, handleDelete, search }) {
     const navigate = useNavigate();
+
+    const filtered = utilisateursFiltres.filter(item =>
+        item.nom.toLowerCase().includes((search ?? "").toLowerCase())
+    );
 
     return (
         <div className="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default mt-10">
@@ -19,14 +23,14 @@ function TableauUtilisateur({ utilisateursFiltres, loading, handleDelete }) {
                     </tr>
                 </thead>
                 <tbody className="bg-[#EFF7F6]">
-                    {!loading && utilisateursFiltres.length === 0 && (
+                    {!loading && filtered.length === 0 && (
                         <tr>
                             <td colSpan="8" className="text-center py-6 text-gray-400">
                                 Aucun utilisateur trouvé
                             </td>
                         </tr>
                     )}
-                    {utilisateursFiltres.map((utilisateur, index) => (
+                    {filtered.map((utilisateur, index) => (
                         <tr key={utilisateur.id_utilisateur}
                             className="bg-neutral-primary-soft border-b border-default">
                             <th scope="row" className="px-6 py-4 font-medium text-heading whitespace-nowrap">

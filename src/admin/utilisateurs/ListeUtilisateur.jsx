@@ -2,11 +2,15 @@ import { useState, useEffect } from 'react';
 import FiltreUtilisateur from './FiltreUtilisateur';
 import BoutonAjoutAdmin from './BoutonAjoutAdmin';
 import TableauUtilisateur from './TableauUtilisateur';
+import SearchUtilisateur from './SearchUtilisateur';
 
 function ListeUtilisateur() {
     const [utilisateurs, setUtilisateurs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [filtre, setFiltre] = useState('tous');
+    const [search, setSearch] = useState("");
+    
+
 
     useEffect(() => {
         const fetchUtilisateurs = async () => {
@@ -52,21 +56,32 @@ function ListeUtilisateur() {
 
     return (
         <>
-            <div className="flex justify-between items-center mt-2">
+            <div className="flex justify-between items-center mt-2 mb-6">
                 <h1 className="text-font text-3xl">LISTE DES UTILISATEURS</h1>
-                <BoutonAjoutAdmin />
             </div>
+
+            <SearchUtilisateur
+                value={search}
+                onChange={setSearch}
+                placeholder="Rechercher un utilisateur..."
+                className="justify-start"
+            />
 
             {loading && (
                 <p className="text-center mt-10 text-gray-400">Chargement...</p>
             )}
 
-            <FiltreUtilisateur filtre={filtre} setFiltre={setFiltre} />
+            <div className="flex items-center justify-between">
+                <FiltreUtilisateur filtre={filtre} setFiltre={setFiltre} />
+                <BoutonAjoutAdmin />
+            </div>
+
 
             <TableauUtilisateur
                 utilisateursFiltres={utilisateursFiltres}
                 loading={loading}
                 handleDelete={handleDelete}
+                search={search}
             />
         </>
     );

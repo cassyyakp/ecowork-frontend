@@ -7,6 +7,9 @@ function FactureLayout() {
 
   return (
     <div className="flex flex-col gap-6">
+      <h1 className="text-3xl text-font">LISTE DES FACTURES</h1>
+
+
       <LayoutBouttonFacture onSearch={setSearch} />
       <FactureListe search={search} />
     </div>

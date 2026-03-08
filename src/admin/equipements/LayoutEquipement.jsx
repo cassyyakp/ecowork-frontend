@@ -1,6 +1,7 @@
 import { useState } from "react";
 import BoutonAjoutEquipement from "./BoutonAjoutEquipement";
 import TableauEquipement from "./TableauEquipement";
+import SearchEquipement from "./SearchEquipement";
 
 function LayoutEquipement() {
     const [refresh, setRefresh] = useState(false);
@@ -11,7 +12,8 @@ function LayoutEquipement() {
                 <h1 className="text-3xl text-font">LISTE DES ÉQUIPEMENTS</h1>
             </div>
 
-            <div className="flex justify-end items-center">
+            <div className="flex justify-between items-center">
+                <SearchEquipement/>
                 <BoutonAjoutEquipement />
             </div>
 
