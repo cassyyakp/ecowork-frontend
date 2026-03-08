@@ -15,6 +15,9 @@ import EditUtilisateur from "./admin/utilisateurs/EditUtilisateur";
 import ShowUtilisateur from "./admin/utilisateurs/ShowUtilisateur";
 import CreateAdmin from "./admin/utilisateurs/CreateAdmin";
 import "./index.css";
+import LayoutEquipement from "./admin/equipements/LayoutEquipement";
+import CreateEquipement from "./admin/equipements/CreateEquipement";
+import EditEquipement from "./admin/equipements/EditEquipement";
 
 export default function App() {
   return (
@@ -39,8 +42,12 @@ export default function App() {
           <Route path="/admin/espaces/update/:id" element={<EspaceUpdate />} />
           <Route path="/admin/espaces/ajout" element={<AjoutEspace />} />
 
+          {/* Equipements */}
+          <Route path="/admin/equipements" element={<LayoutEquipement />} />
+          <Route path="/admin/equipements/create" element={<CreateEquipement />} />
+          <Route path="/admin/equipements/:id/edit" element={<EditEquipement />} />
+
           {/* Autres */}
-          <Route path="/admin/equipements" element={<Equipement />} />
           <Route path="/admin/reservations" element={<Reservation />} />
           <Route path="/admin/factures" element={<Facture />} />
         </Route>
