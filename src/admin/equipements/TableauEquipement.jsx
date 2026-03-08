@@ -5,7 +5,7 @@ function TableauEquipement({ refresh }) {
     const navigate = useNavigate();
     const [equipements, setEquipements] = useState([]);
     const [loading, setLoading] = useState(true);
-    
+
 
     useEffect(() => {
         const fetchEquipements = async () => {
@@ -78,7 +78,8 @@ function TableauEquipement({ refresh }) {
                             <td className="px-6 py-4">{equipement.nombre}</td>
                             <td className="px-6 py-4">{equipement.espace?.nom || '-'}</td>
                             <td className="px-6 py-4 flex gap-4">
-                                <button onClick={() => navigate(`/admin/equipements/${equipement.id_equipement}`)}>
+                                <button onClick={() =>
+                                    navigate(`/admin/equipements/${equipement.id_equipement}`)}>
                                     <i className="fi fi-ss-eye text-purple-500"></i>
                                 </button>
                                 <button onClick={() => navigate(`/admin/equipements/${equipement.id_equipement}/edit`)}>

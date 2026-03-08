@@ -4,7 +4,6 @@ import Login from "./authentification/Login";
 import Dashboard from "./admin/Dashboard";
 import Layout from "./admin/layout";
 import Facture from "./admin/Facture";
-import Equipement from "./admin/Equipement";
 import EspaceLayout from "./admin/Espaces/EspaceLayout";
 import AjoutEspace from "./admin/Espaces/AjoutEspace";
 import EspaceShow from "./admin/Espaces/EspaceShow";
@@ -51,10 +50,10 @@ export default function App() {
           <Route path="/admin/reservations/update/:id" element={<ReservationUpdate />} />
 
           {/* Equipements */}
-          <Route path="/admin/equipements" element={<LayoutEquipement/>} />
-          <Route path="/admin/equipements/show/:id" element={<ShowEquipement />} />
-          <Route path="/admin/equipements/update/:id" element={<EditEquipement />} />
-          <Route path="/admin/equipements/ajout" element={<CreateEquipement />} />
+          <Route path="/admin/equipements" element={<LayoutEquipement />} />
+          <Route path="/admin/equipements/create" element={<CreateEquipement />} />
+          <Route path="/admin/equipements/:id" element={<ShowEquipement />} />
+          <Route path="/admin/equipements/:id/edit" element={<EditEquipement />} />
 
           {/* Autres */}
           <Route path="/admin/factures" element={<Facture />} />

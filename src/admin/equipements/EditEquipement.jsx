@@ -66,6 +66,7 @@ function EditEquipement() {
                 body: JSON.stringify(formData),
             });
             navigate("/admin/equipements");
+            window.location.reload();
         } catch (err) {
             console.log(err);
         } finally {
@@ -84,13 +85,27 @@ function EditEquipement() {
 
                 <div className="mb-4">
                     <label className="block text-sm text-[#3a3a3a] font-medium mb-1">Nom</label>
-                    <input
-                        type="text"
+                    <select
                         name="nom"
                         value={formData.nom}
                         onChange={handleChange}
-                        className="w-full border-2 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-cyan-400 bg-white border-[#B2F7EF]"
-                    />
+                        className="w-full border-2 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-cyan-400 bg-white border-[#B2F7EF]">
+                        <option value="">Sélectionner un équipement</option>
+                        {[
+                            'Grande table de réunion',
+                            'Table individuelle',
+                            'Vidéo projecteur',
+                            'Climatisation',
+                            'Sono et micro',
+                            'Internet wifi haut débit',
+                            'Photocopieur',
+                            'Machine à café',
+                        ].map((equipement, index) => (
+                            <option key={index} value={equipement}>
+                                {equipement}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
                 <div className="mb-4">
