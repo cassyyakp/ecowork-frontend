@@ -3,15 +3,14 @@ import Register from "./authentification/register";
 import Login from "./authentification/Login";
 import Dashboard from "./admin/Dashboard";
 import Layout from "./admin/layout";
-import Utilisateur from "./admin/Utilisateur";
 import Facture from "./admin/Facture";
 import Equipement from "./admin/Equipement";
 import Reservation from "./admin/Reservation";
-import EspaceLayout from "./admin/Espaces/EspaceLayout";
-import AjoutEspace from "./admin/Espaces/AjoutEspace";
-import EspaceShow from "./admin/Espaces/EspaceShow";
-import "./index.css";
 import ListeUtilisateur from "./admin/utilisateurs/ListeUtilisateur";
+import EditUtilisateur from "./admin/utilisateurs/EditUtilisateur";
+import ShowUtilisateur from "./admin/utilisateurs/ShowUtilisateur";
+import CreateAdmin from "./admin/utilisateurs/CreateAdmin";
+import "./index.css";
 import EspaceUpdate from "./admin/Espaces/EspaceUpadate";
 
 export default function App() {
@@ -24,18 +23,17 @@ export default function App() {
 
         <Route element={<Layout />}>
           <Route path="/admin/dashboard" element={<Dashboard />} />
-          <Route path="/admin/utilisateurs" element={<Utilisateur />} />
-          <Route path="/admin/espaces" element={<EspaceLayout />} />
-          <Route path="/admin/espaces/show/:id" element={<EspaceShow />} />
-          <Route path="/admin/espaces/update/:id"element={<EspaceUpdate />}/>
-          <Route path="/admin/espaces/ajout" element={<AjoutEspace />} />
+          <Route path="/admin/utilisateurs" element={<ListeUtilisateur />} />
+          <Route path="/admin/utilisateurs/create" element={<CreateAdmin />} />
+          <Route path="/admin/utilisateurs/:id" element={<ShowUtilisateur />} />
+          <Route path="/admin/utilisateurs/:id/edit" element={<EditUtilisateur />} />
+          <Route path="/admin/espaces" element={<Espace />} />
           <Route path="/admin/equipements" element={<Equipement />} />
           <Route path="/admin/reservations" element={<Reservation />} />
           <Route path="/admin/factures" element={<Facture />} />
-          <Route
-            path="/admin/utilisateurs/listeUtilisateur"
-            element={<ListeUtilisateur />}
-          />
+
+
+
         </Route>
       </Routes>
     </BrowserRouter>
