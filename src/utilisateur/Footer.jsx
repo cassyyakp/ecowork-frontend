@@ -10,7 +10,7 @@ function Footer() {
                 <div className="max-w-xs">
                     <img src="/images/logo-ecowork.png" alt="logo" className="w-24 mb-3" />
                     <p className="text-sm text-[#888] ">
-                        EcoWork est né de l'initiative GreenSpace, une entreprise engagée 
+                        EcoWork est né de l'initiative GreenSpace, une entreprise engagée
                         pour des espaces de travail modernes et éco-responsables.
                     </p>
                 </div>
@@ -34,9 +34,18 @@ function Footer() {
                         Contact
                     </h4>
                     <ul className="space-y-2 text-sm text-[#888]">
-                        <li>📍 Paris 11e, France</li>
-                        <li>📧 contact@ecowork.fr</li>
-                        <li>📞 +33 1 00 00 00 00</li>
+                        <li>
+                            <i class="fi fi-ss-map-marker text-red-500"> </i>
+                            Paris 11e, France
+                        </li>
+                        <li>
+                            <i class="fi fi-sr-envelope text-purple-500"> </i>
+                            contact@ecowork.fr
+                        </li>
+                        <li>
+                            <i class="fi fi-sr-phone-call text-green-500"> </i>
+                            +33 1 00 00 00 00
+                        </li>
                     </ul>
                 </div>
 
