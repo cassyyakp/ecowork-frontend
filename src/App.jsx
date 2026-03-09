@@ -23,6 +23,9 @@ import FactureShow from "./admin/Factures/FactureShow";
 import UtilisateurLayout from "./utilisateur/UtilisateurLayout";
 import "./index.css";
 import Accueil from "./utilisateur/Accueil";
+import ShowEspace from "./utilisateur/sectionEspace/ShowEspace";
+import CreateReservation from "./utilisateur/reservation/CreateReservation";
+import HistoriqueReservations from "./utilisateur/reservation/HistoriqueReservation";
 
 
 export default function App() {
@@ -84,9 +87,12 @@ export default function App() {
         <Route element={<UtilisateurLayout />}>
           <Route path="/accueil" element={<Accueil/>} />
           <Route path="/salles" element={<div>Salles</div>} />
-          <Route path="/reservations" element={<div>Réservations</div>} />
+          <Route path="/reservations" element={<HistoriqueReservations />} />
+          <Route path="/reservations/create/:id" element={<CreateReservation />} />
           <Route path="/factures" element={<div>Factures</div>} />
           <Route path="/profil" element={<div>Profil</div>} />
+          <Route path="/espaces/:id" element={<ShowEspace />} />
+
         </Route>
       </Routes>
     </BrowserRouter>
