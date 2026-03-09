@@ -20,6 +20,7 @@ import EditEquipement from "./admin/equipements/EditEquipement";
 import ShowEquipement from "./admin/equipements/ShowEquipement";
 import FactureLayout from "./admin/Factures/FactureLayout";
 import FactureShow from "./admin/Factures/FactureShow";
+import UtilisateurLayout from "./utilisateur/UtilisateurLayout";
 import "./index.css";
 import LayoutBanner from "./utilisateur/header/banner/LayoutBanner";
 
@@ -31,9 +32,6 @@ export default function App() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-
-
-          <Route path="/accueil" element={<LayoutBanner />} />
 
 
         <Route element={<Layout />}>
@@ -80,6 +78,15 @@ export default function App() {
           {/* Factures */}
           <Route path="/admin/factures" element={<FactureLayout />} />
           <Route path="/admin/factures/show/:id" element={<FactureShow />} />
+        </Route>
+
+        {/* Routes Utilisateur */}
+        <Route element={<UtilisateurLayout />}>
+          <Route path="/accueil" element={<div>Accueil</div>} />
+          <Route path="/salles" element={<div>Salles</div>} />
+          <Route path="/reservations" element={<div>Réservations</div>} />
+          <Route path="/factures" element={<div>Factures</div>} />
+          <Route path="/profil" element={<div>Profil</div>} />
         </Route>
       </Routes>
     </BrowserRouter>
