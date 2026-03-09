@@ -26,10 +26,10 @@ function Header() {
           Accueil
         </Link>
         <Link
-          to="/salles"
+          to="/espaces"
           className="text-sm font-medium text-[#3a3a3a] hover:text-[#7BDFF2] transition-all"
         >
-          Salles
+          Espaces
         </Link>
         <Link
           to="/reservations"
