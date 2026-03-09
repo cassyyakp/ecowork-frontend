@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Header from "./header/header";
+import Footer from "./Footer";
 
 function UtilisateurLayout() {
   return (
@@ -8,6 +9,7 @@ function UtilisateurLayout() {
       <main className="px-1 py-1">
         <Outlet />
       </main>
+      <Footer />
     </div>
   );
 }
