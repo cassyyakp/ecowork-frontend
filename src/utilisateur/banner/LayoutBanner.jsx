@@ -4,17 +4,15 @@ import TextBanner from "./TextBanner";
 
 
 function LayoutBanner() {
-
     return (
-        <>
-
+        <div className="relative">
             <ImageBanner />
-            <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center  w-full h-[500px]">
+            <div className="absolute top-0 left-0 w-full h-full bg-black/30 flex flex-col items-center justify-center">
                 <TextBanner />
                 <BoutonBanner />
             </div>
-        </>
-    )
+        </div>
+    );
 }
 
 export default LayoutBanner;

@@ -5,7 +5,7 @@ function UtilisateurLayout() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <main className="px-8 py-6">
+      <main className="px-1 py-1">
         <Outlet />
       </main>
     </div>

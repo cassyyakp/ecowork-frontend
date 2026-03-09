@@ -47,14 +47,7 @@ export default function Login() {
             if (data.user.id_type_compte === 1) {
                 navigate("/admin/dashboard");
             } else {
-                navigate("/dashboard");
-            }
-
-            setStatus("success");
-            if (data.user.id_type_compte === 1) {
-                navigate("/admin/dashboard");
-            } else {
-                navigate("/dashboard");
+                navigate("/accueil");
             }
         } catch (err) {
             setStatus("error");

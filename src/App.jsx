@@ -82,7 +82,7 @@ export default function App() {
 
         {/* Routes Utilisateur */}
         <Route element={<UtilisateurLayout />}>
-          <Route path="/accueil" element={Accueil} />
+          <Route path="/accueil" element={<Accueil/>} />
           <Route path="/salles" element={<div>Salles</div>} />
           <Route path="/reservations" element={<div>Réservations</div>} />
           <Route path="/factures" element={<div>Factures</div>} />

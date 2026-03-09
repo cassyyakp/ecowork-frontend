@@ -1,4 +1,4 @@
-import LayoutBanner from "./header/banner/LayoutBanner";
+import LayoutBanner from "./banner/LayoutBanner";
 
 
 export default function Accueil() {
