@@ -1,9 +1,10 @@
-import Banner from "./Banner";
+import LayoutBanner from "./header/banner/LayoutBanner";
+
 
 export default function Accueil() {
     return (
         <div>
-            <Banner />
+            <LayoutBanner />
         </div>
     );
 }

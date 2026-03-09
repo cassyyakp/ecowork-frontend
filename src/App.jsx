@@ -22,7 +22,7 @@ import FactureLayout from "./admin/Factures/FactureLayout";
 import FactureShow from "./admin/Factures/FactureShow";
 import UtilisateurLayout from "./utilisateur/UtilisateurLayout";
 import "./index.css";
-import LayoutBanner from "./utilisateur/header/banner/LayoutBanner";
+import Accueil from "./utilisateur/Accueil";
 
 
 export default function App() {
@@ -82,7 +82,7 @@ export default function App() {
 
         {/* Routes Utilisateur */}
         <Route element={<UtilisateurLayout />}>
-          <Route path="/accueil" element={<div>Accueil</div>} />
+          <Route path="/accueil" element={Accueil} />
           <Route path="/salles" element={<div>Salles</div>} />
           <Route path="/reservations" element={<div>Réservations</div>} />
           <Route path="/factures" element={<div>Factures</div>} />
