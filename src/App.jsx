@@ -78,13 +78,10 @@ function App() {
           <Route path="/salles" element={<div>Salles</div>} />
           <Route path="/reservations" element={<HistoriqueReservations />} />
           <Route path="/reservations/create/:id" element={<CreateReservation />} />
-<<<<<<< HEAD
           {/* <Route path="/factures" element={<div>Factures</div>} /> */}
-          <Route path="/profil" element={<div>Profil</div>} />
-=======
+          {/* <Route path="/profil" element={<div>Profil</div>} /> */}
           <Route path="/factures" element={<div>Factures</div>} />
           <Route path="/profil" element={<Profil />} />
->>>>>>> feature-marie
           <Route path="/espaces/:id" element={<ShowEspace />} />
           <Route path="/reservations/:id" element={<ShowReservationUser />} />
         </Route>
