@@ -1,76 +1,165 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 function Dashboard() {
+    const [stats, setStats] = useState({
+        utilisateurs: 0,
+        espaces: 0,
+        equipements: 0,
+        reservations: 0,
+        factures: 0,
+        totalFactures: 0,
+    });
+    const [reservationsRecentes, setReservationsRecentes] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const headers = {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+        };
+
+        const fetchStats = async () => {
+            try {
+                const [resUsers, resEspaces, resEquipements, resReservations, resFactures] = await Promise.all([
+                    fetch('http://localhost:8000/api/utilisateurs', { headers }),
+                    fetch('http://localhost:8000/api/espaces', { headers }),
+                    fetch('http://localhost:8000/api/equipementsalles', { headers }),
+                    fetch('http://localhost:8000/api/reservations', { headers }),
+                    fetch('http://localhost:8000/api/factures', { headers }),
+                ]);
+
+                const [dataUsers, dataEspaces, dataEquipements, dataReservations, dataFactures] = await Promise.all([
+                    resUsers.json(),
+                    resEspaces.json(),
+                    resEquipements.json(),
+                    resReservations.json(),
+                    resFactures.json(),
+                ]);
+
+                const reservations = dataReservations.data || dataReservations;
+                const factures = dataFactures.data || dataFactures;
+                const totalFactures = factures.reduce((acc, f) => acc + parseFloat(f.montant_total || 0), 0);
+
+                setStats({
+                    utilisateurs: (dataUsers.data || dataUsers).length,
+                    espaces: (dataEspaces.data || dataEspaces).length,
+                    equipements: (dataEquipements.data || dataEquipements).length,
+                    reservations: reservations.length,
+                    factures: factures.length,
+                    totalFactures: totalFactures.toLocaleString(),
+                });
+
+                setReservationsRecentes(reservations.slice(0, 5));
+            } catch (err) {
+                console.log(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchStats();
+    }, []);
+
+    const cards = [
+        { label: "Utilisateurs", value: stats.utilisateurs, icon: '👥', lien: '/admin/utilisateurs' },
+        { label: "Espaces", value: stats.espaces, icon: '🏢', lien: '/admin/espaces' },
+        { label: "Equipements", value: stats.equipements, icon: '🖥️', lien: '/admin/equipements' },
+        { label: "Réservations", value: stats.reservations, icon: '📅', lien: '/admin/reservations' },
+        { label: "Factures", value: stats.factures, icon: '🧾', lien: '/admin/factures' },
+    ];
+
     return (
-        <>
-            <nav>
-                {/* <div className="flex items-center">
-                    <div className="flex items-center ms-3">
-                        <div>
-                            <button type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
-                                <span className="sr-only">Open user menu</span>
-                                <img src="" alt="" className="w-8 h-8 rounded-full" />
-                            </button>
-                        </div>
-                        <div className="z-50 hidden bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-44" id="dropdown-user">
-                            <div className="px-4 py-3 border-b border-default-medium" role="none">
-                                <p className="text-sm font-medium text-heading" role="none">
-                                    Neil Sims
-                                </p>
-                                <p className="text-sm text-body truncate" role="none">
-                                    neil.sims@flowbite.com
-                                </p>
-                            </div>
-                            <ul className="p-2 text-sm text-body font-medium" role="none">
-                                <li>
-                                    <a href="#" className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded" role="menuitem">Dashboard</a>
-                                </li>
-                                <li>
-                                    <a href="#" className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded" role="menuitem">Settings</a>
-                                </li>
-                                <li>
-                                    <a href="#" className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded" role="menuitem">Earnings</a>
-                                </li>
-                                <li>
-                                    <a href="#" className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded" role="menuitem">Sign out</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div> */}
-            </nav>
-            <div className="p-4 sm:ml-64">
 
-                <p className="text-4xl text-center">DASHBOARD ADMINISTRATEUR</p>
-                <div className="flex gap-4 p-4 border-1 border-default border-dashed rounded-base">
-                    <div className="bg-[#B2F7EF] h-[150px] w-[350px] p-5 rounded-lg mt-5">
-                        <h1 className="text-font text-xl text-">Nombres d'utilisateurs</h1>
-                        <p className="text-font text-4xl mb-2 mt-8">00</p>
-                    </div>
-                    <div className="bg-[#B2F7EF] h-[150px] w-[350px] p-5 rounded-lg mt-5">
-                        <h1 className="text-font text-xl text-">Nombres d'espaces</h1>
-                        <p className="text-font text-4xl mb-2 mt-8">00</p>
-                    </div>
-                    <div className="bg-[#B2F7EF] h-[150px] w-[350px] p-5 rounded-lg mt-5">
-                        <h1 className="text-font text-xl text-">Nombres d'equipements</h1>
-                        <p className="text-font text-4xl mb-2 mt-8">00</p>
-                    </div>
-                </div>
 
-                <div className="flex gap-4 p-4 border-1 border-default border-dashed rounded-base">
-                    <div className="bg-[#B2F7EF] h-[150px] w-[350px] p-5 rounded-lg mt-5">
-                        <h1 className="text-font text-xl text-">Nombres de réservations</h1>
-                        <p className="text-font text-4xl mb-2 mt-8">00</p>
-                    </div>
-                    <div className="bg-[#B2F7EF] h-[150px] w-[350px] p-5 rounded-lg mt-5">
-                        <h1 className="text-font text-xl text-">Nombres de factures</h1>
-                        <p className="text-font text-4xl mb-2 mt-8">00</p>
-                    </div>
-                    <div className="bg-[#B2F7EF] h-[150px] w-[350px] p-5 rounded-lg mt-5">
-                        <h1 className="text-font text-xl text-">Total Factures</h1>
-                        <p className="text-font text-4xl mb-2 mt-8">00</p>
-                    </div>
+        <div className="p-6 min-h-screen" style={{ backgroundColor: '#B2F7EF' }}>
+
+            {/* Profil */}
+            <div className="flex justify-end mb-4">
+                <button
+                onClick={() => navigate('/admin/profil')}
+                className="flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-[#EFF7F6] transition-all">
+                <div className="w-9 h-9 rounded-full bg-[#F7D6E0] flex items-center justify-center">
+                    👤
                 </div>
+                <span className="text-xs text-gray-400">▼</span>
+            </button>
             </div>
-        </>
-    )
+            
+
+
+            <h1 className="text-3xl font-bold text-center mb-8" style={{ color: '#3a3a3a' }}>
+                DASHBOARD ADMINISTRATEUR
+            </h1>
+
+
+
+            {/* Cards stats */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+                {cards.map((card, index) => (
+                    <a href={card.lien} key={index}
+                        className="block rounded-2xl p-5 hover:shadow-md transition-all"
+                        style={{ backgroundColor: '#ffffff' }}>
+                        <div className="flex items-center justify-between mb-3">
+                            <span className="text-2xl">{card.icon}</span>
+                        </div>
+                        <p className="text-sm font-medium" style={{ color: '#3a3a3a' }}>
+                            {card.label}
+                        </p>
+                        <p className="text-4xl font-bold mt-2" style={{ color: '#3a3a3a' }}>
+                            {loading ? '...' : card.value}
+                        </p>
+                    </a>
+                ))}
+            </div>
+
+            {/* Dernières réservations */}
+            <div className="rounded-2xl p-6" style={{ backgroundColor: '#ffffff' }}>
+                <h2 className="text-lg font-bold mb-4" style={{ color: '#3a3a3a' }}>
+                    Dernières réservations
+                </h2>
+                {loading ? (
+                    <p className="text-gray-400 text-sm">Chargement...</p>
+                ) : reservationsRecentes.length === 0 ? (
+                    <p className="text-gray-400 text-sm">Aucune réservation</p>
+                ) : (
+                    <table className="w-full text-sm">
+                        <thead>
+                            <tr style={{ borderBottom: '2px solid #B2F7EF' }}>
+                                <th className="text-left py-2 px-3">ID</th>
+                                <th className="text-left py-2 px-3">Début</th>
+                                <th className="text-left py-2 px-3">Fin</th>
+                                <th className="text-left py-2 px-3">Prix total</th>
+                                <th className="text-left py-2 px-3">Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {reservationsRecentes.map((r) => (
+                                <tr key={r.id_reservation}
+                                    style={{ borderBottom: '1px solid #B2F7EF' }}>
+                                    <td className="py-2 px-3">#{r.id_reservation}</td>
+                                    <td className="py-2 px-3">{r.date_debut_reservation}</td>
+                                    <td className="py-2 px-3">{r.date_fin_reservation}</td>
+                                    <td className="py-2 px-3">{parseFloat(r.prix_total || 0).toLocaleString()} FCFA</td>
+                                    <td className="py-2 px-3">
+                                        <span className="px-2 py-1 rounded-full text-xs font-medium"
+                                            style={{
+                                                backgroundColor: r.facture_acquittee ? '#B2F7EF' : '#F7D6E0',
+                                                color: '#3a3a3a'
+                                            }}>
+                                            {r.facture_acquittee ? 'Payée' : 'En attente'}
+                                        </span>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                )}
+            </div>
+        </div>
+    );
 }
+
 export default Dashboard;
