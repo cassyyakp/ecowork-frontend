@@ -26,6 +26,7 @@ import ShowEspace from "./utilisateur/sectionEspace/ShowEspace";
 import CreateReservation from "./utilisateur/reservation/CreateReservation";
 import HistoriqueReservations from "./utilisateur/reservation/HistoriqueReservation";
 import PrivateRoute from "./context/privateroute";
+import ShowReservationUser from "./utilisateur/reservation/ShowReservationUser";
 import "./index.css";
 
 export default function App() {
@@ -75,9 +76,10 @@ export default function App() {
           <Route path="/salles" element={<div>Salles</div>} />
           <Route path="/reservations" element={<HistoriqueReservations />} />
           <Route path="/reservations/create/:id" element={<CreateReservation />} />
-          <Route path="/factures" element={<div>Factures</div>} />
+          {/* <Route path="/factures" element={<div>Factures</div>} /> */}
           <Route path="/profil" element={<div>Profil</div>} />
           <Route path="/espaces/:id" element={<ShowEspace />} />
+          <Route path="/reservations/:id" element={<ShowReservationUser />} />
         </Route>
 
       </Routes>

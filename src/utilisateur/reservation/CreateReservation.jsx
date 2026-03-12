@@ -277,7 +277,7 @@ function CreateReservation() {
             <button
               type="submit"
               disabled={status === "loading" || !prixTotal}
-              className="flex-1 py-3 rounded-xl text-sm font-semibold bg-[#7BDFF2] text-white hover:bg-cyan-400 transition-all disabled:opacity-50"
+              className="flex-1 py-3 rounded-xl text-sm font-semibold bg-[#7BDFF2] text-black  transition-all disabled:opacity-50"
             >
               {status === "loading"
                 ? "En cours..."
