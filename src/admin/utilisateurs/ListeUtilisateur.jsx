@@ -1,90 +1,130 @@
-import { useState, useEffect } from 'react';
-import FiltreUtilisateur from './FiltreUtilisateur';
-import BoutonAjoutAdmin from './BoutonAjoutAdmin';
-import TableauUtilisateur from './TableauUtilisateur';
-import SearchUtilisateur from './SearchUtilisateur';
+import { useState, useEffect } from "react";
+import FiltreUtilisateur from "./FiltreUtilisateur";
+import BoutonAjoutAdmin from "./BoutonAjoutAdmin";
+import TableauUtilisateur from "./TableauUtilisateur";
+import SearchUtilisateur from "./SearchUtilisateur";
 
 function ListeUtilisateur() {
-    const [utilisateurs, setUtilisateurs] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [filtre, setFiltre] = useState('tous');
-    const [search, setSearch] = useState("");
-    
+  const [utilisateurs, setUtilisateurs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [filtre, setFiltre] = useState("tous");
+  const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
+  const [total, setTotal] = useState(0);
 
+  useEffect(() => {
+    fetchUtilisateurs(currentPage);
+  }, [currentPage]);
 
-    useEffect(() => {
-        const fetchUtilisateurs = async () => {
-            try {
-                const response = await fetch('http://localhost:8000/api/utilisateurs', {
-                    headers: {
-                        'Accept': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    }
-                });
-                const data = await response.json();
-                setUtilisateurs(data.data || data);
-            } catch (err) {
-                console.log(err);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchUtilisateurs();
-    }, []);
+  const fetchUtilisateurs = async (page) => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/utilisateurs?page=${page}`,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        },
+      );
+      const data = await response.json();
+      setUtilisateurs(data.data || []);
+      setLastPage(data.meta?.last_page ?? 1);
+      setTotal(data.meta?.total ?? 0);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const handleDelete = async (id) => {
-        if (!window.confirm('Voulez-vous vraiment supprimer cet utilisateur ?')) return;
-        try {
-            await fetch(`http://localhost:8000/api/utilisateurs/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Accept': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
-            });
-            setUtilisateurs(utilisateurs.filter(u => u.id_utilisateur !== id));
-        } catch (err) {
-            console.log(err);
-        }
-    };
+  const handleDelete = async (id) => {
+    if (!window.confirm("Voulez-vous vraiment supprimer cet utilisateur ?"))
+      return;
+    try {
+      await fetch(`http://localhost:8000/api/utilisateurs/${id}`, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      fetchUtilisateurs(currentPage);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-    const utilisateursFiltres = utilisateurs.filter(u => {
-        if (filtre === 'admin') return u.id_type_compte === 1;
-        if (filtre === 'utilisateur') return u.id_type_compte === 2;
-        return true;
-    });
+  const utilisateursFiltres = utilisateurs.filter((u) => {
+    const matchFiltre =
+      filtre === "admin"
+        ? u.id_type_compte === 1
+        : filtre === "utilisateur"
+          ? u.id_type_compte === 2
+          : true;
+    const matchSearch = search
+      ? u.nom?.toLowerCase().includes(search.toLowerCase()) ||
+        u.prenoms?.toLowerCase().includes(search.toLowerCase())
+      : true;
+    return matchFiltre && matchSearch;
+  });
 
-    return (
-        <>
-            <div className="flex justify-between items-center mt-2 mb-6">
-                <h1 className="text-font text-3xl">LISTE DES UTILISATEURS</h1>
-            </div>
+  return (
+    <>
+      <div className="flex justify-between items-center mt-2 mb-6">
+        <h1 className="text-font text-3xl">LISTE DES UTILISATEURS</h1>
+      </div>
 
-            <SearchUtilisateur
-                value={search}
-                onChange={setSearch}
-                placeholder="Rechercher un utilisateur..."
-                className="justify-start"
-            />
+      <SearchUtilisateur
+        value={search}
+        onChange={setSearch}
+        placeholder="Rechercher un utilisateur..."
+        className="justify-start"
+      />
 
-            {loading && (
-                <p className="text-center mt-10 text-gray-400">Chargement...</p>
-            )}
+      {loading && (
+        <p className="text-center mt-10 text-gray-400">Chargement...</p>
+      )}
 
-            <div className="flex items-center justify-between">
-                <FiltreUtilisateur filtre={filtre} setFiltre={setFiltre} />
-                <BoutonAjoutAdmin />
-            </div>
+      <div className="flex items-center justify-between">
+        <FiltreUtilisateur filtre={filtre} setFiltre={setFiltre} />
+        <BoutonAjoutAdmin />
+      </div>
 
+      <TableauUtilisateur
+        utilisateursFiltres={utilisateursFiltres}
+        loading={loading}
+        handleDelete={handleDelete}
+        search={search}
+      />
 
-            <TableauUtilisateur
-                utilisateursFiltres={utilisateursFiltres}
-                loading={loading}
-                handleDelete={handleDelete}
-                search={search}
-            />
-        </>
-    );
+      {/* Pagination */}
+      <div className="flex items-center justify-between px-2 mt-4">
+        <p className="text-xs text-gray-400">{total} utilisateur(s) au total</p>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            disabled={currentPage === 1}
+            className="px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
+          >
+            ← Précédent
+          </button>
+          <span className="px-4 py-2 text-sm text-gray-400">
+            {currentPage} / {lastPage}
+          </span>
+          <button
+            onClick={() => setCurrentPage((p) => Math.min(lastPage, p + 1))}
+            disabled={currentPage === lastPage}
+            className="px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
+          >
+            Suivant 
+          </button>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default ListeUtilisateur;
