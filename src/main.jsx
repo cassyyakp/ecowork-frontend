@@ -7,7 +7,9 @@ import { AuthProvider } from "./context/authcontext.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
-      <App />
+      <LowCarbonProvider>
+        <App />
+      </LowCarbonProvider>
     </AuthProvider>
   </StrictMode>,
 );
