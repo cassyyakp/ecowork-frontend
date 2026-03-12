@@ -22,7 +22,7 @@ function Sidebar() {
   return (
     <div className="flex flex-col h-screen w-64 bg-[#EFF7F6] px-4 py-6 shadow-md">
       {/* Logo */}
-      <div className="flex items-center justify-center mb-10">
+      <div className="flex items-center justify-center py-6 border-b border-[#B2F7EF]">
         <img
           src="/images/logo-ecowork.png"
           alt="logo-ecowork"
@@ -31,7 +31,7 @@ function Sidebar() {
       </div>
 
       {/* Nav Links */}
-      <nav className="flex flex-col gap-2 flex-1 mt-24">
+      <nav className="flex flex-col gap-2 flex-1 py-6">
         {navLinks.map(({ label, path }) => {
           const isActive = location.pathname === path;
           return (
@@ -52,7 +52,7 @@ function Sidebar() {
       </nav>
 
       {/* Déconnexion */}
-      <div className="flex justify-center">
+      <div className="flex justify-center py-6 border-t border-[#B2F7EF]">
         <button
           onClick={handleLogout}
           className="flex items-center px-4 py-3 rounded-xl text-sm font-medium border bg-[#F7D6E0] text-black hover:bg-[#7BDFF2] transition-all duration-200"
