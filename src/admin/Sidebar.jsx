@@ -9,7 +9,7 @@ const navLinks = [
   { label: "Factures", path: "/admin/factures" },
 ];
 
-function Sidebar() {
+function Sidebar({ onClose }) {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -21,13 +21,20 @@ function Sidebar() {
 
   return (
     <div className="flex flex-col h-screen w-64 bg-[#EFF7F6] px-4 py-6 shadow-md">
-      {/* Logo */}
-      <div className="flex items-center justify-center py-6 border-b border-[#B2F7EF]">
+
+      {/* Logo + bouton fermer sur mobile */}
+      <div className="flex items-center justify-between py-6 border-b border-[#B2F7EF]">
         <img
           src="/images/logo-ecowork.png"
           alt="logo-ecowork"
           className="w-28 object-contain"
         />
+        <button
+          onClick={onClose}
+          className="lg:hidden p-1 rounded-lg hover:bg-[#B2F7EF] text-gray-400"
+        >
+          ✕
+        </button>
       </div>
 
       {/* Nav Links */}
@@ -38,11 +45,11 @@ function Sidebar() {
             <Link
               key={path}
               to={path}
+              onClick={onClose}
               className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200
-                ${
-                  isActive
-                    ? "bg-[#7BDFF2] text-white"
-                    : "text-[#3a3a3a] hover:bg-[#B2F7EF]"
+                ${isActive
+                  ? "bg-[#7BDFF2] text-white"
+                  : "text-[#3a3a3a] hover:bg-[#B2F7EF]"
                 }`}
             >
               {label}

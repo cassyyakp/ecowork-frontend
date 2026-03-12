@@ -105,106 +105,119 @@ function EspaceUpdate() {
   if (loading) return <p className="text-sm text-gray-400">Chargement...</p>;
 
   return (
-    <div className="max-w-lg mx-auto bg-[#EFF7F6] p-10 rounded-2xl shadow-sm border border-[#B2F7EF]">
-      <h2 className="text-xl font-bold text-[#3a3a3a] mb-6">
-        Modifier l'espace
-      </h2>
+    <div className="max-w-lg mx-auto px-4 lg:px-0">
+      <div className="bg-[#EFF7F6] p-6 lg:p-10 rounded-2xl shadow-sm border border-[#B2F7EF]">
+        <h2 className="text-xl font-bold text-[#3a3a3a] mb-6">
+          Modifier l'espace
+        </h2>
 
-      {status === "error" && (
-        <div className="text-sm px-4 py-3 bg-[#F7D6E0] text-red-500 rounded-xl mb-5 text-center">
-          {errorMsg}
-        </div>
-      )}
+        {status === "error" && (
+          <div className="text-sm px-4 py-3 bg-[#F7D6E0] text-red-500 rounded-xl mb-5 text-center">
+            {errorMsg}
+          </div>
+        )}
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-
-        <div>
-          <label className="block text-sm text-[#3a3a3a] font-medium mb-1">Nom</label>
-          <input
-            type="text"
-            name="nom"
-            value={formData.nom}
-            onChange={handleChange}
-            className="w-full border-2 border-[#B2F7EF] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-cyan-400 bg-white"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm text-[#3a3a3a] font-medium mb-1">Surface (m²)</label>
-          <input
-            type="number"
-            name="surface"
-            value={formData.surface}
-            onChange={handleChange}
-            className="w-full border-2 border-[#B2F7EF] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-cyan-400 bg-white"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm text-[#3a3a3a] font-medium mb-1">
-            Photo <span className="text-gray-400 text-xs">(laisser vide pour garder l'actuelle)</span>
-          </label>
-          <input
-            type="file"
-            name="photo_salle"
-            accept="image/*"
-            onChange={handleChange}
-            className="w-full border-2 border-[#B2F7EF] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-cyan-400 bg-white"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm text-[#3a3a3a] font-medium mb-1">Type d'espace</label>
-          <select
-            name="id_type_espace"
-            value={formData.id_type_espace}
-            onChange={handleChange}
-            className="w-full border-2 border-[#B2F7EF] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-cyan-400 bg-white"
-          >
-            <option value="">-- Choisir un type --</option>
-            {typeEspaces.map((type) => (
-              <option key={type.id_type_espace} value={type.id_type_espace}>
-                {type.libelle}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="border-t border-[#B2F7EF] pt-4">
-          <p className="text-sm font-semibold text-[#3a3a3a] mb-3">Tarif de réservation</p>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
-            <label className="block text-sm text-[#3a3a3a] font-medium mb-1">Prix (FCFA)</label>
+            <label className="block text-sm text-[#3a3a3a] font-medium mb-1">
+              Nom
+            </label>
             <input
-              type="number"
-              name="prix_reservation"
-              value={formData.prix_reservation}
+              type="text"
+              name="nom"
+              value={formData.nom}
               onChange={handleChange}
               className="w-full border-2 border-[#B2F7EF] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-cyan-400 bg-white"
             />
-            <p className="text-xs text-gray-400 mt-1">
-              Les frais (15%) seront recalculés automatiquement
-            </p>
           </div>
-        </div>
 
-        <div className="flex gap-3 mt-2">
-          <button
-            type="button"
-            onClick={() => navigate("/admin/espaces")}
-            className="flex-1 py-3 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] transition-all"
-          >
-            Annuler
-          </button>
-          <button
-            type="submit"
-            disabled={status === "loading"}
-            className="flex-1 py-3 rounded-xl text-sm font-semibold bg-[#7BDFF2] text-white hover:bg-cyan-400 transition-all disabled:opacity-50"
-          >
-            {status === "loading" ? "Modification..." : "Modifier"}
-          </button>
-        </div>
+          <div>
+            <label className="block text-sm text-[#3a3a3a] font-medium mb-1">
+              Surface (m²)
+            </label>
+            <input
+              type="number"
+              name="surface"
+              value={formData.surface}
+              onChange={handleChange}
+              className="w-full border-2 border-[#B2F7EF] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-cyan-400 bg-white"
+            />
+          </div>
 
-      </form>
+          <div>
+            <label className="block text-sm text-[#3a3a3a] font-medium mb-1">
+              Photo{" "}
+              <span className="text-gray-400 text-xs">
+                (laisser vide pour garder l'actuelle)
+              </span>
+            </label>
+            <input
+              type="file"
+              name="photo_salle"
+              accept="image/*"
+              onChange={handleChange}
+              className="w-full border-2 border-[#B2F7EF] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-cyan-400 bg-white"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm text-[#3a3a3a] font-medium mb-1">
+              Type d'espace
+            </label>
+            <select
+              name="id_type_espace"
+              value={formData.id_type_espace}
+              onChange={handleChange}
+              className="w-full border-2 border-[#B2F7EF] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-cyan-400 bg-white"
+            >
+              <option value="">-- Choisir un type --</option>
+              {typeEspaces.map((type) => (
+                <option key={type.id_type_espace} value={type.id_type_espace}>
+                  {type.libelle}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="border-t border-[#B2F7EF] pt-4">
+            <p className="text-sm font-semibold text-[#3a3a3a] mb-3">
+              Tarif de réservation
+            </p>
+            <div>
+              <label className="block text-sm text-[#3a3a3a] font-medium mb-1">
+                Prix (FCFA)
+              </label>
+              <input
+                type="number"
+                name="prix_reservation"
+                value={formData.prix_reservation}
+                onChange={handleChange}
+                className="w-full border-2 border-[#B2F7EF] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-cyan-400 bg-white"
+              />
+              <p className="text-xs text-gray-400 mt-1">
+                Les frais (15%) seront recalculés automatiquement
+              </p>
+            </div>
+          </div>
+
+          <div className="flex gap-3 mt-2">
+            <button
+              type="button"
+              onClick={() => navigate("/admin/espaces")}
+              className="flex-1 py-3 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] transition-all"
+            >
+              Annuler
+            </button>
+            <button
+              type="submit"
+              disabled={status === "loading"}
+              className="flex-1 py-3 rounded-xl text-sm font-semibold bg-[#7BDFF2] text-white hover:bg-cyan-400 transition-all disabled:opacity-50"
+            >
+              {status === "loading" ? "Modification..." : "Modifier"}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

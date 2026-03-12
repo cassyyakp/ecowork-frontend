@@ -62,7 +62,68 @@ function ReservationListe({ search }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="overflow-x-auto rounded-2xl border border-[#B2F7EF]">
+      {/* MOBILE : cards */}
+      <div className="flex flex-col gap-3 md:hidden">
+        {filtered.map((r) => (
+          <div
+            key={r.id_reservation}
+            className="bg-[#EFF7F6] border border-[#B2F7EF] rounded-2xl p-4 flex flex-col gap-2"
+          >
+            <div className="flex justify-between items-start">
+              <div>
+                <p className="font-semibold text-[#3a3a3a] text-sm">
+                  {r.utilisateur}
+                </p>
+                <p className="text-xs text-gray-400">{r.espace}</p>
+              </div>
+              <span
+                className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                  r.facture_acquittee
+                    ? "bg-green-100 text-green-600"
+                    : "bg-red-100 text-red-500"
+                }`}
+              >
+                {r.facture_acquittee ? "Payée" : "Non payée"}
+              </span>
+            </div>
+            <div className="flex justify-between items-center">
+              <p className="text-xs text-gray-400">
+                {r.date_debut_reservation} → {r.date_fin_reservation}
+              </p>
+              <p className="text-sm font-bold text-[#7BDFF2]">
+                {r.prix_total} FCFA
+              </p>
+            </div>
+            <div className="flex gap-2 mt-1">
+              <button
+                onClick={() =>
+                  navigate(`/admin/reservations/show/${r.id_reservation}`)
+                }
+                className="flex-1 py-2 rounded-xl text-xs font-medium bg-gray-100 text-gray-600 hover:bg-gray-200 transition-all"
+              >
+                Voir
+              </button>
+              <button
+                onClick={() =>
+                  navigate(`/admin/reservations/update/${r.id_reservation}`)
+                }
+                className="flex-1 py-2 rounded-xl text-xs font-medium bg-[#7BDFF2] text-white hover:bg-cyan-400 transition-all"
+              >
+                Modifier
+              </button>
+              <button
+                onClick={() => handleDelete(r.id_reservation)}
+                className="flex-1 py-2 rounded-xl text-xs font-medium bg-[#F7D6E0] text-red-500 hover:bg-red-200 transition-all"
+              >
+                Supprimer
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* DESKTOP : tableau */}
+      <div className="hidden md:block overflow-x-auto rounded-2xl border border-[#B2F7EF]">
         <table className="w-full text-sm text-left">
           <thead className="bg-[#EFF7F6] text-[#3a3a3a] font-semibold">
             <tr>
@@ -76,44 +137,38 @@ function ReservationListe({ search }) {
             </tr>
           </thead>
           <tbody>
-            {filtered.map((reservation) => (
+            {filtered.map((r) => (
               <tr
-                key={reservation.id_reservation}
+                key={r.id_reservation}
                 className="border-t border-[#B2F7EF] hover:bg-[#EFF7F6] transition-all"
               >
                 <td className="px-6 py-4 font-medium text-[#3a3a3a]">
-                  {reservation.utilisateur}
+                  {r.utilisateur}
+                </td>
+                <td className="px-6 py-4 text-gray-500">{r.espace}</td>
+                <td className="px-6 py-4 text-gray-500">
+                  {r.date_debut_reservation}
                 </td>
                 <td className="px-6 py-4 text-gray-500">
-                  {reservation.espace}
+                  {r.date_fin_reservation}
                 </td>
-                <td className="px-6 py-4 text-gray-500">
-                  {reservation.date_debut_reservation}
-                </td>
-                <td className="px-6 py-4 text-gray-500">
-                  {reservation.date_fin_reservation}
-                </td>
-                <td className="px-6 py-4 text-gray-500">
-                  {reservation.prix_total} FCFA
-                </td>
+                <td className="px-6 py-4 text-gray-500">{r.prix_total} FCFA</td>
                 <td className="px-6 py-4">
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                      reservation.facture_acquittee
+                      r.facture_acquittee
                         ? "bg-green-100 text-green-600"
                         : "bg-red-100 text-red-500"
                     }`}
                   >
-                    {reservation.facture_acquittee ? "Oui" : "Non"}
+                    {r.facture_acquittee ? "Oui" : "Non"}
                   </span>
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex gap-2">
                     <button
                       onClick={() =>
-                        navigate(
-                          `/admin/reservations/show/${reservation.id_reservation}`,
-                        )
+                        navigate(`/admin/reservations/show/${r.id_reservation}`)
                       }
                       className="px-4 py-2 rounded-xl text-sm font-medium bg-gray-100 text-gray-600 hover:bg-gray-200 transition-all"
                     >
@@ -122,7 +177,7 @@ function ReservationListe({ search }) {
                     <button
                       onClick={() =>
                         navigate(
-                          `/admin/reservations/update/${reservation.id_reservation}`,
+                          `/admin/reservations/update/${r.id_reservation}`,
                         )
                       }
                       className="px-4 py-2 rounded-xl text-sm font-medium bg-[#7BDFF2] text-white hover:bg-cyan-400 transition-all"
@@ -130,7 +185,7 @@ function ReservationListe({ search }) {
                       Modifier
                     </button>
                     <button
-                      onClick={() => handleDelete(reservation.id_reservation)}
+                      onClick={() => handleDelete(r.id_reservation)}
                       className="px-4 py-2 rounded-xl text-sm font-medium bg-[#F7D6E0] text-red-500 hover:bg-red-200 transition-all"
                     >
                       Supprimer
@@ -144,13 +199,13 @@ function ReservationListe({ search }) {
       </div>
 
       {/* Pagination */}
-      <div className="flex items-center justify-between px-2">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-2">
         <p className="text-xs text-gray-400">{total} réservation(s) au total</p>
         <div className="flex gap-2">
           <button
             onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}
-            className="px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
+            className="px-3 lg:px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
           >
             ← Précédent
           </button>
@@ -160,7 +215,7 @@ function ReservationListe({ search }) {
           <button
             onClick={() => setCurrentPage((p) => Math.min(lastPage, p + 1))}
             disabled={currentPage === lastPage}
-            className="px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
+            className="px-3 lg:px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
           >
             Suivant →
           </button>
