@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import ProfilDropdown from "./ProfilDropdwon";
-import { useLowCarbon } from "../../context/useLowCarbon";
 
 function Header() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const { lowCarbon, toggle } = useLowCarbon();
 
     return (
         <header className="w-full bg-white border-b border-[#B2F7EF] px-8 py-4 flex items-center justify-between">
@@ -38,18 +36,6 @@ function Header() {
                     Factures
                 </Link>
             </nav>
-
-            {/* LowCarbon */}
-            <button
-                onClick={toggle}
-                className="px-3 py-1 rounded-full text-xs font-medium border-2"
-                style={{
-                    backgroundColor: lowCarbon ? '#3a3a3a' : '#EFF7F6',
-                    color: lowCarbon ? '#fff' : '#3a3a3a',
-                    borderColor: '#B2F7EF'
-                }}>
-                {lowCarbon ? '🌿 Low Carbon ON' : '🌿 Low Carbon'}
-            </button>
 
             {/* Profil */}
             <div className="relative">

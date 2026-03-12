@@ -27,13 +27,7 @@ import CreateReservation from "./utilisateur/reservation/CreateReservation";
 import HistoriqueReservations from "./utilisateur/reservation/HistoriqueReservation";
 import PrivateRoute from "./context/privateroute";
 import "./index.css";
-import { useLowCarbon } from './context/LowCarbonProvider.jsx';
 
-export default function App() {
-  const { lowCarbon } = useLowCarbon();
-
-  return (
-    <div className={lowCarbon ? 'low-carbon' : ''}>
       <BrowserRouter>
         <Routes>
           {/* Routes publiques */}
@@ -86,7 +80,3 @@ export default function App() {
 
         </Routes>
       </BrowserRouter>
-    </div>
-  );
-}
-
