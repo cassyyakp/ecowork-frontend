@@ -46,7 +46,50 @@ function FactureListe({ search }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="overflow-x-auto rounded-2xl border border-[#B2F7EF]">
+      {/* MOBILE : cards */}
+      <div className="flex flex-col gap-3 md:hidden">
+        {filtered.map((facture) => (
+          <div
+            key={facture.id_facture}
+            className="bg-[#EFF7F6] border border-[#B2F7EF] rounded-2xl p-4 flex flex-col gap-2"
+          >
+            <div className="flex justify-between items-start">
+              <div>
+                <p className="font-semibold text-[#3a3a3a] text-sm">
+                  {facture.utilisateur}
+                </p>
+                <p className="text-xs text-gray-400">{facture.espace}</p>
+              </div>
+              <span
+                className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                  facture.facture_acquittee
+                    ? "bg-green-100 text-green-600"
+                    : "bg-red-100 text-red-500"
+                }`}
+              >
+                {facture.facture_acquittee ? "Acquittée" : "Non acquittée"}
+              </span>
+            </div>
+            <div className="flex justify-between items-center mt-1">
+              <p className="text-xs text-gray-400">{facture.date}</p>
+              <p className="text-sm font-bold text-[#7BDFF2]">
+                {facture.prix_total} FCFA
+              </p>
+            </div>
+            <button
+              onClick={() =>
+                navigate(`/admin/factures/show/${facture.id_facture}`)
+              }
+              className="w-full mt-2 py-2 rounded-xl text-xs font-medium bg-gray-100 text-gray-600 hover:bg-gray-200 transition-all"
+            >
+              Voir le détail
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {/* DESKTOP : tableau */}
+      <div className="hidden md:block overflow-x-auto rounded-2xl border border-[#B2F7EF]">
         <table className="w-full text-sm text-left">
           <thead className="bg-[#EFF7F6] text-[#3a3a3a] font-semibold">
             <tr>
@@ -100,13 +143,13 @@ function FactureListe({ search }) {
       </div>
 
       {/* Pagination */}
-      <div className="flex items-center justify-between px-2">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-2">
         <p className="text-xs text-gray-400">{total} facture(s) au total</p>
         <div className="flex gap-2">
           <button
             onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}
-            className="px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
+            className="px-3 lg:px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
           >
             ← Précédent
           </button>
@@ -116,7 +159,7 @@ function FactureListe({ search }) {
           <button
             onClick={() => setCurrentPage((p) => Math.min(lastPage, p + 1))}
             disabled={currentPage === lastPage}
-            className="px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
+            className="px-3 lg:px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
           >
             Suivant →
           </button>

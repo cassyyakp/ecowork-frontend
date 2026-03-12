@@ -62,7 +62,62 @@ function EspaceList({ search }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="overflow-x-auto rounded-2xl border border-[#B2F7EF]">
+      {/* MOBILE : cards */}
+      <div className="flex flex-col gap-3 md:hidden">
+        {filtered.map((espace) => (
+          <div
+            key={espace.id_espace}
+            className="bg-[#EFF7F6] border border-[#B2F7EF] rounded-2xl p-4 flex gap-3"
+          >
+            {espace.photo_salle ? (
+              <img
+                src={espace.photo_salle}
+                alt={espace.nom}
+                className="w-20 h-16 object-cover rounded-xl flex-shrink-0"
+              />
+            ) : (
+              <div className="w-20 h-16 bg-[#B2F7EF] rounded-xl flex items-center justify-center text-xs text-gray-400 flex-shrink-0">
+                Aucune
+              </div>
+            )}
+            <div className="flex flex-col flex-1 gap-1">
+              <p className="font-semibold text-[#3a3a3a] text-sm">
+                {espace.nom}
+              </p>
+              <p className="text-xs text-gray-400">
+                {espace.surface} m² — {espace.prix_reservation} FCFA
+              </p>
+              <div className="flex gap-2 mt-2">
+                <button
+                  onClick={() =>
+                    navigate(`/admin/espaces/show/${espace.id_espace}`)
+                  }
+                  className="flex-1 py-1.5 rounded-xl text-xs font-medium bg-gray-100 text-gray-600 hover:bg-gray-200 transition-all"
+                >
+                  Voir
+                </button>
+                <button
+                  onClick={() =>
+                    navigate(`/admin/espaces/update/${espace.id_espace}`)
+                  }
+                  className="flex-1 py-1.5 rounded-xl text-xs font-medium bg-[#7BDFF2] text-white hover:bg-cyan-400 transition-all"
+                >
+                  Modifier
+                </button>
+                <button
+                  onClick={() => handleDelete(espace.id_espace)}
+                  className="flex-1 py-1.5 rounded-xl text-xs font-medium bg-[#F7D6E0] text-red-500 hover:bg-red-200 transition-all"
+                >
+                  Supprimer
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* DESKTOP : tableau */}
+      <div className="hidden md:block overflow-x-auto rounded-2xl border border-[#B2F7EF]">
         <table className="w-full text-sm text-left">
           <thead className="bg-[#EFF7F6] text-[#3a3a3a] font-semibold">
             <tr>
@@ -132,13 +187,13 @@ function EspaceList({ search }) {
       </div>
 
       {/* Pagination */}
-      <div className="flex items-center justify-between px-2">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-2">
         <p className="text-xs text-gray-400">{total} espace(s) au total</p>
         <div className="flex gap-2">
           <button
             onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}
-            className="px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
+            className="px-3 lg:px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
           >
             ← Précédent
           </button>
@@ -148,7 +203,7 @@ function EspaceList({ search }) {
           <button
             onClick={() => setCurrentPage((p) => Math.min(lastPage, p + 1))}
             disabled={currentPage === lastPage}
-            className="px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
+            className="px-3 lg:px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
           >
             Suivant →
           </button>

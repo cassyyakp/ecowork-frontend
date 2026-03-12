@@ -72,26 +72,25 @@ function ListeUtilisateur() {
   });
 
   return (
-    <>
-      <div className="flex justify-between items-center mt-2 mb-6">
-        <h1 className="text-font text-3xl">LISTE DES UTILISATEURS</h1>
+    <div className="flex flex-col gap-4">
+      <h1 className="text-2xl lg:text-3xl text-font">LISTE DES UTILISATEURS</h1>
+
+      {/* Search + bouton */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <SearchUtilisateur
+          value={search}
+          onChange={setSearch}
+          placeholder="Rechercher un utilisateur..."
+        />
+        <BoutonAjoutAdmin />
       </div>
 
-      <SearchUtilisateur
-        value={search}
-        onChange={setSearch}
-        placeholder="Rechercher un utilisateur..."
-        className="justify-start"
-      />
+      {/* Filtre */}
+      <FiltreUtilisateur filtre={filtre} setFiltre={setFiltre} />
 
       {loading && (
         <p className="text-center mt-10 text-gray-400">Chargement...</p>
       )}
-
-      <div className="flex items-center justify-between">
-        <FiltreUtilisateur filtre={filtre} setFiltre={setFiltre} />
-        <BoutonAjoutAdmin />
-      </div>
 
       <TableauUtilisateur
         utilisateursFiltres={utilisateursFiltres}
@@ -101,13 +100,13 @@ function ListeUtilisateur() {
       />
 
       {/* Pagination */}
-      <div className="flex items-center justify-between px-2 mt-4">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-2 mt-2">
         <p className="text-xs text-gray-400">{total} utilisateur(s) au total</p>
         <div className="flex gap-2">
           <button
             onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}
-            className="px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
+            className="px-3 lg:px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
           >
             ← Précédent
           </button>
@@ -117,13 +116,13 @@ function ListeUtilisateur() {
           <button
             onClick={() => setCurrentPage((p) => Math.min(lastPage, p + 1))}
             disabled={currentPage === lastPage}
-            className="px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
+            className="px-3 lg:px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
           >
-            Suivant 
+            Suivant →
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -59,15 +59,17 @@ function TableauEquipement({ refresh, search }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default mt-4">
-        <table className="w-full text-sm text-left text-body">
-          <thead className="text-sm bg-[#F7D6E0] border-b border-default-medium">
+      <div className="overflow-x-auto rounded-2xl border border-[#B2F7EF] mt-4">
+        <table className="w-full text-sm text-left min-w-[500px]">
+          <thead className="text-sm bg-[#F7D6E0] border-b border-[#B2F7EF]">
             <tr>
-              <th className="px-6 py-3 font-medium">N°</th>
-              <th className="px-6 py-3 font-medium">Nom</th>
-              <th className="px-6 py-3 font-medium">Nombre</th>
-              <th className="px-6 py-3 font-medium">Espace</th>
-              <th className="px-6 py-3 font-medium">Actions</th>
+              <th className="px-4 lg:px-6 py-3 font-medium">N°</th>
+              <th className="px-4 lg:px-6 py-3 font-medium">Nom</th>
+              <th className="px-4 lg:px-6 py-3 font-medium">Nombre</th>
+              <th className="px-4 lg:px-6 py-3 font-medium hidden sm:table-cell">
+                Espace
+              </th>
+              <th className="px-4 lg:px-6 py-3 font-medium">Actions</th>
             </tr>
           </thead>
           <tbody className="bg-[#EFF7F6]">
@@ -88,36 +90,42 @@ function TableauEquipement({ refresh, search }) {
             {filtered.map((equipement, index) => (
               <tr
                 key={equipement.id_equipement}
-                className="border-b border-default"
+                className="border-b border-[#B2F7EF]"
               >
-                <td className="px-6 py-4 font-medium">
+                <td className="px-4 lg:px-6 py-4 font-medium">
                   {(currentPage - 1) * 10 + index + 1}
                 </td>
-                <td className="px-6 py-4">{equipement.nom}</td>
-                <td className="px-6 py-4">{equipement.nombre}</td>
-                <td className="px-6 py-4">{equipement.espace?.nom || "-"}</td>
-                <td className="px-6 py-4 flex gap-4">
-                  <button
-                    onClick={() =>
-                      navigate(`/admin/equipements/${equipement.id_equipement}`)
-                    }
-                  >
-                    <i className="fi fi-ss-eye text-purple-500"></i>
-                  </button>
-                  <button
-                    onClick={() =>
-                      navigate(
-                        `/admin/equipements/${equipement.id_equipement}/edit`,
-                      )
-                    }
-                  >
-                    <i className="fi fi-ss-pencil text-green-500"></i>
-                  </button>
-                  <button
-                    onClick={() => handleDelete(equipement.id_equipement)}
-                  >
-                    <i className="fi fi-ss-trash text-red-500"></i>
-                  </button>
+                <td className="px-4 lg:px-6 py-4">{equipement.nom}</td>
+                <td className="px-4 lg:px-6 py-4">{equipement.nombre}</td>
+                <td className="px-4 lg:px-6 py-4 hidden sm:table-cell">
+                  {equipement.espace?.nom || "-"}
+                </td>
+                <td className="px-4 lg:px-6 py-4">
+                  <div className="flex gap-3">
+                    <button
+                      onClick={() =>
+                        navigate(
+                          `/admin/equipements/${equipement.id_equipement}`,
+                        )
+                      }
+                    >
+                      <i className="fi fi-ss-eye text-purple-500"></i>
+                    </button>
+                    <button
+                      onClick={() =>
+                        navigate(
+                          `/admin/equipements/${equipement.id_equipement}/edit`,
+                        )
+                      }
+                    >
+                      <i className="fi fi-ss-pencil text-green-500"></i>
+                    </button>
+                    <button
+                      onClick={() => handleDelete(equipement.id_equipement)}
+                    >
+                      <i className="fi fi-ss-trash text-red-500"></i>
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
@@ -126,13 +134,13 @@ function TableauEquipement({ refresh, search }) {
       </div>
 
       {/* Pagination */}
-      <div className="flex items-center justify-between px-2">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-2">
         <p className="text-xs text-gray-400">{total} équipement(s) au total</p>
         <div className="flex gap-2">
           <button
             onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}
-            className="px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
+            className="px-3 lg:px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
           >
             ← Précédent
           </button>
@@ -142,7 +150,7 @@ function TableauEquipement({ refresh, search }) {
           <button
             onClick={() => setCurrentPage((p) => Math.min(lastPage, p + 1))}
             disabled={currentPage === lastPage}
-            className="px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
+            className="px-3 lg:px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
           >
             Suivant →
           </button>
