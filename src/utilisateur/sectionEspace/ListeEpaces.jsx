@@ -26,8 +26,8 @@ function ListeEspaces() {
                     resEspaces.json(),
                     resTypes.json(),
                 ]);
-                setEspaces(dataEspaces.data || dataEspaces);
-                setTypes(dataTypes.data || dataTypes);
+                setEspaces(Array.isArray(dataEspaces) ? dataEspaces : dataEspaces.data || []);
+                setTypes(Array.isArray(dataTypes) ? dataTypes : dataTypes.data || []);
             } catch (err) {
                 console.log(err);
             } finally {
