@@ -29,12 +29,14 @@ import PrivateRoute from "./context/privateroute";
 import ShowReservationUser from "./utilisateur/reservation/ShowReservationUser";
 import "./index.css";
 
-      <BrowserRouter>
-        <Routes>
-          {/* Routes publiques */}
-          <Route path="/" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* Routes publiques */}
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
 
           {/* Routes Admin protégées */}
           <Route element={<PrivateRoute><Layout /></PrivateRoute>}>
@@ -80,5 +82,10 @@ import "./index.css";
           <Route path="/reservations/:id" element={<ShowReservationUser />} />
         </Route>
 
-        </Routes>
-      </BrowserRouter>
+      </Routes>
+    </BrowserRouter>
+  );
+} 
+
+
+export default App;
