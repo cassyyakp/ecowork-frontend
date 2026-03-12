@@ -28,6 +28,7 @@ import HistoriqueReservations from "./utilisateur/reservation/HistoriqueReservat
 import PrivateRoute from "./context/privateroute";
 import ShowReservationUser from "./utilisateur/reservation/ShowReservationUser";
 import "./index.css";
+import Profil from "./utilisateur/Profil";
 
 function App() {
   return (
@@ -42,11 +43,12 @@ function App() {
           <Route element={<PrivateRoute><Layout /></PrivateRoute>}>
             <Route path="/admin/dashboard" element={<Dashboard />} />
 
-            {/* Utilisateurs */}
-            <Route path="/admin/utilisateurs" element={<ListeUtilisateur />} />
-            <Route path="/admin/utilisateurs/create" element={<CreateAdmin />} />
-            <Route path="/admin/utilisateurs/:id" element={<ShowUtilisateur />} />
-            <Route path="/admin/utilisateurs/:id/edit" element={<EditUtilisateur />} />
+          {/* Utilisateurs */}
+          <Route path="/admin/utilisateurs" element={<ListeUtilisateur />} />
+          <Route path="/admin/utilisateurs/create" element={<CreateAdmin />} />
+          <Route path="/admin/utilisateurs/:id" element={<ShowUtilisateur />} />
+          <Route path="/admin/utilisateurs/:id/edit" element={<EditUtilisateur />} />
+          <Route path="/admin/profil" element={<Profil />} />
 
             {/* Espaces */}
             <Route path="/admin/espaces" element={<EspaceLayout />} />
@@ -76,8 +78,13 @@ function App() {
           <Route path="/salles" element={<div>Salles</div>} />
           <Route path="/reservations" element={<HistoriqueReservations />} />
           <Route path="/reservations/create/:id" element={<CreateReservation />} />
+<<<<<<< HEAD
           {/* <Route path="/factures" element={<div>Factures</div>} /> */}
           <Route path="/profil" element={<div>Profil</div>} />
+=======
+          <Route path="/factures" element={<div>Factures</div>} />
+          <Route path="/profil" element={<Profil />} />
+>>>>>>> feature-marie
           <Route path="/espaces/:id" element={<ShowEspace />} />
           <Route path="/reservations/:id" element={<ShowReservationUser />} />
         </Route>

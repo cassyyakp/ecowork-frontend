@@ -44,6 +44,10 @@ export default function Layout() {
           <Outlet />
         </main>
       </div>
+      <Sidebar />
+      <main className="flex-1 overflow-y-auto p-8">
+        <Outlet />
+      </main>
     </div>
   );
 }
