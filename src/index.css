@@ -6,12 +6,6 @@ body {
   font-family: system-ui, sans-serif; 
 }
 
-
-.low-carbon * {
-    animation: none !important;
-    transition: none !important;
-}
-
 /* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
