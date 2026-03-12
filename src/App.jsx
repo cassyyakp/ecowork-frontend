@@ -29,46 +29,44 @@ import PrivateRoute from "./context/privateroute";
 import ShowReservationUser from "./utilisateur/reservation/ShowReservationUser";
 import "./index.css";
 
-export default function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        {/* Routes publiques */}
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+      <BrowserRouter>
+        <Routes>
+          {/* Routes publiques */}
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
 
-        {/* Routes Admin protégées */}
-        <Route element={<PrivateRoute><Layout /></PrivateRoute>}>
-          <Route path="/admin/dashboard" element={<Dashboard />} />
+          {/* Routes Admin protégées */}
+          <Route element={<PrivateRoute><Layout /></PrivateRoute>}>
+            <Route path="/admin/dashboard" element={<Dashboard />} />
 
-          {/* Utilisateurs */}
-          <Route path="/admin/utilisateurs" element={<ListeUtilisateur />} />
-          <Route path="/admin/utilisateurs/create" element={<CreateAdmin />} />
-          <Route path="/admin/utilisateurs/:id" element={<ShowUtilisateur />} />
-          <Route path="/admin/utilisateurs/:id/edit" element={<EditUtilisateur />} />
+            {/* Utilisateurs */}
+            <Route path="/admin/utilisateurs" element={<ListeUtilisateur />} />
+            <Route path="/admin/utilisateurs/create" element={<CreateAdmin />} />
+            <Route path="/admin/utilisateurs/:id" element={<ShowUtilisateur />} />
+            <Route path="/admin/utilisateurs/:id/edit" element={<EditUtilisateur />} />
 
-          {/* Espaces */}
-          <Route path="/admin/espaces" element={<EspaceLayout />} />
-          <Route path="/admin/espaces/show/:id" element={<EspaceShow />} />
-          <Route path="/admin/espaces/update/:id" element={<EspaceUpdate />} />
-          <Route path="/admin/espaces/ajout" element={<AjoutEspace />} />
+            {/* Espaces */}
+            <Route path="/admin/espaces" element={<EspaceLayout />} />
+            <Route path="/admin/espaces/show/:id" element={<EspaceShow />} />
+            <Route path="/admin/espaces/update/:id" element={<EspaceUpdate />} />
+            <Route path="/admin/espaces/ajout" element={<AjoutEspace />} />
 
-          {/* Réservations */}
-          <Route path="/admin/reservations" element={<ReservationLayout />} />
-          <Route path="/admin/reservations/show/:id" element={<ReservationShow />} />
-          <Route path="/admin/reservations/update/:id" element={<ReservationUpdate />} />
+            {/* Réservations */}
+            <Route path="/admin/reservations" element={<ReservationLayout />} />
+            <Route path="/admin/reservations/show/:id" element={<ReservationShow />} />
+            <Route path="/admin/reservations/update/:id" element={<ReservationUpdate />} />
 
-          {/* Equipements */}
-          <Route path="/admin/equipements" element={<LayoutEquipement />} />
-          <Route path="/admin/equipements/create" element={<CreateEquipement />} />
-          <Route path="/admin/equipements/:id" element={<ShowEquipement />} />
-          <Route path="/admin/equipements/:id/edit" element={<EditEquipement />} />
+            {/* Equipements */}
+            <Route path="/admin/equipements" element={<LayoutEquipement />} />
+            <Route path="/admin/equipements/create" element={<CreateEquipement />} />
+            <Route path="/admin/equipements/:id" element={<ShowEquipement />} />
+            <Route path="/admin/equipements/:id/edit" element={<EditEquipement />} />
 
-          {/* Factures */}
-          <Route path="/admin/factures" element={<FactureLayout />} />
-          <Route path="/admin/factures/show/:id" element={<FactureShow />} />
-        </Route>
+            {/* Factures */}
+            <Route path="/admin/factures" element={<FactureLayout />} />
+            <Route path="/admin/factures/show/:id" element={<FactureShow />} />
+          </Route>
 
         {/* Routes Utilisateur protégées */}
         <Route element={<PrivateRoute><UtilisateurLayout /></PrivateRoute>}>
@@ -82,7 +80,5 @@ export default function App() {
           <Route path="/reservations/:id" element={<ShowReservationUser />} />
         </Route>
 
-      </Routes>
-    </BrowserRouter>
-  );
-} 
+        </Routes>
+      </BrowserRouter>
