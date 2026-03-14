@@ -3,11 +3,14 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import { AuthProvider } from "./context/authcontext.jsx";
+import { LowCarbonProvider } from "./context/LowcarbonContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
-      <App />
+      <LowCarbonProvider>
+        <App />
+      </LowCarbonProvider>
     </AuthProvider>
   </StrictMode>,
 );
