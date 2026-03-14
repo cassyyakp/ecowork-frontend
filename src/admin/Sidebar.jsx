@@ -23,15 +23,25 @@ function Sidebar({ onClose }) {
   };
 
   return (
-    <div className={`flex flex-col h-screen w-64 px-4 py-6 shadow-md ${lowCarbon ? "bg-gray-100" : "bg-[#EFF7F6]"}`}>
-
-      {/* Logo + bouton fermer */}
-      <div className={`flex items-center justify-between py-6 border-b ${lowCarbon ? "border-gray-300" : "border-[#B2F7EF]"}`}>
-        <img src="/images/logo-ecowork.png" alt="logo-ecowork" className="w-28 object-contain" />
-        <button onClick={onClose} className="lg:hidden p-1 rounded-lg hover:bg-gray-200 text-gray-400">✕</button>
+    <div
+      className={`flex flex-col min-h-screen h-screen overflow-y-auto w-64 px-4 py-6 shadow-md ${lowCarbon ? "bg-gray-100" : "bg-[#EFF7F6]"}`}
+    >
+      <div
+        className={`flex items-center justify-between py-6 border-b ${lowCarbon ? "border-gray-300" : "border-[#B2F7EF]"}`}
+      >
+        <img
+          src="/images/logo-ecowork.png"
+          alt="logo-ecowork"
+          className="w-28 object-contain"
+        />
+        <button
+          onClick={onClose}
+          className="lg:hidden p-1 rounded-lg hover:bg-gray-200 text-gray-400"
+        >
+          ✕
+        </button>
       </div>
 
-      {/* Nav Links */}
       <nav className="flex flex-col gap-2 flex-1 py-6">
         {navLinks.map(({ label, path }) => {
           const isActive = location.pathname === path;
@@ -41,9 +51,14 @@ function Sidebar({ onClose }) {
               to={path}
               onClick={onClose}
               className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200
-                ${isActive
-                  ? lowCarbon ? "bg-gray-400 text-white" : "bg-[#7BDFF2] text-white"
-                  : lowCarbon ? "text-gray-600 hover:bg-gray-200" : "text-[#3a3a3a] hover:bg-[#B2F7EF]"
+                ${
+                  isActive
+                    ? lowCarbon
+                      ? "bg-gray-400 text-white"
+                      : "bg-[#7BDFF2] text-white"
+                    : lowCarbon
+                      ? "text-gray-600 hover:bg-gray-200"
+                      : "text-[#3a3a3a] hover:bg-[#B2F7EF]"
                 }`}
             >
               {label}
@@ -52,8 +67,9 @@ function Sidebar({ onClose }) {
         })}
       </nav>
 
-      {/* Bouton Low Carbon */}
-      <div className={`py-4 border-t ${lowCarbon ? "border-gray-300" : "border-[#B2F7EF]"}`}>
+      <div
+        className={`py-4 border-t ${lowCarbon ? "border-gray-300" : "border-[#B2F7EF]"}`}
+      >
         <button
           onClick={toggle}
           className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
@@ -62,16 +78,24 @@ function Sidebar({ onClose }) {
               : "bg-[#EFF7F6] text-[#3a3a3a] hover:bg-[#B2F7EF] border border-[#B2F7EF]"
           }`}
         >
-          🌿 {lowCarbon ? "Mode normal" : "Mode low carbon"}
+          <img
+            src="/images/low-carbon.png"
+            alt="low carbon"
+            className="w-4 h-4 object-contain"
+          />
+          {lowCarbon ? "Mode normal" : "Mode low carbon"}
         </button>
       </div>
 
-      {/* Déconnexion */}
-      <div className={`flex justify-center py-6 border-t ${lowCarbon ? "border-gray-300" : "border-[#B2F7EF]"}`}>
+      <div
+        className={`flex justify-center py-6 border-t ${lowCarbon ? "border-gray-300" : "border-[#B2F7EF]"}`}
+      >
         <button
           onClick={handleLogout}
           className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
-            lowCarbon ? "bg-gray-200 text-gray-600 hover:bg-gray-300" : "bg-[#F7D6E0] text-black hover:bg-[#7BDFF2]"
+            lowCarbon
+              ? "bg-gray-200 text-gray-600 hover:bg-gray-300"
+              : "bg-[#F7D6E0] text-black hover:bg-[#7BDFF2]"
           }`}
         >
           Déconnexion
