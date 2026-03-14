@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import CardEspace from './CardEspace';
+import FiltreEspace from './FiltreEspace';
+import TextEspace from './TextEspace';
 
-function ListeEspaces() {
+function PageEspace() {
     const [espaces, setEspaces] = useState([]);
-    const [ setTypes] = useState([]);
-    const [filtre] = useState('tous');
+    const [types, setTypes] = useState([]);
+    const [filtre, setFiltre] = useState('tous');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -23,8 +25,8 @@ function ListeEspaces() {
                 const [dataEspaces, dataTypes] = await Promise.all([
                     resEspaces.json(),
                     resTypes.json(),
-                ]); 
-                setEspaces((Array.isArray(dataEspaces) ? dataEspaces : dataEspaces.data || []).slice(0, 3));
+                ]);
+                setEspaces(Array.isArray(dataEspaces) ? dataEspaces : dataEspaces.data || []);
                 setTypes(Array.isArray(dataTypes) ? dataTypes : dataTypes.data || []);
             } catch (err) {
                 console.log(err);
@@ -43,8 +45,9 @@ function ListeEspaces() {
     return (
         <div className="py-16 px-8">
             {/* Titre + Filtres */}
-            <div className="flex justify-center items-center mb-10">
-                <h1 className="text-gray-800 text-font text-5xl">QUELQUES ESPACES DISPONIBLES</h1>
+            <div className="flex justify-between items-start mb-10">
+                <TextEspace />
+                <FiltreEspace types={types} filtre={filtre} setFiltre={setFiltre} />
             </div>
 
             {/* Loading */}
@@ -60,4 +63,4 @@ function ListeEspaces() {
     );
 }
 
-export default ListeEspaces;
+export default PageEspace;

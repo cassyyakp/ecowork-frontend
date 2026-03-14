@@ -29,6 +29,7 @@ import PrivateRoute from "./context/privateroute";
 import ShowReservationUser from "./utilisateur/reservation/ShowReservationUser";
 import "./index.css";
 import Profil from "./utilisateur/Profil";
+import PageEspaces from "./utilisateur/sectionEspace/PageEspace";
 
 function App() {
   return (
@@ -75,7 +76,7 @@ function App() {
         {/* Routes Utilisateur protégées */}
         <Route element={<PrivateRoute><UtilisateurLayout /></PrivateRoute>}>
           <Route path="/accueil" element={<Accueil />} />
-          <Route path="/salles" element={<div>Salles</div>} />
+          <Route path="/espaces" element={< PageEspaces/>} />
           <Route path="/reservations" element={<HistoriqueReservations />} />
           <Route path="/reservations/create/:id" element={<CreateReservation />} />
           {/* <Route path="/factures" element={<div>Factures</div>} /> */}
