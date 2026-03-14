@@ -14,7 +14,7 @@ function TableauUtilisateur({
 
   return (
     <div className="flex flex-col gap-3">
-      {/* MOBILE : cards */}
+
       <div className="flex flex-col gap-3 md:hidden">
         {!loading && filtered.length === 0 && (
           <p className="text-center py-6 text-gray-400 text-sm">
@@ -72,11 +72,10 @@ function TableauUtilisateur({
           </div>
         ))}
       </div>
-
-      {/* DESKTOP : tableau */}
+    
       <div className="hidden md:block overflow-x-auto rounded-2xl border border-[#B2F7EF] mt-2">
         <table className="w-full text-sm text-left">
-          <thead className="text-sm bg-[#F7D6E0] border-b border-[#B2F7EF]">
+          <thead className="bg-[#EFF7F6] text-[#3a3a3a] font-semibold">
             <tr>
               <th className="px-6 py-3 font-medium">N°</th>
               <th className="px-6 py-3 font-medium">Nom</th>
@@ -88,7 +87,7 @@ function TableauUtilisateur({
               <th className="px-6 py-3 font-medium">Actions</th>
             </tr>
           </thead>
-          <tbody className="bg-[#EFF7F6]">
+          <tbody>
             {!loading && filtered.length === 0 && (
               <tr>
                 <td colSpan="8" className="text-center py-6 text-gray-400">
@@ -122,18 +121,21 @@ function TableauUtilisateur({
                       onClick={() =>
                         navigate(`/admin/utilisateurs/${u.id_utilisateur}`)
                       }
+                      className="flex-1 py-1.5 px-2 rounded-xl text-xs font-medium bg-gray-100 text-gray-600 hover:bg-gray-200 transition-all"
                     >
-                      <i className="fi fi-ss-eye text-purple-500"></i>
+                      Voir
                     </button>
                     <button
                       onClick={() =>
                         navigate(`/admin/utilisateurs/${u.id_utilisateur}/edit`)
                       }
+                      className="flex-1 py-1.5 px-2 rounded-xl text-xs font-medium bg-[#7BDFF2] text-white hover:bg-cyan-400 transition-all"
                     >
-                      <i className="fi fi-ss-pencil text-green-500"></i>
+                      Modifier
                     </button>
-                    <button onClick={() => handleDelete(u.id_utilisateur)}>
-                      <i className="fi fi-sr-trash text-red-500"></i>
+                    <button onClick={() => handleDelete(u.id_utilisateur)}
+                      className="flex-1 py-1.5 px-2 rounded-xl text-xs font-medium bg-[#F7D6E0] text-red-500 hover:bg-red-200 transition-all">
+                      Supprimer
                     </button>
                   </div>
                 </td>

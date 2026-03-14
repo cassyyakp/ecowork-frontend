@@ -10,8 +10,8 @@ function LayoutEquipement() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <h1 className="text-2xl lg:text-3xl text-font">
-          LISTE DES ÉQUIPEMENTS
+        <h1 className="text-2xl lg:text-3xl font-semibold">
+          Liste des équipements
         </h1>
       </div>
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">

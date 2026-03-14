@@ -73,7 +73,7 @@ function ListeUtilisateur() {
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-2xl lg:text-3xl text-font">LISTE DES UTILISATEURS</h1>
+      <h1 className="text-2xl lg:text-3xl font-semibold">Liste des utilisateurs</h1>
 
       {/* Search + bouton */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">

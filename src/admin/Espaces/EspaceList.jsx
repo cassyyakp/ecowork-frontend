@@ -62,7 +62,6 @@ function EspaceList({ search }) {
 
   return (
     <div className="flex flex-col gap-4">
-      {/* MOBILE : cards */}
       <div className="flex flex-col gap-3 md:hidden">
         {filtered.map((espace) => (
           <div
@@ -116,7 +115,6 @@ function EspaceList({ search }) {
         ))}
       </div>
 
-      {/* DESKTOP : tableau */}
       <div className="hidden md:block overflow-x-auto rounded-2xl border border-[#B2F7EF]">
         <table className="w-full text-sm text-left">
           <thead className="bg-[#EFF7F6] text-[#3a3a3a] font-semibold">

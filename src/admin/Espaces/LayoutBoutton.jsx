@@ -13,9 +13,10 @@ function LayoutBoutton({ onSearch }) {
       />
       <button
         onClick={() => navigate("/admin/espaces/ajout")}
-        className="w-full sm:w-auto bg-[#7BDFF2] text-white px-5 py-2 rounded-xl text-sm font-semibold hover:bg-cyan-400 transition-all whitespace-nowrap"
+        className="w-full sm:w-auto bg-[#7BDFF2] flex items-center justify-center gap-2 px-5 py-2 rounded-xl text-sm font-semibold hover:bg-cyan-400 transition-all whitespace-nowrap"
       >
-        + Ajouter un espace
+        <i className="fi fi-rr-add"></i>
+        <span>Ajouter un espace</span>
       </button>
     </div>
   );

@@ -7,7 +7,7 @@ export default function ReservationLayout() {
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="text-2xl lg:text-3xl text-font">LISTE DES RÉSERVATIONS</h1>
+      <h1 className="text-2xl lg:text-3xl font-semibold">Liste des réservations</h1>
       <LayoutBouttonReservation onSearch={setSearch} />
       <ReservationListe search={search} />
     </div>

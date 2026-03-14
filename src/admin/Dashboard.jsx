@@ -83,7 +83,7 @@ function Dashboard() {
       label: "Utilisateurs",
       value: stats.utilisateurs,
       icon: "/images/user.png",
-      isImage: true, 
+      isImage: true,
       lien: "/admin/utilisateurs",
     },
     {
@@ -95,12 +95,14 @@ function Dashboard() {
     },
     {
       label: "Equipements",
+      value: stats.equipements,
       icon: "/images/equipement.png",
       isImage: true,
       lien: "/admin/equipements",
     },
     {
       label: "Réservations",
+      value: stats.reservations,
       icon: "/images/reservation.png",
       isImage: true,
       lien: "/admin/reservations",
@@ -156,7 +158,7 @@ function Dashboard() {
           </a>
         ))}
       </div>
-     
+
       <div className="rounded-2xl p-6" style={{ backgroundColor: "#ffffff" }}>
         <h2 className="text-lg font-bold mb-4" style={{ color: "#3a3a3a" }}>
           Dernières réservations
