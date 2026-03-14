@@ -85,7 +85,7 @@ function ListeUtilisateur() {
         <BoutonAjoutAdmin />
       </div>
 
-      {/* Filtre */}
+
       <FiltreUtilisateur filtre={filtre} setFiltre={setFiltre} />
 
       {loading && (
@@ -99,7 +99,7 @@ function ListeUtilisateur() {
         search={search}
       />
 
-      {/* Pagination */}
+ 
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-2 mt-2">
         <p className="text-xs text-gray-400">{total} utilisateur(s) au total</p>
         <div className="flex gap-2">

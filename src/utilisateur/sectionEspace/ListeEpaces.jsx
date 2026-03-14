@@ -42,15 +42,13 @@ function ListeEspaces() {
 
     return (
         <div className="py-16 px-8">
-            {/* Titre + Filtres */}
+            
             <div className="flex justify-center items-center mb-10">
                 <h1 className="text-gray-800 text-font text-5xl">QUELQUES ESPACES DISPONIBLES</h1>
             </div>
 
-            {/* Loading */}
             {loading && <p className="text-center text-gray-400">Chargement...</p>}
 
-            {/* Grille */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {espacesFiltres.map(espace => (
                     <CardEspace key={espace.id_espace} espace={espace} />

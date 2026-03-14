@@ -18,7 +18,7 @@ function HistoriqueReservations() {
           },
         });
         const data = await response.json();
-        // Filtrer uniquement les réservations de l'utilisateur connecté
+  
         const mesReservations = (data.data ?? []).filter(
           (r) => r.id_utilisateur === user?.id_utilisateur
         );
@@ -65,7 +65,7 @@ function HistoriqueReservations() {
                 />
               </div>
 
-              {/* Infos */}
+  
               <div className="flex flex-1 flex-col justify-between py-4 pr-4">
                 <div className="flex justify-between items-start">
                   <div>
@@ -85,7 +85,7 @@ function HistoriqueReservations() {
 
                 <div className="flex justify-between items-center mt-3">
                   <p className="text-sm font-bold text-[#7BDFF2]">
-                    {parseFloat(r.prix_total).toLocaleString()} FCFA
+                    {parseFloat(r.prix_total).toLocaleString()} €
                   </p>
                   <button
                     onClick={() => navigate(`/reservations/${r.id_reservation}`)}

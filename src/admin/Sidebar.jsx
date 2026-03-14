@@ -1,4 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/authcontext";
 
 const navLinks = [
   { label: "Dashboard", path: "/admin/dashboard" },
@@ -13,17 +14,17 @@ function Sidebar({ onClose }) {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const { logout } = useAuth();
+
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    logout();
     navigate("/login");
   };
 
   return (
     <div className="flex flex-col h-screen w-64 bg-[#EFF7F6] px-4 py-6 shadow-md">
-
-      {/* Logo + bouton fermer sur mobile */}
-      <div className="flex items-center justify-between py-6 border-b border-[#B2F7EF]">
+     
+      <div className="flex flex-col items-center py-6 border-b border-[#B2F7EF] relative">
         <img
           src="/images/logo-ecowork.png"
           alt="logo-ecowork"
@@ -37,8 +38,7 @@ function Sidebar({ onClose }) {
         </button>
       </div>
 
-      {/* Nav Links */}
-      <nav className="flex flex-col gap-2 flex-1 py-6">
+      <nav className="flex flex-col gap-2 flex-1 py-6 mt-24">
         {navLinks.map(({ label, path }) => {
           const isActive = location.pathname === path;
           return (
@@ -47,9 +47,10 @@ function Sidebar({ onClose }) {
               to={path}
               onClick={onClose}
               className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200
-                ${isActive
-                  ? "bg-[#7BDFF2] text-white"
-                  : "text-[#3a3a3a] hover:bg-[#B2F7EF]"
+                ${
+                  isActive
+                    ? "bg-[#7BDFF2] text-white"
+                    : "text-[#3a3a3a] hover:bg-[#B2F7EF]"
                 }`}
             >
               {label}
@@ -58,7 +59,6 @@ function Sidebar({ onClose }) {
         })}
       </nav>
 
-      {/* Déconnexion */}
       <div className="flex justify-center py-6 border-t border-[#B2F7EF]">
         <button
           onClick={handleLogout}

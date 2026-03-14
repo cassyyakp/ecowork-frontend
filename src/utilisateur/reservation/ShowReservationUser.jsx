@@ -188,7 +188,7 @@ function ShowReservationUser() {
             onClick={generatePDF}
             className="flex-1 py-3 rounded-xl text-sm font-semibold bg-[#7BDFF2] text-white hover:bg-cyan-400 transition-all"
           >
-            Télé
+            Télécharger facture
           </button>
         </div>
       </div>

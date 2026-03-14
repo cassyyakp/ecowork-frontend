@@ -1,4 +1,4 @@
-function TypeEspaceCard({ libelle, nombre, icone, isActive }) {
+function TypeEspaceCard({ libelle, icone, isActive }) {
   return (
     <div className={`flex flex-col items-center gap-3 p-6 rounded-2xl border cursor-pointer transition-all
       ${isActive 

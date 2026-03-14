@@ -6,7 +6,6 @@ function Footer() {
 
             <div className="flex justify-between items-start flex-wrap gap-8">
 
-                {/* Logo + description */}
                 <div className="max-w-xs">
                     <img src="/images/logo-ecowork.png" alt="logo" className="w-24 mb-3" />
                     <p className="text-sm text-[#888] ">
@@ -15,7 +14,6 @@ function Footer() {
                     </p>
                 </div>
 
-                {/* Liens */}
                 <div>
                     <h4 className="font-bold text-[#3a3a3a] text-sm mb-3">
                         Navigation
@@ -28,7 +26,6 @@ function Footer() {
                     </ul>
                 </div>
 
-                {/* Contact */}
                 <div>
                     <h4 className="font-bold text-[#3a3a3a] text-sm mb-3">
                         Contact
@@ -51,7 +48,6 @@ function Footer() {
 
             </div>
 
-            {/* Bas du footer */}
             <div className="border-t border-[#B2F7EF] mt-8 pt-6 text-center text-xs text-[#888]">
                 © 2026 EcoWork — GreenSpace. Tous droits réservés.
             </div>

@@ -8,7 +8,6 @@ function Header() {
     return (
         <header className="w-full bg-white border-b border-[#B2F7EF] px-8 py-4 flex items-center justify-between">
 
-            {/* Logo */}
             <div className="flex items-center">
                 <img
                     src="/images/logo-ecowork.png"
@@ -17,7 +16,7 @@ function Header() {
                 />
             </div>
 
-      {/* Navigation */}
+
       <nav className="flex items-center gap-8">
         <Link
           to="/accueil"
@@ -40,13 +39,13 @@ function Header() {
 
       </nav>
 
-            {/* Profil */}
+  
             <div className="relative">
                 <button
                     onClick={() => setDropdownOpen(!dropdownOpen)}
                     className="flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-[#EFF7F6] transition-all">
                     <div className="w-9 h-9 rounded-full bg-[#7BDFF2] flex items-center justify-center">
-                        👤
+                        <img src="/images/user.png" alt="user" className="w-4 h-4"/>
                     </div>
                     <span className="text-xs text-gray-400">▼</span>
                 </button>

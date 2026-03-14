@@ -133,7 +133,6 @@ function TableauEquipement({ refresh, search }) {
         </table>
       </div>
 
-      {/* Pagination */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-2">
         <p className="text-xs text-gray-400">{total} équipement(s) au total</p>
         <div className="flex gap-2">

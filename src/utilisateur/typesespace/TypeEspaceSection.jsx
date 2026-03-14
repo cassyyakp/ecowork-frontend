@@ -31,7 +31,7 @@ function TypeEspaceSection() {
 
   return (
     <section className="bg-[#7BDFF2] px-8 py-16">
-      {/* Titre */}
+
       <div className="text-center mb-10">
         <h1 className="text-white text-3xl font-medium mb-2">
           Nos differents espaces
@@ -42,7 +42,6 @@ function TypeEspaceSection() {
         </p>
       </div>
 
-      {/* Cards */}
       <div className="flex flex-wrap justify-center gap-6">
         {types.map((type) => (
           <div

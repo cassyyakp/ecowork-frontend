@@ -185,7 +185,7 @@ function EspaceUpdate() {
             </p>
             <div>
               <label className="block text-sm text-[#3a3a3a] font-medium mb-1">
-                Prix (FCFA)
+                Prix (€)
               </label>
               <input
                 type="number"

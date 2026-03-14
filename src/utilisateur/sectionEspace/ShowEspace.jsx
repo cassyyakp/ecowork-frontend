@@ -33,7 +33,7 @@ function ShowEspace() {
   return (
     <div className="max-w-2xl mx-auto py-10 px-6">
 
-      {/* Photo */}
+  
       {espace.photo_salle ? (
         <img
           src={espace.photo_salle}
@@ -46,22 +46,22 @@ function ShowEspace() {
         </div>
       )}
 
-      {/* Nom */}
+
       <h1 className="text-2xl font-bold text-[#3a3a3a] mb-2">{espace.nom}</h1>
       <p className="text-sm text-gray-400 mb-6">{espace.surface} m²</p>
 
-      {/* Infos */}
+
       <div className="flex flex-col gap-4 bg-[#EFF7F6] rounded-2xl p-6 border border-[#B2F7EF] mb-6">
         <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
           <span className="text-sm text-gray-400">Prix / jour</span>
           <span className="text-sm font-semibold text-[#7BDFF2]">
-            {parseFloat(espace.prix_reservation).toLocaleString()} FCFA
+            {parseFloat(espace.prix_reservation).toLocaleString()} €
           </span>
         </div>
         <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
           <span className="text-sm text-gray-400">Frais de réservation</span>
           <span className="text-sm font-medium text-[#3a3a3a]">
-            {parseFloat(espace.frais_reservation).toLocaleString()} FCFA
+            {parseFloat(espace.frais_reservation).toLocaleString()} €
           </span>
         </div>
         <div className="flex justify-between">
@@ -70,10 +70,10 @@ function ShowEspace() {
         </div>
       </div>
 
-      {/* Boutons */}
+
       <div className="flex gap-3">
         <button
-          onClick={() => navigate("/salles")}
+          onClick={() => navigate("/espaces")}
           className="flex-1 py-3 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] transition-all"
         >
           Retour

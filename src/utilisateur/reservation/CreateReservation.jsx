@@ -232,7 +232,7 @@ function CreateReservation() {
                     <span className="text-sm text-gray-400">Prix / jour</span>
                     <span className="text-sm text-[#3a3a3a]">
                       {parseFloat(espace.prix_reservation).toLocaleString()}{" "}
-                      FCFA
+                    €
                     </span>
                   </div>
                   <div className="flex justify-between mb-2">
@@ -241,7 +241,7 @@ function CreateReservation() {
                     </span>
                     <span className="text-sm text-[#3a3a3a]">
                       {parseFloat(espace.frais_reservation).toLocaleString()}{" "}
-                      FCFA
+                      €
                     </span>
                   </div>
                 </>
@@ -251,7 +251,7 @@ function CreateReservation() {
                     Frais de réservation
                   </span>
                   <span className="text-sm text-[#3a3a3a]">
-                    {parseFloat(espace.frais_reservation).toLocaleString()} FCFA
+                    {parseFloat(espace.frais_reservation).toLocaleString()} €
                   </span>
                 </div>
               )}
@@ -260,7 +260,7 @@ function CreateReservation() {
                   Total à payer
                 </span>
                 <span className="text-sm font-bold text-[#7BDFF2]">
-                  {prixTotal.toLocaleString()} FCFA
+                  {prixTotal.toLocaleString()} €
                 </span>
               </div>
             </div>

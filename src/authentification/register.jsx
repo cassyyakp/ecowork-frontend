@@ -53,27 +53,20 @@ export default function RegisterForm() {
 
   return (
     <div className="flex items-center min-h-screen justify-center p-6">
-
       <div className="w-full bg-[#EFF7F6] p-10 max-w-md rounded-xl">
-
-        {/* Header */}
         <div className="text-center mb-10">
           <div className="w-[150px] h-[150px] rounded-full flex items-center justify-center mx-auto mb-4">
             <img src="/images/logo-ecowork.png" alt="logo-ecowork" />
           </div>
-          <p className="text-sm mt-1 text-[#888]">
-            Créez votre compte
-          </p>
+          <p className="text-sm mt-1 text-[#888]">Créez votre compte</p>
         </div>
 
-        {/* Erreur */}
         {status === "error" && (
           <div className="text-sm px-4 py-3 bg-[#F7D6E0] text-[#c0395a] rounded-xl mb-5 text-center">
             {errorMsg}
           </div>
         )}
 
-        {/* Nom + Prénom */}
         <div className="flex flex-col sm:flex-row gap-3 mb-4">
           <div className="flex-1">
             <label className="block text-sm text-[#3a3a3a] font-medium mb-1">
@@ -104,8 +97,6 @@ export default function RegisterForm() {
             />
           </div>
         </div>
-
-        {/* Email */}
         <div className="mb-4">
           <label className="block text-sm text-[#3a3a3a] font-medium mb-1">
             Email
@@ -121,7 +112,6 @@ export default function RegisterForm() {
           />
         </div>
 
-        {/* Password */}
         <div className="mb-4">
           <label className="block text-sm text-[#3a3a3a] font-medium mb-1">
             Mot de passe
@@ -137,7 +127,6 @@ export default function RegisterForm() {
           />
         </div>
 
-        {/* Téléphone */}
         <div className="mb-4">
           <label className="block text-sm text-[#3a3a3a] font-medium mb-1">
             Téléphone
@@ -153,7 +142,6 @@ export default function RegisterForm() {
           />
         </div>
 
-        {/* Adresse */}
         <div className="mb-6">
           <label className="block text-sm text-[#3a3a3a] font-medium mb-1">
             Adresse
@@ -169,7 +157,6 @@ export default function RegisterForm() {
           />
         </div>
 
-        {/* Bouton */}
         <button
           onClick={handleSubmit}
           disabled={status === "loading"}
@@ -178,14 +165,12 @@ export default function RegisterForm() {
           {status === "loading" ? "Envoi en cours..." : "Créer mon compte"}
         </button>
 
-        {/* Lien login */}
         <p className="text-center text-sm mt-6 text-[#3a3a3a]">
-          Déjà un compte ?{' '}
+          Déjà un compte ?{" "}
           <Link to="/login" className="font-semibold text-[#7BDFF2]">
             Se connecter
           </Link>
         </p>
-
       </div>
     </div>
   );

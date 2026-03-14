@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 
 function Profil() {
@@ -52,7 +51,6 @@ function Profil() {
             });
 
             const data = await response.json();
-
             if (!response.ok) throw new Error(data.message || 'Erreur lors de la mise à jour');
 
             localStorage.setItem('user', JSON.stringify(data.data));
@@ -62,44 +60,35 @@ function Profil() {
         } catch (err) {
             setError(err.message);
         }
-
-
     };
 
-    if (loading) return <p className="text-center mt-10">Chargement...</p>;
+    if (loading) return <p className="text-center mt-10 text-gray-400">Chargement...</p>;
 
     return (
         <div className="max-w-2xl mx-auto px-4 py-10">
-            <h1 className="text-2xl font-bold text-center mb-8" style={{ color: '#3a3a3a' }}>
+            <h1 className="text-2xl font-bold text-center mb-8 text-[#3a3a3a]">
                 Mon Profil
             </h1>
 
-            {/* Avatar */}
             <div className="flex justify-center mb-6">
-                <div className="w-24 h-24 rounded-full flex items-center justify-center text-4xl"
-                    style={{ backgroundColor: '#B2F7EF' }}>
-                    👤
+                <div className="w-24 h-24 rounded-full bg-[#B2F7EF] flex items-center justify-center">
+                    <img src="/images/user.png" alt="user" className="w-12 h-12 object-contain" />
                 </div>
             </div>
 
-            {/* Messages */}
             {success && (
-                <div className="mb-4 px-4 py-3 rounded-xl text-sm text-center"
-                    style={{ backgroundColor: '#B2F7EF', color: '#3a3a3a' }}>
+                <div className="mb-4 px-4 py-3 rounded-xl text-sm text-center bg-[#B2F7EF] text-[#3a3a3a]">
                     {success}
                 </div>
             )}
             {error && (
-                <div className="mb-4 px-4 py-3 rounded-xl text-sm text-center"
-                    style={{ backgroundColor: '#F7D6E0', color: '#c0395a' }}>
+                <div className="mb-4 px-4 py-3 rounded-xl text-sm text-center bg-[#F7D6E0] text-[#c0395a]">
                     {error}
                 </div>
             )}
 
-            {/* Formulaire */}
-            <div className="rounded-2xl p-6" style={{ backgroundColor: '#EFF7F6' }}>
+            <div className="bg-[#EFF7F6] rounded-2xl p-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-
                     {[
                         { label: 'Nom', name: 'nom' },
                         { label: 'Prénoms', name: 'prenoms' },
@@ -108,7 +97,7 @@ function Profil() {
                         { label: 'Adresse', name: 'adresse' },
                     ].map(({ label, name, type = 'text' }) => (
                         <div key={name}>
-                            <label className="block text-sm font-medium mb-1" style={{ color: '#3a3a3a' }}>
+                            <label className="block text-sm font-medium mb-1 text-[#3a3a3a]">
                                 {label}
                             </label>
                             {editMode ? (
@@ -117,22 +106,20 @@ function Profil() {
                                     name={name}
                                     value={formData[name]}
                                     onChange={handleChange}
-                                    className="w-full border-2 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-[#7BDFF2]"
-                                    style={{ borderColor: '#B2F7EF' }}
+                                    className="w-full border-2 border-[#B2F7EF] rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-[#7BDFF2] bg-white"
                                 />
                             ) : (
-                                <p className="px-4 py-2 rounded-xl text-sm bg-white">
+                                <p className="px-4 py-2 rounded-xl text-sm bg-white text-[#3a3a3a]">
                                     {user?.[name] || '—'}
                                 </p>
                             )}
                         </div>
                     ))}
 
-                    {/* Mot de passe uniquement en mode édition */}
                     {editMode && (
                         <>
                             <div>
-                                <label className="block text-sm font-medium mb-1" style={{ color: '#3a3a3a' }}>
+                                <label className="block text-sm font-medium mb-1 text-[#3a3a3a]">
                                     Nouveau mot de passe
                                 </label>
                                 <input
@@ -141,12 +128,11 @@ function Profil() {
                                     value={formData.password}
                                     onChange={handleChange}
                                     placeholder="Laisser vide pour ne pas changer"
-                                    className="w-full border-2 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-[#7BDFF2]"
-                                    style={{ borderColor: '#B2F7EF' }}
+                                    className="w-full border-2 border-[#B2F7EF] rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-[#7BDFF2] bg-white"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium mb-1" style={{ color: '#3a3a3a' }}>
+                                <label className="block text-sm font-medium mb-1 text-[#3a3a3a]">
                                     Confirmer mot de passe
                                 </label>
                                 <input
@@ -154,36 +140,34 @@ function Profil() {
                                     name="password_confirmation"
                                     value={formData.password_confirmation}
                                     onChange={handleChange}
-                                    className="w-full border-2 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-[#7BDFF2]"
-                                    style={{ borderColor: '#B2F7EF' }}
+                                    className="w-full border-2 border-[#B2F7EF] rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-[#7BDFF2] bg-white"
                                 />
                             </div>
                         </>
                     )}
                 </div>
 
-                {/* Boutons */}
                 <div className="flex justify-end gap-3 mt-6">
                     {editMode ? (
                         <>
                             <button
                                 onClick={() => setEditMode(false)}
-                                className="px-5 py-2 rounded-xl text-sm font-medium"
-                                style={{ backgroundColor: '#F7D6E0', color: '#3a3a3a' }}>
+                                className="px-5 py-2 rounded-xl text-sm font-medium bg-[#F7D6E0] text-[#3a3a3a] hover:opacity-80 transition-all"
+                            >
                                 Annuler
                             </button>
                             <button
                                 onClick={handleSubmit}
-                                className="px-5 py-2 rounded-xl text-sm font-medium"
-                                style={{ backgroundColor: '#7BDFF2', color: '#3a3a3a' }}>
+                                className="px-5 py-2 rounded-xl text-sm font-medium bg-[#7BDFF2] text-white hover:bg-cyan-400 transition-all"
+                            >
                                 Sauvegarder
                             </button>
                         </>
                     ) : (
                         <button
                             onClick={() => setEditMode(true)}
-                            className="px-5 py-2 rounded-xl text-sm font-medium"
-                            style={{ backgroundColor: '#7BDFF2', color: '#3a3a3a' }}>
+                            className="px-5 py-2 rounded-xl text-sm font-medium bg-[#7BDFF2] text-white hover:bg-cyan-400 transition-all"
+                        >
                             Modifier le profil
                         </button>
                     )}

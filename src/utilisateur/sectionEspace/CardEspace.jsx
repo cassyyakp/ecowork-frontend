@@ -6,7 +6,7 @@ function CardEspace({ espace }) {
     return (
         <div className="border-2 border-[#B2F7EF] rounded-2xl overflow-hidden cursor-pointer hover:shadow-lg transition-all"
             onClick={() => navigate(`/espaces/${espace.id_espace}`)}>
-            {/* Image */}
+    
             <div style={{ backgroundColor: '#B2F7EF' }} className="h-48">
                 <img
                     src={espace.photo_salle}
@@ -16,7 +16,6 @@ function CardEspace({ espace }) {
                 />
             </div>
 
-            {/* Infos */}
             <div className="p-4">
                 <h3 className="font-bold text-base text-[#3a3a3a]">
                     {espace.nom}

@@ -7,7 +7,6 @@ export default function Layout() {
 
   return (
     <div className="flex h-screen">
-      {/* Overlay mobile */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-40 z-20 lg:hidden"
@@ -15,7 +14,6 @@ export default function Layout() {
         />
       )}
 
-      {/* Sidebar */}
       <div
         className={`fixed z-30 lg:static lg:block transition-transform duration-300
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
@@ -23,9 +21,7 @@ export default function Layout() {
         <Sidebar onClose={() => setSidebarOpen(false)} />
       </div>
 
-      {/* Main */}
       <div className="flex flex-col flex-1 overflow-hidden">
-        {/* Header mobile */}
         <div className="lg:hidden flex items-center justify-between px-4 py-3 bg-[#EFF7F6] border-b border-[#B2F7EF]">
           <img
             src="/images/logo-ecowork.png"

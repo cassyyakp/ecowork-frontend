@@ -62,7 +62,6 @@ function ReservationListe({ search }) {
 
   return (
     <div className="flex flex-col gap-4">
-      {/* MOBILE : cards */}
       <div className="flex flex-col gap-3 md:hidden">
         {filtered.map((r) => (
           <div
@@ -91,7 +90,7 @@ function ReservationListe({ search }) {
                 {r.date_debut_reservation} → {r.date_fin_reservation}
               </p>
               <p className="text-sm font-bold text-[#7BDFF2]">
-                {r.prix_total} FCFA
+                {r.prix_total} €
               </p>
             </div>
             <div className="flex gap-2 mt-1">
@@ -122,7 +121,6 @@ function ReservationListe({ search }) {
         ))}
       </div>
 
-      {/* DESKTOP : tableau */}
       <div className="hidden md:block overflow-x-auto rounded-2xl border border-[#B2F7EF]">
         <table className="w-full text-sm text-left">
           <thead className="bg-[#EFF7F6] text-[#3a3a3a] font-semibold">
@@ -152,7 +150,7 @@ function ReservationListe({ search }) {
                 <td className="px-6 py-4 text-gray-500">
                   {r.date_fin_reservation}
                 </td>
-                <td className="px-6 py-4 text-gray-500">{r.prix_total} FCFA</td>
+                <td className="px-6 py-4 text-gray-500">{r.prix_total} €</td>
                 <td className="px-6 py-4">
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-semibold ${
@@ -198,7 +196,6 @@ function ReservationListe({ search }) {
         </table>
       </div>
 
-      {/* Pagination */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-2">
         <p className="text-xs text-gray-400">{total} réservation(s) au total</p>
         <div className="flex gap-2">
@@ -207,7 +204,7 @@ function ReservationListe({ search }) {
             disabled={currentPage === 1}
             className="px-3 lg:px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
           >
-            ← Précédent
+            Précédent
           </button>
           <span className="px-4 py-2 text-sm text-gray-400">
             {currentPage} / {lastPage}
@@ -217,7 +214,7 @@ function ReservationListe({ search }) {
             disabled={currentPage === lastPage}
             className="px-3 lg:px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
           >
-            Suivant →
+            Suivant 
           </button>
         </div>
       </div>

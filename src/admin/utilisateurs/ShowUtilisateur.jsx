@@ -42,7 +42,6 @@ function ShowUtilisateur() {
       <h1 className="text-font text-center mt-2 text-3xl">
         DÉTAIL UTILISATEUR
       </h1>
-      jsx
       <div className="max-w-lg mx-auto px-4 lg:px-0 py-6">
         <div className="bg-[#EFF7F6] p-6 lg:p-10 rounded-2xl border border-[#B2F7EF]">
           <div className="flex justify-between border-b border-default pb-3">

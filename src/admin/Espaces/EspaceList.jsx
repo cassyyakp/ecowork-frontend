@@ -85,7 +85,7 @@ function EspaceList({ search }) {
                 {espace.nom}
               </p>
               <p className="text-xs text-gray-400">
-                {espace.surface} m² — {espace.prix_reservation} FCFA
+                {espace.surface} m² — {espace.prix_reservation} €
               </p>
               <div className="flex gap-2 mt-2">
                 <button
@@ -152,7 +152,7 @@ function EspaceList({ search }) {
                 </td>
                 <td className="px-6 py-4 text-gray-500">{espace.surface} m²</td>
                 <td className="px-6 py-4 text-gray-500">
-                  {espace.prix_reservation} FCFA
+                  {espace.prix_reservation} €
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex gap-2">
@@ -186,7 +186,6 @@ function EspaceList({ search }) {
         </table>
       </div>
 
-      {/* Pagination */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-2">
         <p className="text-xs text-gray-400">{total} espace(s) au total</p>
         <div className="flex gap-2">
