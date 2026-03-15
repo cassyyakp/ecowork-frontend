@@ -61,7 +61,7 @@ function EspaceShow() {
           <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
             <span className="text-sm text-gray-400">Prix réservation</span>
             <span className="text-sm font-medium text-[#3a3a3a]">
-              {espace.prix_reservation} FCFA
+              {espace.prix_reservation} €
             </span>
           </div>
           <div className="flex justify-between border-b border-[#B2F7EF] pb-3">

@@ -115,6 +115,7 @@ function EspaceList({ search }) {
         ))}
       </div>
 
+      
       <div className="hidden md:block overflow-x-auto rounded-2xl border border-[#B2F7EF]">
         <table className="w-full text-sm text-left">
           <thead className="bg-[#EFF7F6] text-[#3a3a3a] font-semibold">
