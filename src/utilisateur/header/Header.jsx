@@ -11,7 +11,7 @@ function Header() {
   return (
     <header className="w-full bg-white border-b border-[#B2F7EF] px-6 py-4">
       <div className="flex items-center justify-between">
-        
+          
         <div className="flex items-center">
           <img
             src="/images/logo-ecowork.png"
@@ -48,7 +48,7 @@ function Header() {
             className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium border border-[#B2F7EF] hover:bg-[#EFF7F6] transition-all"
           >
             <img
-              src="/images/low-carbon.png"
+              src="/images/low-carbon.webp"
               alt="low carbon"
               className="w-4 h-4 object-contain"
             />
@@ -63,7 +63,7 @@ function Header() {
               className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-[#EFF7F6] transition-all"
             >
               <div className="w-9 h-9 rounded-full bg-[#7BDFF2] flex items-center justify-center">
-                <img src="/images/user.png" alt="user" className="w-4 h-4" />
+                <img src="/images/user.webp" alt="user" className="w-4 h-4" />
               </div>
               <span className="text-xs text-gray-400 hidden sm:inline">▼</span>
             </button>

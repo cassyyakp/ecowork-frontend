@@ -82,49 +82,49 @@ function Dashboard() {
     {
       label: "Utilisateurs",
       value: stats.utilisateurs,
-      icon: "/images/user.png",
+      icon: "/images/user.webp",
       isImage: true,
       lien: "/admin/utilisateurs",
     },
     {
       label: "Espaces",
       value: stats.espaces,
-      icon: "/images/espaces.png",
+      icon: "/images/espaces.webp",
       isImage: true,
       lien: "/admin/espaces",
     },
     {
       label: "Equipements",
       value: stats.equipements,
-      icon: "/images/equipement.png",
+      icon: "/images/equipement.webp",
       isImage: true,
       lien: "/admin/equipements",
     },
     {
       label: "Réservations",
       value: stats.reservations,
-      icon: "/images/reservation.png",
+      icon: "/images/reservation.webp",
       isImage: true,
       lien: "/admin/reservations",
     },
     {
       label: "Factures",
       value: stats.factures,
-      icon: "/images/facture.png",
+      icon: "/images/facture.webp",
       isImage: true,
     },
   ];
 
   return (
     <div className="p-6 min-h-screen" style={{ backgroundColor: "#B2F7EF" }}>
-      {/* Profil */}
+      
       <div className="flex justify-end mb-4">
         <button
           onClick={() => navigate("/admin/profil")}
           className="flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-[#EFF7F6] transition-all"
         >
           <div className="w-9 h-9 rounded-full bg-[#F7D6E0] flex items-center justify-center">
-            <img src="/images/user.png" alt="user" className="h-4 w-4" />
+            <img src="/images/user.webp" alt="user" className="h-4 w-4" />
           </div>
           <span className="text-xs text-gray-400">▼</span>
         </button>

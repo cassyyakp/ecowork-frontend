@@ -72,7 +72,7 @@ function Profil() {
 
             <div className="flex justify-center mb-6">
                 <div className="w-24 h-24 rounded-full bg-[#B2F7EF] flex items-center justify-center">
-                    <img src="/images/user.png" alt="user" className="w-12 h-12 object-contain" />
+                    <img src="/images/user.webp" alt="user" className="w-12 h-12 object-contain" />
                 </div>
             </div>
 

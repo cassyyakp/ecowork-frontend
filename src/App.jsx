@@ -35,12 +35,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Routes publiques */}
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
 
-        {/* Routes Admin — réservées aux admins (id_type_compte === 1) */}
         <Route
           element={
             <PrivateRoute adminOnly>
@@ -50,7 +48,6 @@ function App() {
         >
           <Route path="/admin/dashboard" element={<Dashboard />} />
 
-          {/* Utilisateurs */}
           <Route path="/admin/utilisateurs" element={<ListeUtilisateur />} />
           <Route path="/admin/utilisateurs/create" element={<CreateAdmin />} />
           <Route path="/admin/utilisateurs/:id" element={<ShowUtilisateur />} />
@@ -60,13 +57,11 @@ function App() {
           />
           <Route path="/admin/profil" element={<Profil />} />
 
-          {/* Espaces */}
           <Route path="/admin/espaces" element={<EspaceLayout />} />
           <Route path="/admin/espaces/show/:id" element={<EspaceShow />} />
           <Route path="/admin/espaces/update/:id" element={<EspaceUpdate />} />
           <Route path="/admin/espaces/ajout" element={<AjoutEspace />} />
 
-          {/* Réservations */}
           <Route path="/admin/reservations" element={<ReservationLayout />} />
           <Route
             path="/admin/reservations/show/:id"
@@ -77,7 +72,6 @@ function App() {
             element={<ReservationUpdate />}
           />
 
-          {/* Equipements */}
           <Route path="/admin/equipements" element={<LayoutEquipement />} />
           <Route
             path="/admin/equipements/create"
@@ -89,15 +83,13 @@ function App() {
             element={<EditEquipement />}
           />
 
-          {/* Factures */}
           <Route path="/admin/factures" element={<FactureLayout />} />
           <Route path="/admin/factures/show/:id" element={<FactureShow />} />
         </Route>
 
-        {/* Routes Utilisateur — réservées aux utilisateurs (id_type_compte === 2) */}
         <Route
           element={
-            <PrivateRoute >
+            <PrivateRoute>
               <UtilisateurLayout />
             </PrivateRoute>
           }

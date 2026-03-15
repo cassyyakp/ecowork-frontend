@@ -75,7 +75,7 @@ function ShowReservationUser() {
         ["Espace réservé", reservation.espace ?? "-"],
         ["Date début", reservation.date_debut_reservation ?? "-"],
         ["Date fin", reservation.date_fin_reservation ?? "-"],
-        ["Prix total", `${formatPrix(reservation.prix_total)} FCFA`],
+        ["Prix total", `${formatPrix(reservation.prix_total)} €`],
         ["Statut paiement", reservation.facture_acquittee ? "Acquittée" : "Non acquittée"],
       ];
 
@@ -104,7 +104,7 @@ function ShowReservationUser() {
       doc.setFont("helvetica", "bold");
       doc.setTextColor(123, 223, 242);
       doc.text(
-        `TOTAL : ${formatPrix(reservation.prix_total)} FCFA`,
+        `TOTAL : ${formatPrix(reservation.prix_total)} €`,
         pageWidth - 14,
         y + 14,
         { align: "right" }
@@ -159,7 +159,7 @@ function ShowReservationUser() {
           </div>
           <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
             <span className="text-sm text-gray-400">Prix total</span>
-            <span className="text-sm font-bold text-[#7BDFF2]">{formatPrix(reservation.prix_total)} FCFA</span>
+            <span className="text-sm font-bold text-[#7BDFF2]">{formatPrix(reservation.prix_total)} €</span>
           </div>
           <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
             <span className="text-sm text-gray-400">Statut</span>

@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import TypeEspaceCard from "./TypeespaceCard";
 
 const icones = {
-  "Bureau de travail": "/images/bureau.png",
-  "Salle de réunion": "/images/reunion.png",
-  "Salle de conférence": "/images/conference.png",
+  "Bureau de travail": "/images/office-desk.webp",
+  "Salle de réunion": "/images/reunion.webp",
+  "Salle de conférence": "/images/conference.webp",
 };
 
 function TypeEspaceSection() {
@@ -50,7 +50,7 @@ function TypeEspaceSection() {
           >
             <TypeEspaceCard
               libelle={type.libelle}
-              icone={icones[type.libelle] ?? "/images/default.png"}
+              icone={icones[type.libelle] ?? "/images/default.webp"}
               isActive={active === type.id_type_espace}
             />
           </div>

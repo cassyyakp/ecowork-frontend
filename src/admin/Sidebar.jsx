@@ -79,7 +79,7 @@ function Sidebar({ onClose }) {
           }`}
         >
           <img
-            src="/images/low-carbon.png"
+            src="/images/low-carbon.webp"
             alt="low carbon"
             className="w-4 h-4 object-contain"
           />
