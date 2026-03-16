@@ -11,15 +11,12 @@ function EspaceShow() {
   useEffect(() => {
     const fetchEspace = async () => {
       try {
-        const response = await fetch(
-          `${API_URL}/api/espaces/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-              Accept: "application/json",
-            },
+        const response = await fetch(`${API_URL}/api/espaces/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Accept: "application/json",
           },
-        );
+        });
         const data = await response.json();
         setEspace(data.data);
       } catch (err) {
@@ -32,8 +29,7 @@ function EspaceShow() {
   }, [id]);
 
   if (loading) return <p className="text-sm text-gray-400">Chargement...</p>;
-  if (!espace)
-    return <p className="text-sm text-gray-400">Espace introuvable.</p>;
+  if (!espace) return <p className="text-sm text-gray-400">Espace introuvable.</p>;
 
   return (
     <div className="max-w-lg mx-auto px-4 lg:px-0">
@@ -55,29 +51,44 @@ function EspaceShow() {
         <div className="flex flex-col gap-4">
           <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
             <span className="text-sm text-gray-400">Surface</span>
-            <span className="text-sm font-medium text-[#3a3a3a]">
-              {espace.surface} m²
-            </span>
+            <span className="text-sm font-medium text-[#3a3a3a]">{espace.surface} m²</span>
           </div>
           <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
             <span className="text-sm text-gray-400">Prix réservation</span>
-            <span className="text-sm font-medium text-[#3a3a3a]">
-              {espace.prix_reservation} €
-            </span>
+            <span className="text-sm font-medium text-[#3a3a3a]">{espace.prix_reservation} €</span>
           </div>
           <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
             <span className="text-sm text-gray-400">Frais réservation</span>
-            <span className="text-sm font-medium text-[#3a3a3a]">
-              {espace.frais_reservation} €
-            </span>
+            <span className="text-sm font-medium text-[#3a3a3a]">{espace.frais_reservation} €</span>
           </div>
           <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
             <span className="text-sm text-gray-400">Créé le</span>
-            <span className="text-sm font-medium text-[#3a3a3a]">
-              {espace.created_at}
-            </span>
+            <span className="text-sm font-medium text-[#3a3a3a]">{espace.created_at}</span>
           </div>
         </div>
+
+
+        <div className="mt-6">
+          <h3 className="text-sm font-bold text-[#3a3a3a] mb-3">Équipements</h3>
+          {espace.equipements && espace.equipements.length > 0 ? (
+            <div className="flex flex-col gap-2">
+              {espace.equipements.map((item) => (
+                <div
+                  key={item.id_equipement}
+                  className="flex items-center justify-between bg-white border border-[#B2F7EF] px-4 py-3 rounded-xl"
+                >
+                  <span className="text-sm text-[#3a3a3a]">{item.nom}</span>
+                  <span className="text-xs font-bold bg-[#7BDFF2] text-white px-2 py-1 rounded-full">
+                    x{item.nombre}
+                  </span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm text-gray-400 italic">Aucun équipement listé.</p>
+          )}
+        </div>
+
         <div className="flex gap-3 mt-8">
           <button
             onClick={() => navigate("/admin/espaces")}
@@ -86,9 +97,7 @@ function EspaceShow() {
             Retour
           </button>
           <button
-            onClick={() =>
-              navigate(`/admin/espaces/update/${espace.id_espace}`)
-            }
+            onClick={() => navigate(`/admin/espaces/update/${espace.id_espace}`)}
             className="flex-1 py-3 rounded-xl text-sm font-semibold bg-[#7BDFF2] text-white hover:bg-cyan-400 transition-all"
           >
             Modifier
