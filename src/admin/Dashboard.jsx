@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../config";
 
 function Dashboard() {
   const [stats, setStats] = useState({
@@ -30,11 +31,11 @@ function Dashboard() {
           resReservations,
           resFactures,
         ] = await Promise.all([
-          fetch("http://localhost:8000/api/utilisateurs", { headers }),
-          fetch("http://localhost:8000/api/espaces", { headers }),
-          fetch("http://localhost:8000/api/equipementsalles", { headers }),
-          fetch("http://localhost:8000/api/reservations", { headers }),
-          fetch("http://localhost:8000/api/factures", { headers }),
+          fetch(`${API_URL}/api/utilisateurs`, { headers }),
+          fetch(`${API_URL}/api/espaces`, { headers }),
+          fetch(`${API_URL}/api/equipementsalles`, { headers }),
+          fetch(`${API_URL}/api/reservations`, { headers }),
+          fetch(`${API_URL}/api/factures`, { headers }),
         ]);
 
         const [

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import API_URL from "../../config";
 
 function ShowUtilisateur() {
   const { id } = useParams();
@@ -11,7 +12,7 @@ function ShowUtilisateur() {
     const fetchUtilisateur = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/api/utilisateurs/${id}`,
+          `${API_URL}/api/utilisateurs/${id}`,
           {
             headers: {
               Accept: "application/json",

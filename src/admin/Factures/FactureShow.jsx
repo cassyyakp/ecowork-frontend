@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import genererfacture from "./GenererFacture";
+import API_URL from "../../config";
 
 
 function FactureShow() {
@@ -12,7 +13,7 @@ function FactureShow() {
   useEffect(() => {
     const fetchFacture = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/factures/${id}`, {
+        const response = await fetch(`${API_URL}/api/factures/${id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
             Accept: "application/json",

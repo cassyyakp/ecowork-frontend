@@ -1,33 +1,37 @@
 import { useEffect, useState } from "react";
 import TypeEspaceCard from "./TypeespaceCard";
+import API_URL from "../../config";
 
 const icones = {
   "Bureau de travail": "/images/office-desk.webp",
   "Salle de réunion": "/images/reunion.webp",
-  "Salle de conférence": "/images/conference.webp",
+  "Conférence": "/images/conference.webp",
 };
 
 function TypeEspaceSection() {
   const [types, setTypes] = useState([]);
   const [active, setActive] = useState(null);
 
-  useEffect(() => {
-    const fetchTypes = async () => {
-      try {
-        const response = await fetch("http://localhost:8000/api/typeespaces", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            Accept: "application/json",
-          },
-        });
-        const data = await response.json();
-        setTypes(data.data ?? []);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchTypes();
-  }, []);
+ useEffect(() => {
+  const fetchTypes = async () => {
+    try {
+      
+      const response = await fetch(`${API_URL}/api/typeespaces`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Accept: "application/json",
+        },
+      });
+      const data = await response.json();
+      
+      
+      setTypes(data.data || data || []); 
+    } catch (err) {
+      console.error("Erreur fetch types:", err);
+    }
+  };
+  fetchTypes();
+}, []); 
 
   return (
     <section className="bg-[#7BDFF2] px-8 py-16">

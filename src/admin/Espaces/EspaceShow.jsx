@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import API_URL from "../../config";
 
 function EspaceShow() {
   const { id } = useParams();
@@ -11,7 +12,7 @@ function EspaceShow() {
     const fetchEspace = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/api/espaces/${id}`,
+          `${API_URL}/api/espaces/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import CardEspace from "./CardEspace";
 import FiltreEspace from "./FiltreEspace";
 import TextEspace from "./TextEspace";
+import API_URL from "../../config";
+
 
 function PageEspace() {
   const [espaces, setEspaces] = useState([]);
@@ -19,8 +21,8 @@ function PageEspace() {
     const fetchData = async () => {
       try {
         const [resEspaces, resTypes] = await Promise.all([
-          fetch("http://localhost:8000/api/espaces", { headers }),
-          fetch("http://localhost:8000/api/typeespaces", { headers }),
+          fetch(`${API_URL}/api/espaces`, { headers }),
+          fetch(`${API_URL}/api/typeespaces`, { headers }),
         ]);
         const [dataEspaces, dataTypes] = await Promise.all([
           resEspaces.json(),

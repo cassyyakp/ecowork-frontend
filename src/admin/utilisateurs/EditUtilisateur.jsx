@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import API_URL from "../../config";
 
 function EditUtilisateur() {
   const { id } = useParams();
@@ -18,7 +19,7 @@ function EditUtilisateur() {
     const fetchUtilisateur = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/api/utilisateurs/${id}`,
+          `${API_URL}/api/utilisateurs/${id}`,
           {
             headers: {
               Accept: "application/json",
@@ -52,7 +53,7 @@ function EditUtilisateur() {
   const handleSubmit = async () => {
     setSaving(true);
     try {
-      await fetch(`http://localhost:8000/api/utilisateurs/${id}`, {
+      await fetch(`${API_URL}/api/utilisateurs/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../../config";
 
 function TableauEquipement({ refresh, search }) {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ function TableauEquipement({ refresh, search }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:8000/api/equipementsalles?page=${page}`,
+        `${API_URL}/api/equipementsalles?page=${page}`,
         {
           headers: {
             Accept: "application/json",
@@ -40,7 +41,7 @@ function TableauEquipement({ refresh, search }) {
     if (!window.confirm("Voulez-vous vraiment supprimer cet équipement ?"))
       return;
     try {
-      await fetch(`http://localhost:8000/api/equipementsalles/${id}`, {
+      await fetch(`${API_URL}//api/equipementsalles/${id}`, {
         method: "DELETE",
         headers: {
           Accept: "application/json",

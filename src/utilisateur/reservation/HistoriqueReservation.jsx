@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../../config";
 
 function HistoriqueReservations() {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ function HistoriqueReservations() {
   useEffect(() => {
     const fetchReservations = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/reservations", {
+        const response = await fetch(`${API_URL}/api/reservations`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
             Accept: "application/json",

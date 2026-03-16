@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../../config";
 
 function CreateEquipement() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function CreateEquipement() {
   useEffect(() => {
     const fetchEspaces = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/espaces", {
+        const response = await fetch(`${API_URL}/api/espaces`, {
           headers: {
             Accept: "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -38,7 +39,7 @@ function CreateEquipement() {
     e.preventDefault();
     setSaving(true);
     try {
-      await fetch("http://localhost:8000/api/equipementsalles", {
+      await fetch(`${API_URL}/api/equipementsalles`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

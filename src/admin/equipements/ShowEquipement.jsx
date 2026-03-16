@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import API_URL from "../../config";
 
 function ShowEquipement() {
   const { id } = useParams();
@@ -11,7 +12,7 @@ function ShowEquipement() {
     const fetchEquipement = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/api/equipementsalles/${id}`,
+          `${API_URL}/api/equipementsalles/${id}`,
           {
             headers: {
               Accept: "application/json",

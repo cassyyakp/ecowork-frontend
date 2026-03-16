@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import genererfacture from "./GenererFacture";
+import API_URL from "../../config";
 
 function FactureListe({ search }) {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ function FactureListe({ search }) {
   const fetchFactures = async (page) => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:8000/api/factures?page=${page}`, {
+      const response = await fetch(`${API_URL}/api/factures?page=${page}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
           Accept: "application/json",

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import jsPDF from "jspdf";
+import API_URL from "../../config";
 
 function ShowReservationUser() {
   const { id } = useParams();
@@ -11,7 +12,7 @@ function ShowReservationUser() {
   useEffect(() => {
     const fetchReservation = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/reservations/${id}`, {
+        const response = await fetch(`${API_URL}/api/reservations/${id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
             Accept: "application/json",

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../../config";
 
 function EspaceList({ search }) {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ function EspaceList({ search }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:8000/api/espaces?page=${page}`,
+        `${API_URL}/api/espaces?page=${page}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -39,7 +40,7 @@ function EspaceList({ search }) {
   const handleDelete = async (id) => {
     if (!confirm("Supprimer cet espace ?")) return;
     try {
-      await fetch(`http://localhost:8000/api/espaces/${id}`, {
+      await fetch(`${API_URL}/api/espaces/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
