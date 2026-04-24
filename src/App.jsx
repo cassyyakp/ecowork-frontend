@@ -35,23 +35,11 @@ import "./index.css";
 
 function App() {
   return (
-<<<<<<< HEAD
-    <BrowserRouter>
-      <Routes>
-
-        <Route element={<UtilisateurLayout />}>
-          <Route path="/" element={<Accueil />} />
-          <Route path="/AuthPage" element={<AuthPage />} />
-        </Route>
-        {/* <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} /> */}
-=======
     <PanierProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Accueil />} />
           <Route path="/AuthPage" element={<AuthPage />} />
->>>>>>> feature/johannorens
 
           <Route
             element={
