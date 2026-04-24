@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import CardEspace from "./CardEspace";
 import FiltreEspace from "./FiltreEspace";
 import TextEspace from "./TextEspace";
-import API_URL from "../../config";
 
 function ListeEspaces() {
   const [espaces, setEspaces] = useState([]);
@@ -19,24 +18,37 @@ function ListeEspaces() {
 
     const fetchData = async () => {
       try {
-        const [resEspaces, resTypes] = await Promise.all([
-          fetch(`${API_URL}/api/espaces`, { headers }),
-          fetch(`${API_URL}/api/typeespaces`, { headers }),
-        ]);
-        const [dataEspaces, dataTypes] = await Promise.all([
-          resEspaces.json(),
-          resTypes.json(),
-        ]);
-          // const tousEspaces = Array.isArray(dataEspaces)
-          //   ? dataEspaces
-          //   : dataEspaces.data || [];
-        const tousEspaces = dataEspaces.data || [];
+        const resEspaces = await fetch(
+          `http://localhost:8000/api/espaces?page=1`,
+          { headers },
+        );
+        const dataEspaces = await resEspaces.json();
+
+        let tousEspaces = dataEspaces.data || [];
+        const lastPage = dataEspaces.meta?.last_page ?? 1;
+
+        if (lastPage > 1) {
+          const autresPages = await Promise.all(
+            Array.from({ length: lastPage - 1 }, (_, i) =>
+              fetch(`http://localhost:8000/api/espaces?page=${i + 2}`, {
+                headers,
+              }).then((r) => r.json()),
+            ),
+          );
+          autresPages.forEach((page) => {
+            tousEspaces = [...tousEspaces, ...(page.data || [])];
+          });
+        }
 
         const derniersEspaces = [...tousEspaces]
           .sort((a, b) => b.id_espace - a.id_espace)
           .slice(0, 3);
         setEspaces(derniersEspaces);
 
+        const resTypes = await fetch(`http://localhost:8000/api/typeespaces`, {
+          headers,
+        });
+        const dataTypes = await resTypes.json();
         setTypes(Array.isArray(dataTypes) ? dataTypes : dataTypes.data || []);
       } catch (err) {
         console.log(err);

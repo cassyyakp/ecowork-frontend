@@ -23,20 +23,35 @@ function PageEspace() {
 
     const fetchData = async () => {
       try {
-        const [resEspaces, resTypes, resReservations] = await Promise.all([
-          fetch(`${API_URL}/api/espaces`, { headers }),
-          fetch(`${API_URL}/api/typeespaces`, { headers }),
-          fetch(`${API_URL}/api/reservations`, { headers }),
-
+        // Première page + types en parallèle
+        const [resEspaces, resTypes] = await Promise.all([
+          fetch("http://localhost:8000/api/espaces?page=1", { headers }),
+          fetch("http://localhost:8000/api/typeespaces", { headers }),
         ]);
         const [dataEspaces, dataTypes, dataReservations] = await Promise.all([
           resEspaces.json(),
           resTypes.json(),
           resReservations.json(),
         ]);
-        setEspaces(
-          Array.isArray(dataEspaces) ? dataEspaces : dataEspaces.data || [],
-        );
+
+        let tousEspaces = dataEspaces.data || [];
+        const lastPage = dataEspaces.meta?.last_page ?? 1;
+
+        // Charger les pages suivantes si nécessaire
+        if (lastPage > 1) {
+          const autresPages = await Promise.all(
+            Array.from({ length: lastPage - 1 }, (_, i) =>
+              fetch(`http://localhost:8000/api/espaces?page=${i + 2}`, {
+                headers,
+              }).then((r) => r.json()),
+            ),
+          );
+          autresPages.forEach((page) => {
+            tousEspaces = [...tousEspaces, ...(page.data || [])];
+          });
+        }
+
+        setEspaces(tousEspaces);
         setTypes(Array.isArray(dataTypes) ? dataTypes : dataTypes.data || []);
 
         const mesReservations = (dataReservations.data || []).filter(

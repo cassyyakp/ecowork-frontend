@@ -23,8 +23,7 @@ function FiltreEspace({ types, filtre, setFiltre }) {
 
                         backgroundColor: String(filtre) === String(type.id_type_espace) ? '#7BDFF2' : '#EFF7F6'
                     }}
-                    className="px-4 py-2 rounded-full text-sm font-medium border-2 border-[#F7D6E0] text-[#3a3a3a] transition"
-                >
+                    className="px-4 py-2 rounded-full text-sm font-medium border-2 transition border-2 border-[#B2F7EF] text-[#3a3a3a]">
                     {type.libelle_type_espace}
                 </button>
             ))}
