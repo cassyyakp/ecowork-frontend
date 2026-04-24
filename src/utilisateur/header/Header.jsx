@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import ProfilDropdown from "./ProfilDropdwon";
 import { useLowCarbon } from "../../context/LowcarbonContext";
 
 function Header() {
-  const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { lowCarbon, toggle } = useLowCarbon();

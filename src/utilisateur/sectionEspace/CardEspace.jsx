@@ -11,7 +11,13 @@ function CardEspace({ espace }) {
       <div
         style={{ backgroundColor: "#B2F7EF" }}
         className="h-48 cursor-pointer"
-        onClick={() => navigate(`/espaces/${espace.id_espace}`)}
+        onClick={() => {
+          if (localStorage.getItem("token")) {
+            navigate(`/espaces/${espace.id_espace}`);
+          } else {
+            navigate("/AuthPage");
+          }
+        }}
       >
         <img
           src={espace.photo_salle}
@@ -40,11 +46,10 @@ function CardEspace({ espace }) {
               onClick={() =>
                 dejaDansPanier ? navigate("/panier") : ajouterEspace(espace)
               }
-              className={`px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
-                dejaDansPanier
+              className={`px-3 py-2 rounded-xl text-xs font-semibold transition-all ${dejaDansPanier
                   ? "bg-[#7BDFF2] text-white"
                   : "bg-[#F7D6E0] text-[#3a3a3a] hover:bg-pink-200"
-              }`}
+                }`}
             >
               {dejaDansPanier ? "Voir panier" : "Ajouter"}
             </button>
