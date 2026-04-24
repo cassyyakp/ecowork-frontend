@@ -35,36 +35,35 @@ function ReservationShow() {
     return <p className="text-sm text-gray-400">Réservation introuvable.</p>;
 
   return (
-    <div className="max-w-lg mx-auto bg-[#EFF7F6] p-10 rounded-2xl shadow-sm border border-[#B2F7EF]">
-      <h2 className="text-xl font-bold text-[#3a3a3a] mb-6">
-        Détail réservation
-      </h2>
+    <div className="max-w-lg mx-auto px-4 lg:px-0">
+      <div className="bg-[#EFF7F6] p-6 lg:p-10 rounded-2xl shadow-sm border border-[#B2F7EF]">
+        <h2 className="text-xl font-bold text-[#3a3a3a] mb-6">
+          Détail réservation
+        </h2>
 
-      {/* Photo de l'espace */}
-      {reservation.photo_espace ? (
-        <img
-          src={reservation.photo_espace}
-          alt={reservation.espace}
-          className="w-full h-48 object-cover rounded-2xl mb-6"
-        />
-      ) : (
-        <div className="w-full h-48 bg-[#B2F7EF] rounded-2xl mb-6 flex items-center justify-center text-gray-400 text-sm">
-          Aucune photo
-        </div>
-      )}
+        {reservation.espaces?.[0]?.photo_salle ? (
+          <img
+            src={reservation.espaces[0].photo_salle}
+            alt={reservation.espaces[0].nom}
+            className="w-full h-48 object-cover rounded-2xl mb-6"
+          />
+        ) : (
+          <div className="w-full h-48 bg-[#B2F7EF] rounded-2xl mb-6 flex items-center justify-center text-gray-400 text-sm">
+            Aucune photo
+          </div>
+        )}
 
-      <div className="max-w-lg mx-auto px-4 lg:px-0">
-        <div className="bg-[#EFF7F6] p-6 lg:p-10 rounded-2xl shadow-sm border border-[#B2F7EF]">
+        <div className="flex flex-col gap-3">
           <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
-            <span className="text-sm text-gray-400">Espace</span>
+            <span className="text-sm text-gray-400">Espace(s)</span>
             <span className="text-sm font-medium text-[#3a3a3a]">
-              {reservation.espace}
+              {reservation.espaces?.map((e) => e.nom).join(", ") || "—"}
             </span>
           </div>
           <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
             <span className="text-sm text-gray-400">Utilisateur</span>
             <span className="text-sm font-medium text-[#3a3a3a]">
-              {reservation.utilisateur}
+              {reservation.utilisateur || "—"}
             </span>
           </div>
           <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
@@ -80,27 +79,35 @@ function ReservationShow() {
             </span>
           </div>
           <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
+            <span className="text-sm text-gray-400">Frais</span>
+            <span className="text-sm font-medium text-[#3a3a3a]">
+              {reservation.frais_reservation} FCFA
+            </span>
+          </div>
+          <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
             <span className="text-sm text-gray-400">Prix total</span>
             <span className="text-sm font-medium text-[#3a3a3a]">
-              {reservation.prix_total} FCFA
+              {reservation.prix_total_reservation} FCFA
             </span>
           </div>
           <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
-            <span className="text-sm text-gray-400">Facture acquittée</span>
+            <span className="text-sm text-gray-400">Statut</span>
             <span
               className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                reservation.facture_acquittee
+                reservation.statut_reservation === "solder"
                   ? "bg-green-100 text-green-600"
-                  : "bg-red-100 text-red-500"
+                  : reservation.statut_reservation === "annulée"
+                    ? "bg-red-100 text-red-500"
+                    : "bg-yellow-100 text-yellow-600"
               }`}
             >
-              {reservation.facture_acquittee ? "Oui" : "Non"}
+              {reservation.statut_reservation}
             </span>
           </div>
           <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
-            <span className="text-sm text-gray-400">Créé le</span>
+            <span className="text-sm text-gray-400">Facture</span>
             <span className="text-sm font-medium text-[#3a3a3a]">
-              {reservation.created_at}
+              {reservation.facture || "—"}
             </span>
           </div>
         </div>

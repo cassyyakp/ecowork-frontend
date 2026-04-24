@@ -30,6 +30,7 @@ function ListeUtilisateur() {
         },
       );
       const data = await response.json();
+      console.log(data);
       setUtilisateurs(data.data || []);
       setLastPage(data.meta?.last_page ?? 1);
       setTotal(data.meta?.total ?? 0);
@@ -58,22 +59,19 @@ function ListeUtilisateur() {
   };
 
   const utilisateursFiltres = utilisateurs.filter((u) => {
-    const matchFiltre =
-      filtre === "admin"
-        ? u.id_type_compte === 1
-        : filtre === "utilisateur"
-          ? u.id_type_compte === 2
-          : true;
+    const matchFiltre = filtre === "tous" ? true : u.type_compte === filtre;
     const matchSearch = search
       ? u.nom?.toLowerCase().includes(search.toLowerCase()) ||
-        u.prenoms?.toLowerCase().includes(search.toLowerCase())
+        u.prenom?.toLowerCase().includes(search.toLowerCase())
       : true;
     return matchFiltre && matchSearch;
   });
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-2xl lg:text-3xl font-semibold">Liste des utilisateurs</h1>
+      <h1 className="text-2xl lg:text-3xl font-semibold">
+        Liste des utilisateurs
+      </h1>
 
       {/* Search + bouton */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -84,7 +82,6 @@ function ListeUtilisateur() {
         />
         <BoutonAjoutAdmin />
       </div>
-
 
       <FiltreUtilisateur filtre={filtre} setFiltre={setFiltre} />
 
@@ -99,7 +96,6 @@ function ListeUtilisateur() {
         search={search}
       />
 
- 
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-2 mt-2">
         <p className="text-xs text-gray-400">{total} utilisateur(s) au total</p>
         <div className="flex gap-2">

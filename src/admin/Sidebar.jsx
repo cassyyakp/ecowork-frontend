@@ -8,7 +8,6 @@ const navLinks = [
   { label: "Espaces", path: "/admin/espaces" },
   { label: "Équipements", path: "/admin/equipements" },
   { label: "Réservations", path: "/admin/reservations" },
-  { label: "Factures", path: "/admin/factures" },
 ];
 
 function Sidebar({ onClose }) {

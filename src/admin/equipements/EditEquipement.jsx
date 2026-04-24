@@ -17,7 +17,7 @@ function EditEquipement() {
     const fetchData = async () => {
       try {
         const [resEquipement, resEspaces] = await Promise.all([
-          fetch(`http://localhost:8000/api/equipementsalles/${id}`, {
+          fetch(`http://localhost:8000/api/equipements/${id}`, {
             headers: {
               Accept: "application/json",
               Authorization: `Bearer ${localStorage.getItem("token")}`,

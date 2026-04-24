@@ -8,7 +8,7 @@ function EditUtilisateur() {
   const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState({
     nom: "",
-    prenoms: "",
+    prenom: "",
     email: "",
     telephone: "",
     adresse: "",
@@ -30,9 +30,9 @@ function EditUtilisateur() {
         const u = data.data || data;
         setFormData({
           nom: u.nom || "",
-          prenoms: u.prenoms || "",
+          prenom: u.prenom || "",
           email: u.email || "",
-          telephone: u.telephone || "",
+          telephone: u.numero_telephone || "", 
           adresse: u.adresse || "",
         });
       } catch (err) {
@@ -85,7 +85,7 @@ function EditUtilisateur() {
             <div className="max-w-lg mx-auto mt-10 space-y-4">
               {[
                 { label: "Nom", name: "nom", type: "text" },
-                { label: "Prénoms", name: "prenoms", type: "text" },
+                { label: "Prénoms", name: "prenom", type: "text" },
                 { label: "Email", name: "email", type: "email" },
                 { label: "Téléphone", name: "telephone", type: "text" },
                 { label: "Adresse", name: "adresse", type: "text" },

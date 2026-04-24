@@ -26,9 +26,9 @@ function ReservationListe({ search }) {
         },
       );
       const data = await response.json();
-      setReservations(data.data);
-      setLastPage(data.meta.last_page);
-      setTotal(data.meta.total);
+      setReservations(data.data || []);
+      setLastPage(data.meta?.last_page ?? 1);
+      setTotal(data.meta?.total ?? 0);
     } catch (err) {
       console.error(err);
     } finally {
@@ -53,7 +53,7 @@ function ReservationListe({ search }) {
   };
 
   const filtered = reservations.filter((r) =>
-    r.utilisateur?.toLowerCase().includes((search ?? "").toLowerCase()),
+    (r.utilisateur ?? "").toLowerCase().includes((search ?? "").toLowerCase()),
   );
 
   if (loading) return <p className="text-sm text-gray-400">Chargement...</p>;
@@ -62,6 +62,7 @@ function ReservationListe({ search }) {
 
   return (
     <div className="flex flex-col gap-4">
+      {/* MOBILE */}
       <div className="flex flex-col gap-3 md:hidden">
         {filtered.map((r) => (
           <div
@@ -71,18 +72,22 @@ function ReservationListe({ search }) {
             <div className="flex justify-between items-start">
               <div>
                 <p className="font-semibold text-[#3a3a3a] text-sm">
-                  {r.utilisateur}
+                  {r.utilisateur || "—"}
                 </p>
-                <p className="text-xs text-gray-400">{r.espace}</p>
+                <p className="text-xs text-gray-400">
+                  {r.espaces?.map((e) => e.nom).join(", ") || "—"}
+                </p>
               </div>
               <span
                 className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                  r.facture_acquittee
+                  r.statut_reservation === "solder"
                     ? "bg-green-100 text-green-600"
-                    : "bg-red-100 text-red-500"
+                    : r.statut_reservation === "annulée"
+                      ? "bg-red-100 text-red-500"
+                      : "bg-yellow-100 text-yellow-600"
                 }`}
               >
-                {r.facture_acquittee ? "Payée" : "Non payée"}
+                {r.statut_reservation}
               </span>
             </div>
             <div className="flex justify-between items-center">
@@ -90,7 +95,7 @@ function ReservationListe({ search }) {
                 {r.date_debut_reservation} → {r.date_fin_reservation}
               </p>
               <p className="text-sm font-bold text-[#7BDFF2]">
-                {r.prix_total} €
+                {r.prix_total_reservation} FCFA
               </p>
             </div>
             <div className="flex gap-2 mt-1">
@@ -121,16 +126,17 @@ function ReservationListe({ search }) {
         ))}
       </div>
 
+      {/* DESKTOP */}
       <div className="hidden md:block overflow-x-auto rounded-2xl border border-[#B2F7EF]">
         <table className="w-full text-sm text-left">
           <thead className="bg-[#EFF7F6] text-[#3a3a3a] font-semibold">
             <tr>
               <th className="px-6 py-4">Utilisateur</th>
-              <th className="px-6 py-4">Espace</th>
+              <th className="px-6 py-4">Espace(s)</th>
               <th className="px-6 py-4">Date début</th>
               <th className="px-6 py-4">Date fin</th>
               <th className="px-6 py-4">Prix total</th>
-              <th className="px-6 py-4">Payé</th>
+              <th className="px-6 py-4">Statut</th>
               <th className="px-6 py-4">Actions</th>
             </tr>
           </thead>
@@ -141,25 +147,31 @@ function ReservationListe({ search }) {
                 className="border-t border-[#B2F7EF] hover:bg-[#EFF7F6] transition-all"
               >
                 <td className="px-6 py-4 font-medium text-[#3a3a3a]">
-                  {r.utilisateur}
+                  {r.utilisateur || "—"}
                 </td>
-                <td className="px-6 py-4 text-gray-500">{r.espace}</td>
+                <td className="px-6 py-4 text-gray-500">
+                  {r.espaces?.map((e) => e.nom).join(", ") || "—"}
+                </td>
                 <td className="px-6 py-4 text-gray-500">
                   {r.date_debut_reservation}
                 </td>
                 <td className="px-6 py-4 text-gray-500">
                   {r.date_fin_reservation}
                 </td>
-                <td className="px-6 py-4 text-gray-500">{r.prix_total} €</td>
+                <td className="px-6 py-4 text-gray-500">
+                  {r.prix_total_reservation} FCFA
+                </td>
                 <td className="px-6 py-4">
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                      r.facture_acquittee
+                      r.statut_reservation === "solder"
                         ? "bg-green-100 text-green-600"
-                        : "bg-red-100 text-red-500"
+                        : r.statut_reservation === "annulée"
+                          ? "bg-red-100 text-red-500"
+                          : "bg-yellow-100 text-yellow-600"
                     }`}
                   >
-                    {r.facture_acquittee ? "Oui" : "Non"}
+                    {r.statut_reservation}
                   </span>
                 </td>
                 <td className="px-6 py-4">
@@ -204,7 +216,7 @@ function ReservationListe({ search }) {
             disabled={currentPage === 1}
             className="px-3 lg:px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
           >
-            Précédent
+            ← Précédent
           </button>
           <span className="px-4 py-2 text-sm text-gray-400">
             {currentPage} / {lastPage}
@@ -214,7 +226,7 @@ function ReservationListe({ search }) {
             disabled={currentPage === lastPage}
             className="px-3 lg:px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#B2F7EF] text-[#3a3a3a] hover:bg-[#B2F7EF] disabled:opacity-40 transition-all"
           >
-            Suivant 
+            Suivant →
           </button>
         </div>
       </div>

@@ -7,11 +7,11 @@ function CreateAdmin() {
   const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState({
     nom: "",
-    prenoms: "",
+    prenom: "",
     email: "",
     password: "",
     password_confirmation: "",
-    telephone: "",
+    numero_telephone: "",
     adresse: "",
   });
 
@@ -61,7 +61,7 @@ function CreateAdmin() {
             <div className="max-w-lg mt-10 space-y-4">
               {[
                 { label: "Nom", name: "nom", type: "text" },
-                { label: "Prénoms", name: "prenoms", type: "text" },
+                { label: "Prénoms", name: "prenom", type: "text" },
                 { label: "Email", name: "email", type: "email" },
                 { label: "Mot de passe", name: "password", type: "password" },
                 {
@@ -69,7 +69,7 @@ function CreateAdmin() {
                   name: "password_confirmation",
                   type: "password",
                 },
-                { label: "Téléphone", name: "telephone", type: "text" },
+                { label: "Téléphone", name: "numero_telephone", type: "text" },
                 { label: "Adresse", name: "adresse", type: "text" },
               ].map((field) => (
                 <div key={field.name}>

@@ -18,8 +18,6 @@ import LayoutEquipement from "./admin/equipements/LayoutEquipement";
 import CreateEquipement from "./admin/equipements/CreateEquipement";
 import EditEquipement from "./admin/equipements/EditEquipement";
 import ShowEquipement from "./admin/equipements/ShowEquipement";
-import FactureLayout from "./admin/Factures/FactureLayout";
-import FactureShow from "./admin/Factures/FactureShow";
 import UtilisateurLayout from "./utilisateur/UtilisateurLayout";
 import Accueil from "./utilisateur/Accueil";
 import ShowEspace from "./utilisateur/sectionEspace/ShowEspace";
@@ -29,15 +27,16 @@ import PrivateRoute from "./context/privateroute";
 import ShowReservationUser from "./utilisateur/reservation/ShowReservationUser";
 import Profil from "./utilisateur/Profil";
 import PageEspaces from "./utilisateur/sectionEspace/PageEspace";
+import AuthPage from "./authentification/AuthPage";
 import "./index.css";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<AuthPage/>} />
+        {/* <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} /> */}
 
         <Route
           element={
@@ -82,9 +81,6 @@ function App() {
             path="/admin/equipements/:id/edit"
             element={<EditEquipement />}
           />
-
-          <Route path="/admin/factures" element={<FactureLayout />} />
-          <Route path="/admin/factures/show/:id" element={<FactureShow />} />
         </Route>
 
         <Route
