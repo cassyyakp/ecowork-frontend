@@ -4,8 +4,12 @@ import FiltreEspace from "./FiltreEspace";
 import TextEspace from "./TextEspace";
 
 function PageEspace() {
+  const utilisateur = JSON.parse(localStorage.getItem("user"));
+
+
   const [espaces, setEspaces] = useState([]);
   const [types, setTypes] = useState([]);
+  const [reservations, setReservations] = useState([]);
   const [filtre, setFiltre] = useState("tous");
   const [loading, setLoading] = useState(true);
 
@@ -18,20 +22,21 @@ function PageEspace() {
 
     const fetchData = async () => {
       try {
-        // Première page + types en parallèle
-        const [resEspaces, resTypes] = await Promise.all([
+        const [resEspaces, resTypes, resReservations] = await Promise.all([
           fetch("http://localhost:8000/api/espaces?page=1", { headers }),
           fetch("http://localhost:8000/api/typeespaces", { headers }),
+          fetch("http://localhost:8000/api/reservations", { headers }),
         ]);
-        const [dataEspaces, dataTypes] = await Promise.all([
+        const [dataEspaces, dataTypes, dataReservations] = await Promise.all([
           resEspaces.json(),
           resTypes.json(),
+          resReservations.json(),
         ]);
 
         let tousEspaces = dataEspaces.data || [];
         const lastPage = dataEspaces.meta?.last_page ?? 1;
 
-        // Charger les pages suivantes si nécessaire
+
         if (lastPage > 1) {
           const autresPages = await Promise.all(
             Array.from({ length: lastPage - 1 }, (_, i) =>
@@ -44,7 +49,10 @@ function PageEspace() {
             tousEspaces = [...tousEspaces, ...(page.data || [])];
           });
         }
-
+        const mesReservations = (dataReservations.data || []).filter(
+          (r) => r.id_utilisateur === utilisateur?.id_utilisateur
+        );
+        setReservations(mesReservations);
         setEspaces(tousEspaces);
         setTypes(Array.isArray(dataTypes) ? dataTypes : dataTypes.data || []);
       } catch (err) {
@@ -61,10 +69,42 @@ function PageEspace() {
     return e.id_type_espace === filtre;
   });
 
+  const reservationsPassees = reservations.filter(
+    (r) => new Date(r.date_fin_reservation) < new Date()
+  );
   return (
-    <div className="py-16 px-8">
-      <div className="flex justify-between items-start mb-10">
-        <TextEspace />
+    <div className="py-5 px-8">
+
+      <div className="relative bg-gray-50 text-center mx-auto rounded-3xl w-full max-w-[700px] p-6 sm:p-10 mb-8 overflow-hidden border-2 border-[#F7D6E0]">
+
+        <h1 className="text-3xl sm:text-4xl">
+          Bienvenue <span className="text-[#7BDFF2] font-bold">{utilisateur?.prenom} {utilisateur?.nom}</span>
+        </h1>
+        <p className="text-md mt-3 text-gray-500">
+          Ton expérience commence maintenant!! <br />
+          Choisis un espace et fais ta réservation en sécurité.
+        </p>
+
+        <div className="flex gap-6 sm:gap-12 justify-center mt-6">
+          <div>
+            <p className="text-4xl font-bold text-[#3a3a3a]">{espaces.length}</p>
+            <p className="text-xs text-center uppercase tracking-wider text-gray-400 mt-1">
+              Espaces disponibles
+            </p>
+          </div>
+
+          <div>
+            <p className="text-4xl font-bold text-[#3a3a3a]">{reservationsPassees.length}</p>
+            <p className="text-xs text-center uppercase tracking-wider text-gray-400 mt-1">
+              Réservations passées
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <p className="text-center font-bold text-3xl mt-20 ">NOS ESPACES DISPONIBLES</p>
+
+      <div className="mt-12 mb-12 flex justify-end">
         <FiltreEspace types={types} filtre={filtre} setFiltre={setFiltre} />
       </div>
 

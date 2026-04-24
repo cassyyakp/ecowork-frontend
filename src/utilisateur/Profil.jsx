@@ -13,9 +13,9 @@ function Profil() {
         setUser(userData);
         setFormData({
             nom: userData?.nom || '',
-            prenoms: userData?.prenoms || '',
+            prenom: userData?.prenom || '',
             email: userData?.email || '',
-            telephone: userData?.telephone || '',
+            numero_telephone: userData?.numero_telephone || '',
             adresse: userData?.adresse || '',
             password: '',
             password_confirmation: '',
@@ -91,9 +91,9 @@ function Profil() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {[
                         { label: 'Nom', name: 'nom' },
-                        { label: 'Prénoms', name: 'prenoms' },
+                        { label: 'Prénom', name: 'prenom' },
                         { label: 'Email', name: 'email', type: 'email' },
-                        { label: 'Téléphone', name: 'telephone' },
+                        { label: 'Téléphone', name: 'numero_telephone' },
                         { label: 'Adresse', name: 'adresse' },
                     ].map(({ label, name, type = 'text' }) => (
                         <div key={name}>
