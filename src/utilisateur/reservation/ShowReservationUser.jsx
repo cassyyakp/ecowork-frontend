@@ -122,7 +122,7 @@ function ShowReservationUser() {
           Détail réservation
         </h2>
 
-        {/* 🔥 GALERIE MULTI ESPACES */}
+    
         {reservation.espaces?.length > 0 ? (
           <div className="flex gap-3 overflow-x-auto mb-6">
             {reservation.espaces.map((espace) => (
@@ -140,7 +140,7 @@ function ShowReservationUser() {
           </div>
         )}
 
-        {/* DETAILS */}
+  
         <div className="flex flex-col gap-4">
           <div className="flex justify-between border-b pb-3">
             <span className="text-sm text-gray-400">Espace(s)</span>
@@ -179,7 +179,6 @@ function ShowReservationUser() {
           </div>
         </div>
 
-        {/* ACTIONS */}
         <div className="flex gap-3 mt-8">
           <button
             onClick={() => navigate("/reservations")}
