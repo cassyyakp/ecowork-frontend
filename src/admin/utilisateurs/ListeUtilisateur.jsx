@@ -3,7 +3,6 @@ import FiltreUtilisateur from "./FiltreUtilisateur";
 import BoutonAjoutAdmin from "./BoutonAjoutAdmin";
 import TableauUtilisateur from "./TableauUtilisateur";
 import SearchUtilisateur from "./SearchUtilisateur";
-import API_URL from "../../config";
 
 function ListeUtilisateur() {
   const [utilisateurs, setUtilisateurs] = useState([]);
@@ -22,7 +21,7 @@ function ListeUtilisateur() {
     setLoading(true);
     try {
       const response = await fetch(
-        `${API_URL}/api/utilisateurs?page=${page}`,
+        `http://localhost:8000/api/utilisateurs?page=${page}`,
         {
           headers: {
             Accept: "application/json",
@@ -46,7 +45,7 @@ function ListeUtilisateur() {
     if (!window.confirm("Voulez-vous vraiment supprimer cet utilisateur ?"))
       return;
     try {
-      await fetch(`${API_URL}/api/utilisateurs/${id}`, {
+      await fetch(`http://localhost:8000/api/utilisateurs/${id}`, {
         method: "DELETE",
         headers: {
           Accept: "application/json",

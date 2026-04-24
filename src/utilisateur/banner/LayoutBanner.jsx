@@ -7,7 +7,7 @@ function LayoutBanner() {
     return (
         <div className="relative">
             <ImageBanner />
-            <div className="absolute top-0 left-0 w-full h-full bg-black/50 flex flex-col items-center justify-center">
+            <div className="absolute top-0 left-0 w-full h-full bg-black/30 flex flex-col items-center justify-center">
                 <TextBanner />
                 <BoutonBanner />
             </div>

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import API_URL from "../../config";
 
 function CreateReservation() {
   const { id } = useParams();
@@ -23,7 +22,7 @@ function CreateReservation() {
     const fetchEspace = async () => {
       try {
         const response = await fetch(
-          `${API_URL}/api/espaces/${id}`,
+          `http://localhost:8000/api/espaces/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -81,7 +80,7 @@ function CreateReservation() {
     setErrorMsg("");
 
     try {
-      const response = await fetch(`${API_URL}/api/reservations`, {
+      const response = await fetch("http://localhost:8000/api/reservations", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -114,6 +113,7 @@ function CreateReservation() {
     }
   };
 
+  // Calcul date limite paiement solde (2 jours avant debut)
   const getDateLimiteSolde = () => {
     if (!formData.date_debut_reservation) return null;
     const date = new Date(formData.date_debut_reservation);
@@ -143,6 +143,7 @@ function CreateReservation() {
         </div>
       )}
 
+      {/* Formulaire avec border */}
       <div className="border-2 border-[#B2F7EF] rounded-2xl p-6 bg-white shadow-sm">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
@@ -178,7 +179,7 @@ function CreateReservation() {
             />
           </div>
 
-    
+          {/* Mode paiement */}
           <div>
             <label className="block text-sm text-[#3a3a3a] font-medium mb-1">
               Mode de paiement
@@ -219,7 +220,7 @@ function CreateReservation() {
             </div>
           )}
 
-
+          {/* Prix calculé */}
           {prixTotal && (
             <div className="bg-[#EFF7F6] border border-[#B2F7EF] rounded-xl px-4 py-4">
               <h1 className="text-2xl font-bold text-[#7BDFF2] text-center mb-4">

@@ -1,18 +1,17 @@
-function TypeEspaceCard({ numero, libelle, onClick }) {
+function TypeEspaceCard({ libelle, icone, isActive }) {
   return (
-    <div
-      onClick={onClick}
-      className="bg-white rounded-2xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group"
+    <div className={`flex flex-col items-center gap-3 p-6 rounded-2xl border cursor-pointer transition-all
+      ${isActive 
+        ? "border-[#7BDFF2] bg-[#7BDFF2]/10" 
+        : "border-gray-600 bg-transparent hover:border-white"
+      }`}
     >
-      <div className="text-6xl font-bold text-[#B2F7EF] mb-2 group-hover:text-[#F7D6E0] transition-colors">
-        {numero < 10 ? `0${numero}` : numero}
+      <div className="w-14 h-14 flex items-center justify-center">
+        <img src={icone} alt={libelle} className="w-10 h-10 object-contain" />
       </div>
+      <p className="text-white text-sm font-semibold">{libelle}</p>
       
-      <h3 className="text-xl font-bold text-[#3a3a3a] mb-3">
-        {libelle}
-      </h3>
     </div>
   );
 }
-
 export default TypeEspaceCard;

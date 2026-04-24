@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import API_URL from "../../config";
 
 function EspaceUpdate() {
   const { id } = useParams();
@@ -23,13 +22,13 @@ function EspaceUpdate() {
     const fetchData = async () => {
       try {
         const [espaceRes, typeRes] = await Promise.all([
-          fetch(`${API_URL}/api/espaces/${id}`, {
+          fetch(`http://localhost:8000/api/espaces/${id}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
               Accept: "application/json",
             },
           }),
-          fetch(`${API_URL}/api/typeespaces`, {
+          fetch("http://localhost:8000/api/typeespaces", {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
               Accept: "application/json",
@@ -80,7 +79,7 @@ function EspaceUpdate() {
         if (value !== null && value !== "") form.append(key, value);
       });
 
-      const response = await fetch(`${API_URL}/api/espaces/${id}`, {
+      const response = await fetch(`http://localhost:8000/api/espaces/${id}`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

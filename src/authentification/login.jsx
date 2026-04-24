@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authcontext";
-import API_URL from "../config";
 
 function Login({ onSwitch }) {
   const navigate = useNavigate();
@@ -22,7 +21,7 @@ function Login({ onSwitch }) {
     setErrorMsg("");
 
     try {
-      const response = await fetch(`${API_URL}/api/login`, {
+      const response = await fetch("http://localhost:8000/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -43,7 +42,7 @@ function Login({ onSwitch }) {
       if (data.user.id_type_compte === 1) {
         navigate("/admin/dashboard");
       } else {
-        navigate("/espaces");
+        navigate("/accueil");
       }
     } catch (err) {
       setStatus("error");

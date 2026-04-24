@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 export default function RegisterForm({ onSwitch }) {
   const navigate = useNavigate();
 
@@ -24,7 +27,7 @@ export default function RegisterForm({ onSwitch }) {
     setErrorMsg("");
 
     try {
-      const response = await fetch(`${API_URL}/api/register`, {
+      const response = await fetch("http://localhost:8000/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -40,6 +43,7 @@ export default function RegisterForm({ onSwitch }) {
       }
 
       setStatus("success");
+      // navigate("/login");
       onSwitch();
     } catch (err) {
       setStatus("error");
@@ -48,38 +52,50 @@ export default function RegisterForm({ onSwitch }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="flex items-center min-h-screen justify-center p-6">
-        <div className="w-full bg-[#EFF7F6] p-10 max-w-md rounded-xl">
+    <div className="w-full">
+      {/* HEADER */}
+      <div className="text-center mb-6 sm:mb-8">
+        <div className="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] mx-auto mb-3">
+          <img
+            src="/images/logo-ecowork.png"
+            alt="logo-ecowork"
+            className="w-full h-auto object-contain"
+          />
+        </div>
+        <p className="text-sm text-[#666]">Créez votre compte</p>
+      </div>
 
-          {status === "error" && (
-            <div className="text-sm px-4 py-3 bg-[#F7D6E0] text-[#c0395a] rounded-xl mb-5 text-center">
-              {errorMsg}
-            </div>
-          )}
+      {/* ERROR */}
+      {status === "error" && (
+        <div className="text-sm px-4 py-3 bg-[#F7D6E0] text-[#c0395a] rounded-xl mb-4 text-center">
+          {errorMsg}
+        </div>
+      )}
 
-          <div className="flex flex-col sm:flex-row gap-3 mb-4">
-            <input
-              type="text"
-              name="nom"
-              placeholder="Nom"
-              value={formData.nom}
-              onChange={handleChange}
-              required
-              className="w-full border-2 rounded-xl px-4 py-3 text-sm border-[#B2F7EF]"
-            />
+      {/* FORM */}
+      <form onSubmit={handleSubmit}>
+        <div className="flex flex-col sm:flex-row gap-3 mb-3">
+          <input
+            type="text"
+            name="nom"
+            placeholder="Nom"
+            value={formData.nom}
+            onChange={handleChange}
+            required
+            className="w-full border-2 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-cyan-400 border-[#B2F7EF]"
+          />
+          <input
+            type="text"
+            name="prenom"
+            placeholder="Prénom(s)"
+            value={formData.prenom}
+            onChange={handleChange}
+            required
+            className="w-full border-2 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-cyan-400 border-[#B2F7EF]"
+          />
+        </div>
 
-            <input
-              type="text"
-              name="prenom"
-              placeholder="Prénom"
-              value={formData.prenom}
-              onChange={handleChange}
-              required
-              className="w-full border-2 rounded-xl px-4 py-3 text-sm border-[#B2F7EF]"
-            />
-          </div>
-
+        <div className="mb-3">
           <input
             type="email"
             name="email"
@@ -87,9 +103,11 @@ export default function RegisterForm({ onSwitch }) {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full mb-4 border-2 rounded-xl px-4 py-3 text-sm border-[#B2F7EF]"
+            className="w-full border-2 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-cyan-400 border-[#B2F7EF]"
           />
+        </div>
 
+        <div className="mb-3">
           <input
             type="password"
             name="password"
@@ -97,9 +115,11 @@ export default function RegisterForm({ onSwitch }) {
             value={formData.password}
             onChange={handleChange}
             required
-            className="w-full mb-4 border-2 rounded-xl px-4 py-3 text-sm border-[#B2F7EF]"
+            className="w-full border-2 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-cyan-400 border-[#B2F7EF]"
           />
+        </div>
 
+        <div className="mb-3">
           <input
             type="text"
             name="numero_telephone"
@@ -107,9 +127,11 @@ export default function RegisterForm({ onSwitch }) {
             value={formData.numero_telephone}
             onChange={handleChange}
             required
-            className="w-full mb-4 border-2 rounded-xl px-4 py-3 text-sm border-[#B2F7EF]"
+            className="w-full border-2 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-cyan-400 border-[#B2F7EF]"
           />
+        </div>
 
+        <div className="mb-4">
           <input
             type="text"
             name="adresse"
@@ -117,25 +139,28 @@ export default function RegisterForm({ onSwitch }) {
             value={formData.adresse}
             onChange={handleChange}
             required
-            className="w-full mb-6 border-2 rounded-xl px-4 py-3 text-sm border-[#B2F7EF]"
+            className="w-full border-2 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-cyan-400 border-[#B2F7EF]"
           />
-
-          <button
-            type="submit"
-            disabled={status === "loading"}
-            className="w-full py-3 rounded-xl bg-[#7BDFF2]"
-          >
-            {status === "loading" ? "Envoi..." : "Créer mon compte"}
-          </button>
-
-          <p className="text-center mt-4">
-            Déjà un compte ?{" "}
-            <button onClick={onSwitch} type="button">
-              Se connecter
-            </button>
-          </p>
         </div>
-      </div>
-    </form>
+
+        <button
+          type="submit"
+          disabled={status === "loading"}
+          className="w-full font-semibold py-3 rounded-xl text-sm transition duration-200 active:opacity-70 disabled:opacity-50 bg-[#7BDFF2] text-white shadow-sm"
+        >
+          {status === "loading" ? "Envoi..." : "Créer mon compte"}
+        </button>
+      </form>
+
+      <p className="text-center text-sm mt-5 text-[#3a3a3a]">
+        Déjà un compte ?{" "}
+        <button
+          onClick={onSwitch}
+          className="font-semibold text-[#7BDFF2] hover:underline"
+        >
+          Se connecter
+        </button>
+      </p>
+    </div>
   );
 }

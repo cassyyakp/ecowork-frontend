@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import API_URL from "../../config";
 
 function ReservationUpdate() {
   const { id } = useParams();
@@ -21,7 +20,7 @@ function ReservationUpdate() {
     const fetchReservation = async () => {
       try {
         const response = await fetch(
-          `${API_URL}/api/reservations/${id}`,
+          `http://localhost:8000/api/reservations/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -58,7 +57,7 @@ function ReservationUpdate() {
 
     try {
       const response = await fetch(
-        `${API_URL}/api/reservations/${id}`,
+        `http://localhost:8000/api/reservations/${id}`,
         {
           method: "PUT",
           headers: {

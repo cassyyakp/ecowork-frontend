@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import API_URL from "../../config";
 
 export default function EspaceAjout() {
   const navigate = useNavigate();
@@ -20,7 +19,7 @@ export default function EspaceAjout() {
   useEffect(() => {
     const fetchTypeEspaces = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/typeespaces`, {
+        const response = await fetch("http://localhost:8000/api/typeespaces", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
             Accept: "application/json",
@@ -57,7 +56,7 @@ export default function EspaceAjout() {
         }
       });
 
-      const response = await fetch(`${API_URL}/api/espaces`, {
+      const response = await fetch("http://localhost:8000/api/espaces", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import API_URL from "../../config";
 
 function EditEquipement() {
   const { id } = useParams();
@@ -24,7 +23,7 @@ function EditEquipement() {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }),
-          fetch(`${API_URL}/api/espaces`, {
+          fetch("http://localhost:8000/api/espaces", {
             headers: {
               Accept: "application/json",
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -57,7 +56,7 @@ function EditEquipement() {
   const handleSubmit = async () => {
     setSaving(true);
     try {
-      await fetch(`${API_URL}/api/equipementsalles/${id}`, {
+      await fetch(`http://localhost:8000/api/equipementsalles/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

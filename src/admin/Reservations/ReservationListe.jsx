@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import API_URL from "../../config";
 
 function ReservationListe({ search }) {
   const navigate = useNavigate();
@@ -18,7 +17,7 @@ function ReservationListe({ search }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `${API_URL}/api/reservations?page=${page}`,
+        `http://localhost:8000/api/reservations?page=${page}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -40,7 +39,7 @@ function ReservationListe({ search }) {
   const handleDelete = async (id) => {
     if (!confirm("Supprimer cette réservation ?")) return;
     try {
-      await fetch(`${API_URL}/api/reservations/${id}`, {
+      await fetch(`http://localhost:8000/api/reservations/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

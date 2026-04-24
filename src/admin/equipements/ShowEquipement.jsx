@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import API_URL from "../../config";
 
 function ShowEquipement() {
   const { id } = useParams();

@@ -1,6 +1,6 @@
+// src/admin/utilisateurs/CreateAdmin.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import API_URL from "../../config";
 
 function CreateAdmin() {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ function CreateAdmin() {
   const handleSubmit = async () => {
     setSaving(true);
     try {
-      await fetch(`${API_URL}/api/admin/register`, {
+      await fetch("http://localhost:8000/api/admin/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

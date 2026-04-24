@@ -2,15 +2,10 @@ import { useState, useEffect } from "react";
 import CardEspace from "./CardEspace";
 import FiltreEspace from "./FiltreEspace";
 import TextEspace from "./TextEspace";
-import API_URL from "../../config";
-
 
 function PageEspace() {
-  const utilisateur = JSON.parse(localStorage.getItem("user"));
-
   const [espaces, setEspaces] = useState([]);
   const [types, setTypes] = useState([]);
-  const [reservations, setReservations] = useState([]);
   const [filtre, setFiltre] = useState("tous");
   const [loading, setLoading] = useState(true);
 
@@ -28,10 +23,9 @@ function PageEspace() {
           fetch("http://localhost:8000/api/espaces?page=1", { headers }),
           fetch("http://localhost:8000/api/typeespaces", { headers }),
         ]);
-        const [dataEspaces, dataTypes, dataReservations] = await Promise.all([
+        const [dataEspaces, dataTypes] = await Promise.all([
           resEspaces.json(),
           resTypes.json(),
-          resReservations.json(),
         ]);
 
         let tousEspaces = dataEspaces.data || [];
@@ -53,11 +47,6 @@ function PageEspace() {
 
         setEspaces(tousEspaces);
         setTypes(Array.isArray(dataTypes) ? dataTypes : dataTypes.data || []);
-
-        const mesReservations = (dataReservations.data || []).filter(
-          (r) => r.id_utilisateur === utilisateur?.id_utilisateur
-        );
-        setReservations(mesReservations);
       } catch (err) {
         console.log(err);
       } finally {
@@ -72,52 +61,16 @@ function PageEspace() {
     return e.id_type_espace === filtre;
   });
 
-
-  const maintenant = new Date();
-  const reservationsPassees = reservations.filter(
-    (r) => new Date(r.date_fin_reservation) < maintenant
-  );
-
   return (
-    <div className="py-5 px-8">
-
-      <div className="relative bg-gray-50 text-center mx-auto rounded-3xl w-full max-w-[700px] p-6 sm:p-10 mb-8 overflow-hidden border-2 border-[#F7D6E0]">
-
-        <h1 className="text-3xl sm:text-4xl">
-          Bienvenue <span className="text-[#7BDFF2] font-bold">{utilisateur?.nom}</span>
-        </h1>
-        <p className="text-md mt-3 text-gray-500">
-          Ton expérience commence maintenant!! <br />
-          Choisis un espace et fais ta réservation en sécurité.
-        </p>
-
-        <div className="flex gap-6 sm:gap-12 justify-center mt-6">
-          <div>
-            <p className="text-4xl font-bold text-[#3a3a3a]">{espaces.length}</p>
-            <p className="text-xs text-center uppercase tracking-wider text-gray-400 mt-1">
-              Espaces disponibles
-            </p>
-          </div>
-
-          <div>
-            <p className="text-4xl font-bold text-[#3a3a3a]">{reservationsPassees.length}</p>
-            <p className="text-xs text-center uppercase tracking-wider text-gray-400 mt-1">
-              Réservations passées
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <p className="text-center font-bold text-3xl mt-20 ">NOS ESPACES DISPONIBLES</p>
-
-      <div className="mt-20">
+    <div className="py-16 px-8">
+      <div className="flex justify-between items-start mb-10">
+        <TextEspace />
         <FiltreEspace types={types} filtre={filtre} setFiltre={setFiltre} />
-
       </div>
 
       {loading && <p className="text-center text-gray-400">Chargement...</p>}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-6 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {espacesFiltres.map((espace) => (
           <CardEspace key={espace.id_espace} espace={espace} />
         ))}

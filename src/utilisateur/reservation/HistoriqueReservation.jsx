@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import API_URL from "../../config";
 
 function HistoriqueReservations() {
   const navigate = useNavigate();
@@ -12,7 +11,7 @@ function HistoriqueReservations() {
   useEffect(() => {
     const fetchReservations = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/reservations`, {
+        const response = await fetch("http://localhost:8000/api/reservations", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
             Accept: "application/json",
@@ -44,7 +43,7 @@ function HistoriqueReservations() {
         <div className="text-center py-20">
           <p className="text-gray-400 text-sm mb-4">Aucune réservation trouvée.</p>
           <button
-            onClick={() => navigate("/espaces")}
+            onClick={() => navigate("/salles")}
             className="px-6 py-3 rounded-xl text-sm font-semibold bg-[#7BDFF2] text-white hover:bg-cyan-400 transition-all"
           >
             Réserver un espace
@@ -57,7 +56,7 @@ function HistoriqueReservations() {
               key={r.id_reservation}
               className="flex gap-4 bg-white border border-[#B2F7EF] rounded-2xl overflow-hidden hover:shadow-md transition-all"
             >
-          
+              {/* Photo */}
               <div className="w-36 h-36 flex-shrink-0">
                 <img
                   src={r.photo_espace}

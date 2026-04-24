@@ -1,9 +1,18 @@
 function CardTemoignage({ temoignage }) {
   return (
-    <div className="bg-gray-50 rounded-2xl p-6 flex flex-col gap-4 border-2 border-[#F7D6E0]">
-      
+    <div className="bg-white rounded-2xl p-6 flex flex-col gap-4 border-l-4 border-[#F7D6E0]">
+      <div className="flex gap-1">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <span
+            key={i}
+            style={{ color: i < temoignage.note ? "#F7D6E0" : "#ddd" }}
+          >
+            ★
+          </span>
+        ))}
+      </div>
 
-      <p className="text-sm text-[#555]">"{temoignage.texte}"</p>
+      <p className="text-sm italic text-[#555]">"{temoignage.texte}"</p>
 
       <div className="flex items-center gap-3 mt-2">
         <img

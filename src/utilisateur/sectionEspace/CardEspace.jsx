@@ -1,16 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import API_URL from '../../config';
 
 function CardEspace({ espace }) {
     const navigate = useNavigate();
 
     return (
-        <div className="border-2 border-[#F7D6E0] rounded-2xl overflow-hidden cursor-pointer hover:shadow-lg transition-all"
-            onClick={() => navigate(`/register`)}>
+        <div className="border-2 border-[#B2F7EF] rounded-2xl overflow-hidden cursor-pointer hover:shadow-lg transition-all"
+            onClick={() => navigate(`/espaces/${espace.id_espace}`)}>
     
             <div style={{ backgroundColor: '#B2F7EF' }} className="h-48">
                 <img
-                    src={`${API_URL}/storage/${espace.photo_salle}`}
+                    src={espace.photo_salle}
                     alt={espace.nom}
                     loading="lazy"
                     className="w-full h-full object-cover"
