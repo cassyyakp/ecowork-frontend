@@ -28,82 +28,96 @@ import ShowReservationUser from "./utilisateur/reservation/ShowReservationUser";
 import Profil from "./utilisateur/Profil";
 import PageEspaces from "./utilisateur/sectionEspace/PageEspace";
 import AuthPage from "./authentification/AuthPage";
+import PagePanier from "./utilisateur/Panier/PagePanier";
+import { PanierProvider } from "./context/PanierContext";
+import { Navigate } from "react-router-dom";
 import "./index.css";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<AuthPage/>} />
-        {/* <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} /> */}
+    <PanierProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Accueil />} />
+          <Route path="/AuthPage" element={<AuthPage />} />
 
-        <Route
-          element={
-            <PrivateRoute adminOnly>
-              <Layout />
-            </PrivateRoute>
-          }
-        >
-          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route
+            element={
+              <PrivateRoute adminOnly>
+                <Layout />
+              </PrivateRoute>
+            }
+          >
+            <Route path="/admin/dashboard" element={<Dashboard />} />
 
-          <Route path="/admin/utilisateurs" element={<ListeUtilisateur />} />
-          <Route path="/admin/utilisateurs/create" element={<CreateAdmin />} />
-          <Route path="/admin/utilisateurs/:id" element={<ShowUtilisateur />} />
-          <Route
-            path="/admin/utilisateurs/:id/edit"
-            element={<EditUtilisateur />}
-          />
-          <Route path="/admin/profil" element={<Profil />} />
+            <Route path="/admin/utilisateurs" element={<ListeUtilisateur />} />
+            <Route
+              path="/admin/utilisateurs/create"
+              element={<CreateAdmin />}
+            />
+            <Route
+              path="/admin/utilisateurs/:id"
+              element={<ShowUtilisateur />}
+            />
+            <Route
+              path="/admin/utilisateurs/:id/edit"
+              element={<EditUtilisateur />}
+            />
+            <Route path="/admin/profil" element={<Profil />} />
 
-          <Route path="/admin/espaces" element={<EspaceLayout />} />
-          <Route path="/admin/espaces/show/:id" element={<EspaceShow />} />
-          <Route path="/admin/espaces/update/:id" element={<EspaceUpdate />} />
-          <Route path="/admin/espaces/ajout" element={<AjoutEspace />} />
+            <Route path="/admin/espaces" element={<EspaceLayout />} />
+            <Route path="/admin/espaces/show/:id" element={<EspaceShow />} />
+            <Route
+              path="/admin/espaces/update/:id"
+              element={<EspaceUpdate />}
+            />
+            <Route path="/admin/espaces/ajout" element={<AjoutEspace />} />
 
-          <Route path="/admin/reservations" element={<ReservationLayout />} />
-          <Route
-            path="/admin/reservations/show/:id"
-            element={<ReservationShow />}
-          />
-          <Route
-            path="/admin/reservations/update/:id"
-            element={<ReservationUpdate />}
-          />
+            <Route path="/admin/reservations" element={<ReservationLayout />} />
+            <Route
+              path="/admin/reservations/show/:id"
+              element={<ReservationShow />}
+            />
+            <Route
+              path="/admin/reservations/update/:id"
+              element={<ReservationUpdate />}
+            />
 
-          <Route path="/admin/equipements" element={<LayoutEquipement />} />
-          <Route
-            path="/admin/equipements/create"
-            element={<CreateEquipement />}
-          />
-          <Route path="/admin/equipements/:id" element={<ShowEquipement />} />
-          <Route
-            path="/admin/equipements/:id/edit"
-            element={<EditEquipement />}
-          />
-        </Route>
+            <Route path="/admin/equipements" element={<LayoutEquipement />} />
+            <Route
+              path="/admin/equipements/create"
+              element={<CreateEquipement />}
+            />
+            <Route path="/admin/equipements/:id" element={<ShowEquipement />} />
+            <Route
+              path="/admin/equipements/:id/edit"
+              element={<EditEquipement />}
+            />
+          </Route>
 
-        <Route
-          element={
-            <PrivateRoute>
-              <UtilisateurLayout />
-            </PrivateRoute>
-          }
-        >
-          <Route path="/accueil" element={<Accueil />} />
-          <Route path="/espaces" element={<PageEspaces />} />
-          <Route path="/espaces/:id" element={<ShowEspace />} />
-          <Route path="/reservations" element={<HistoriqueReservations />} />
-          <Route path="/reservations/:id" element={<ShowReservationUser />} />
           <Route
-            path="/reservations/create/:id"
-            element={<CreateReservation />}
-          />
-          <Route path="/factures" element={<div>Factures</div>} />
-          <Route path="/profil" element={<Profil />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+            element={
+              <PrivateRoute>
+                <UtilisateurLayout />
+              </PrivateRoute>
+            }
+          >
+            <Route path="/accueil" element={<Accueil />} />
+            <Route path="/espaces" element={<PageEspaces />} />
+            <Route path="/espaces/:id" element={<ShowEspace />} />
+            <Route path="/reservations" element={<HistoriqueReservations />} />
+            <Route path="/reservations/:id" element={<ShowReservationUser />} />
+            <Route
+              path="/reservations/create/:id"
+              element={<CreateReservation />}
+            />
+            <Route path="/panier" element={<PagePanier />} />
+            <Route path="/factures" element={<div>Factures</div>} />
+            <Route path="/profil" element={<Profil />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </PanierProvider>
   );
 }
 

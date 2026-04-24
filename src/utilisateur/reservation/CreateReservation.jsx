@@ -9,9 +9,9 @@ function CreateReservation() {
   const [formData, setFormData] = useState({
     date_debut_reservation: "",
     date_fin_reservation: "",
-    mode_paiement: "reservation",
   });
   const [prixTotal, setPrixTotal] = useState(null);
+  const [frais, setFrais] = useState(null);
   const [status, setStatus] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(true);
@@ -50,24 +50,16 @@ function CreateReservation() {
       const debut = new Date(formData.date_debut_reservation);
       const fin = new Date(formData.date_fin_reservation);
       const nbJours = Math.max(1, (fin - debut) / (1000 * 60 * 60 * 24));
-
-      if (formData.mode_paiement === "totalite") {
-        setPrixTotal(
-          parseFloat(espace.prix_reservation) * nbJours +
-            parseFloat(espace.frais_reservation),
-        );
-      } else {
-        setPrixTotal(parseFloat(espace.frais_reservation));
-      }
+      const prixJournalier = parseFloat(espace.prix_journalier || 0);
+      const fraisCalc = prixJournalier * 0.15;
+      const total = prixJournalier * nbJours + fraisCalc;
+      setFrais(fraisCalc);
+      setPrixTotal(total);
     } else {
       setPrixTotal(null);
+      setFrais(null);
     }
-  }, [
-    formData.date_debut_reservation,
-    formData.date_fin_reservation,
-    formData.mode_paiement,
-    espace,
-  ]);
+  }, [formData.date_debut_reservation, formData.date_fin_reservation, espace]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -90,9 +82,8 @@ function CreateReservation() {
         body: JSON.stringify({
           date_debut_reservation: formData.date_debut_reservation,
           date_fin_reservation: formData.date_fin_reservation,
-          id_tarif: espace.id_tarif,
           id_utilisateur: user.id_utilisateur,
-          mode_paiement: formData.mode_paiement,
+          espaces: [parseInt(id)], // ✅ tableau d'espaces
         }),
       });
 
@@ -113,7 +104,6 @@ function CreateReservation() {
     }
   };
 
-  // Calcul date limite paiement solde (2 jours avant debut)
   const getDateLimiteSolde = () => {
     if (!formData.date_debut_reservation) return null;
     const date = new Date(formData.date_debut_reservation);
@@ -143,7 +133,6 @@ function CreateReservation() {
         </div>
       )}
 
-      {/* Formulaire avec border */}
       <div className="border-2 border-[#B2F7EF] rounded-2xl p-6 bg-white shadow-sm">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
@@ -179,88 +168,46 @@ function CreateReservation() {
             />
           </div>
 
-          {/* Mode paiement */}
-          <div>
-            <label className="block text-sm text-[#3a3a3a] font-medium mb-1">
-              Mode de paiement
-            </label>
-            <select
-              name="mode_paiement"
-              value={formData.mode_paiement}
-              onChange={handleChange}
-              className="w-full border-2 border-[#B2F7EF] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-cyan-400 bg-white"
-            >
-              <option value="reservation">Réserver (frais uniquement)</option>
-              <option value="totalite">Payer la totalité</option>
-            </select>
+          <div className="bg-yellow-50 border border-yellow-200 rounded-xl px-4 py-3">
+            <p className="text-xs font-semibold text-yellow-700 mb-1">
+              Frais de réservation non remboursables
+            </p>
+            <p className="text-xs text-yellow-600">
+              Les frais de réservation (15%) ne sont pas remboursables en cas
+              d'annulation.
+              {formData.date_debut_reservation && (
+                <span className="font-semibold">
+                  {" "}
+                  Le solde restant devra être réglé avant le{" "}
+                  <span className="underline">{getDateLimiteSolde()}</span>.
+                </span>
+              )}
+            </p>
           </div>
 
-          {formData.mode_paiement === "reservation" && (
-            <div className="bg-yellow-50 border border-yellow-200 rounded-xl px-4 py-3 flex gap-3">
-              <div>
-                <p className="text-xs font-semibold text-yellow-700 mb-1">
-                  Frais de réservation non remboursables
-                </p>
-                <p className="text-xs text-yellow-600">
-                  Les frais de réservation ne sont pas remboursables en cas
-                  d'annulation.
-                  le solde restant devra etre payer 2 jours avant le debut de la reservation .
-                  {formData.date_debut_reservation && (
-                    <span className="font-semibold">
-                      {" "}
-                      Le solde restant devra être réglé avant le{" "}
-                      <span className="underline">
-                        {getDateLimiteSolde()}
-                      </span>{" "}
-                      (2 jours avant le début de votre réservation).
-                    </span>
-                  )}
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* Prix calculé */}
           {prixTotal && (
             <div className="bg-[#EFF7F6] border border-[#B2F7EF] rounded-xl px-4 py-4">
               <h1 className="text-2xl font-bold text-[#7BDFF2] text-center mb-4">
                 {prixTotal.toLocaleString()} FCFA
               </h1>
-              {formData.mode_paiement === "totalite" ? (
-                <>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-sm text-gray-400">Prix / jour</span>
-                    <span className="text-sm text-[#3a3a3a]">
-                      {parseFloat(espace.prix_reservation).toLocaleString()}{" "}
-                    €
-                    </span>
-                  </div>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-sm text-gray-400">
-                      Frais de réservation
-                    </span>
-                    <span className="text-sm text-[#3a3a3a]">
-                      {parseFloat(espace.frais_reservation).toLocaleString()}{" "}
-                      €
-                    </span>
-                  </div>
-                </>
-              ) : (
-                <div className="flex justify-between mb-2">
-                  <span className="text-sm text-gray-400">
-                    Frais de réservation
-                  </span>
-                  <span className="text-sm text-[#3a3a3a]">
-                    {parseFloat(espace.frais_reservation).toLocaleString()} €
-                  </span>
-                </div>
-              )}
+              <div className="flex justify-between mb-2">
+                <span className="text-sm text-gray-400">Prix / jour</span>
+                <span className="text-sm text-[#3a3a3a]">
+                  {parseFloat(espace.prix_journalier).toLocaleString()} FCFA
+                </span>
+              </div>
+              <div className="flex justify-between mb-2">
+                <span className="text-sm text-gray-400">Frais (15%)</span>
+                <span className="text-sm text-[#3a3a3a]">
+                  {frais?.toLocaleString()} FCFA
+                </span>
+              </div>
               <div className="flex justify-between border-t border-[#B2F7EF] pt-2 mt-2">
                 <span className="text-sm font-semibold text-[#3a3a3a]">
                   Total à payer
                 </span>
                 <span className="text-sm font-bold text-[#7BDFF2]">
-                  {prixTotal.toLocaleString()} €
+                  {prixTotal.toLocaleString()} FCFA
                 </span>
               </div>
             </div>
@@ -277,13 +224,9 @@ function CreateReservation() {
             <button
               type="submit"
               disabled={status === "loading" || !prixTotal}
-              className="flex-1 py-3 rounded-xl text-sm font-semibold bg-[#7BDFF2] text-black  transition-all disabled:opacity-50"
+              className="flex-1 py-3 rounded-xl text-sm font-semibold bg-[#7BDFF2] text-black transition-all disabled:opacity-50"
             >
-              {status === "loading"
-                ? "En cours..."
-                : formData.mode_paiement === "totalite"
-                  ? "Payer et réserver"
-                  : "Réserver"}
+              {status === "loading" ? "En cours..." : "Réserver"}
             </button>
           </div>
         </form>
