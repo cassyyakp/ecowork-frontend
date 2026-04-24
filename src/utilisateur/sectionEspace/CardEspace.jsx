@@ -25,7 +25,7 @@ function CardEspace({ espace }) {
                 </p>
                 <div className="flex justify-between items-center mt-4">
                     <p className="font-bold text-sm text-[#7BDFF2] ">
-                        {parseFloat(espace.prix_reservation).toLocaleString()} € 
+                        {parseFloat(espace.prix_journalier).toLocaleString()} € 
                         <span className="text-xs text-gray-400"> / jour</span>
                     </p>
                     <button className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#F7D6E0] text-[#3a3a3a] ">

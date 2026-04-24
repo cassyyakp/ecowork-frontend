@@ -6,16 +6,15 @@ export default function RegisterForm({ onSwitch }) {
 
   const [formData, setFormData] = useState({
     nom: "",
-    prenoms: "",
+    prenom: "",
     email: "",
     password: "",
     adresse: "",
-    telephone: "",
-    id_type_compte: "",
+    numero_telephone: "",
   });
 
   const [status, setStatus] = useState(null);
-  const [errorMsg, setErrorMsg] = "";
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,7 +43,8 @@ export default function RegisterForm({ onSwitch }) {
       }
 
       setStatus("success");
-      navigate("/login");
+      // navigate("/login");
+      onSwitch();
     } catch (err) {
       setStatus("error");
       setErrorMsg(err.message);
@@ -86,9 +86,9 @@ export default function RegisterForm({ onSwitch }) {
           />
           <input
             type="text"
-            name="prenoms"
+            name="prenom"
             placeholder="Prénom(s)"
-            value={formData.prenoms}
+            value={formData.prenom}
             onChange={handleChange}
             required
             className="w-full border-2 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-cyan-400 border-[#B2F7EF]"
@@ -121,10 +121,10 @@ export default function RegisterForm({ onSwitch }) {
 
         <div className="mb-3">
           <input
-            type="tel"
-            name="telephone"
+            type="text"
+            name="numero_telephone"
             placeholder="Téléphone"
-            value={formData.telephone}
+            value={formData.numero_telephone}
             onChange={handleChange}
             required
             className="w-full border-2 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-cyan-400 border-[#B2F7EF]"
@@ -143,7 +143,6 @@ export default function RegisterForm({ onSwitch }) {
           />
         </div>
 
-        {/* BUTTON */}
         <button
           type="submit"
           disabled={status === "loading"}
@@ -153,7 +152,6 @@ export default function RegisterForm({ onSwitch }) {
         </button>
       </form>
 
-      {/* SWITCH */}
       <p className="text-center text-sm mt-5 text-[#3a3a3a]">
         Déjà un compte ?{" "}
         <button
