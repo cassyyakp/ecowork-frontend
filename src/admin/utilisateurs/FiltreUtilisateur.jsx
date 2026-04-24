@@ -3,8 +3,8 @@ function FiltreUtilisateur({ filtre, setFiltre }) {
     <div className="flex flex-wrap gap-3 px-1">
       {[
         { label: "Tous", value: "tous" },
-        { label: "Admins", value: "admin" },
-        { label: "Utilisateurs", value: "utilisateur" },
+        { label: "Administrateurs", value: "Administrateur" },
+        { label: "Utilisateurs", value: "Utilisateur" },
       ].map((btn) => (
         <button
           key={btn.value}

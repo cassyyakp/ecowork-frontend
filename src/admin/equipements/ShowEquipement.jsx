@@ -12,7 +12,7 @@ function ShowEquipement() {
     const fetchEquipement = async () => {
       try {
         const response = await fetch(
-          `${API_URL}/api/equipementsalles/${id}`,
+          `http://localhost:8000/api/equipements/${id}`,
           {
             headers: {
               Accept: "application/json",

@@ -9,8 +9,7 @@ function ReservationUpdate() {
   const [formData, setFormData] = useState({
     date_debut_reservation: "",
     date_fin_reservation: "",
-    facture_acquittee: false,
-    id_tarif: "",
+    statut_reservation: "",
   });
 
   const [prixTotal, setPrixTotal] = useState(null);
@@ -33,12 +32,11 @@ function ReservationUpdate() {
         const data = await response.json();
         const r = data.data;
         setFormData({
-          date_debut_reservation: r.date_debut_reservation,
-          date_fin_reservation: r.date_fin_reservation,
-          facture_acquittee: r.facture_acquittee,
-          id_tarif: r.id_tarif,
+          date_debut_reservation: r.date_debut_reservation ?? "",
+          date_fin_reservation: r.date_fin_reservation ?? "",
+          statut_reservation: r.statut_reservation ?? "",
         });
-        setPrixTotal(r.prix_total);
+        setPrixTotal(r.prix_total_reservation);
       } catch (err) {
         console.error(err);
       } finally {
@@ -49,11 +47,8 @@ function ReservationUpdate() {
   }, [id]);
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -85,7 +80,7 @@ function ReservationUpdate() {
       }
 
       setStatus("success");
-      window.location.href = "/admin/reservations";
+      navigate("/admin/reservations");
     } catch (err) {
       setStatus("error");
       setErrorMsg(err.message);
@@ -143,23 +138,26 @@ function ReservationUpdate() {
             />
           </div>
 
+          <div>
+            <label className="block text-sm text-[#3a3a3a] font-medium mb-1">
+              Statut
+            </label>
+            <select
+              name="statut_reservation"
+              value={formData.statut_reservation}
+              onChange={handleChange}
+              className="w-full border-2 border-[#B2F7EF] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-cyan-400 bg-white"
+            >
+              <option value="reserver">Réservé</option>
+              <option value="solder">Soldé</option>
+              <option value="annulée">Annulée</option>
+            </select>
+          </div>
+
           <p className="text-xs text-gray-400">
             Le prix total sera recalculé automatiquement selon les nouvelles
             dates.
           </p>
-
-          <div className="flex items-center gap-3">
-            <input
-              type="checkbox"
-              name="facture_acquittee"
-              checked={formData.facture_acquittee}
-              onChange={handleChange}
-              className="w-4 h-4 accent-cyan-400"
-            />
-            <label className="text-sm text-[#3a3a3a] font-medium">
-              Facture acquittée
-            </label>
-          </div>
 
           <div className="flex gap-3 mt-2">
             <button

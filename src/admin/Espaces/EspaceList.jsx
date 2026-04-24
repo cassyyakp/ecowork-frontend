@@ -18,11 +18,12 @@ function EspaceList({ search }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `${API_URL}/api/espaces?page=${page}`,
+        `http://localhost:8000/api/espaces?page=${page}&t=${Date.now()}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
             Accept: "application/json",
+            "Cache-Control": "no-cache",
           },
         },
       );
@@ -85,7 +86,7 @@ function EspaceList({ search }) {
                 {espace.nom}
               </p>
               <p className="text-xs text-gray-400">
-                {espace.surface} m² — {espace.prix_reservation} €
+                {espace.surface} m² — {espace.prix_journalier} €
               </p>
               <div className="flex gap-2 mt-2">
                 <button
@@ -121,10 +122,9 @@ function EspaceList({ search }) {
         <table className="w-full text-sm text-left">
           <thead className="bg-[#EFF7F6] text-[#3a3a3a] font-semibold">
             <tr>
-              <th className="px-6 py-4">Photo</th>
+              <th className="px-6 py-4">Image</th>
               <th className="px-6 py-4">Nom</th>
               <th className="px-6 py-4">Surface</th>
-              <th className="px-6 py-4">Prix réservation</th>
               <th className="px-6 py-4">Actions</th>
             </tr>
           </thead>
@@ -151,9 +151,6 @@ function EspaceList({ search }) {
                   {espace.nom}
                 </td>
                 <td className="px-6 py-4 text-gray-500">{espace.surface} m²</td>
-                <td className="px-6 py-4 text-gray-500">
-                  {espace.prix_reservation} €
-                </td>
                 <td className="px-6 py-4">
                   <div className="flex gap-2">
                     <button

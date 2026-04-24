@@ -10,7 +10,7 @@ export default function EspaceAjout() {
     surface: "",
     photo_salle: null,
     id_type_espace: "",
-    prix_reservation: "",
+    prix_journalier: "",
   });
 
   const [typeEspaces, setTypeEspaces] = useState([]);
@@ -27,6 +27,7 @@ export default function EspaceAjout() {
           },
         });
         const data = await response.json();
+        // console.log(data);
         setTypeEspaces(data.data ?? []);
       } catch (err) {
         console.error(err);
@@ -37,13 +38,12 @@ export default function EspaceAjout() {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    if (files) {
+    if (files && files.length > 0) {
       setFormData((prev) => ({ ...prev, [name]: files[0] }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("loading");
@@ -52,7 +52,9 @@ export default function EspaceAjout() {
     try {
       const form = new FormData();
       Object.entries(formData).forEach(([key, value]) => {
-        if (value !== null && value !== "") form.append(key, value);
+        if (value !== null && value !== "" && value !== undefined) {
+          form.append(key, value);
+        }
       });
 
       const response = await fetch(`${API_URL}/api/espaces`, {
@@ -152,7 +154,7 @@ export default function EspaceAjout() {
               <option value="">-- Choisir un type --</option>
               {typeEspaces.map((type) => (
                 <option key={type.id_type_espace} value={type.id_type_espace}>
-                  {type.libelle}
+                  {type.libelle_type_espace}
                 </option>
               ))}
             </select>
@@ -168,7 +170,7 @@ export default function EspaceAjout() {
               </label>
               <input
                 type="number"
-                name="prix_reservation"
+                name="prix_journalier"
                 placeholder="Ex: 50000"
                 value={formData.prix_reservation}
                 onChange={handleChange}

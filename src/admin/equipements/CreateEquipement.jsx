@@ -7,8 +7,8 @@ function CreateEquipement() {
   const [saving, setSaving] = useState(false);
   const [espaces, setEspaces] = useState([]);
   const [formData, setFormData] = useState({
-    nom: "",
-    nombre: "",
+    nom_equipement: "",
+    nombre_equipement: "",
     id_espace: "",
   });
 
@@ -39,7 +39,7 @@ function CreateEquipement() {
     e.preventDefault();
     setSaving(true);
     try {
-      await fetch(`${API_URL}/api/equipementsalles`, {
+      await fetch("http://localhost:8000/api/equipements", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -70,8 +70,8 @@ function CreateEquipement() {
             Nom
           </label>
           <select
-            name="nom"
-            value={formData.nom}
+            name="nom_equipement"
+            value={formData.nom_equipement}
             onChange={handleChange}
             className="w-full border-2 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-cyan-400 bg-white border-[#B2F7EF]"
           >
@@ -99,7 +99,7 @@ function CreateEquipement() {
           </label>
           <input
             type="number"
-            name="nombre"
+            name="nombre_equipement"
             value={formData.nombre}
             onChange={handleChange}
             placeholder="Ex: 2"
