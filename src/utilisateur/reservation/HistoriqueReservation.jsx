@@ -6,6 +6,17 @@ function HistoriqueReservations() {
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // ✅ FORMAT DATE PROPRE
+  const formatDate = (date) => {
+    if (!date) return "—";
+
+    return new Date(date).toLocaleDateString("fr-FR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+  };
+
   useEffect(() => {
     const fetchReservations = async () => {
       try {
@@ -20,8 +31,6 @@ function HistoriqueReservations() {
         );
 
         const data = await response.json();
-
-        // ✅ backend gère déjà les réservations du user
         setReservations(data.data ?? []);
       } catch (err) {
         console.error(err);
@@ -86,7 +95,8 @@ function HistoriqueReservations() {
                     </h3>
 
                     <p className="text-xs text-gray-400 mt-1">
-                      Du {r.date_debut_reservation} au {r.date_fin_reservation}
+                      Du {formatDate(r.date_debut_reservation)} au{" "}
+                      {formatDate(r.date_fin_reservation)}
                     </p>
                   </div>
 
@@ -105,8 +115,7 @@ function HistoriqueReservations() {
 
                 <div className="flex justify-between items-center mt-3">
                   <p className="text-sm font-bold text-[#7BDFF2]">
-                    {Number(r.prix_total_reservation || 0).toLocaleString()}{" "}
-                    €
+                    {Number(r.prix_total_reservation || 0).toLocaleString()} €
                   </p>
 
                   <button

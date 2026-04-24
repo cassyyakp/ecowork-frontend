@@ -81,13 +81,13 @@ function ReservationShow() {
           <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
             <span className="text-sm text-gray-400">Frais</span>
             <span className="text-sm font-medium text-[#3a3a3a]">
-              {reservation.frais_reservation} FCFA
+              {reservation.frais_reservation} 
             </span>
           </div>
           <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
             <span className="text-sm text-gray-400">Prix total</span>
             <span className="text-sm font-medium text-[#3a3a3a]">
-              {reservation.prix_total_reservation} FCFA
+              {reservation.prix_total_reservation} €
             </span>
           </div>
           <div className="flex justify-between border-b border-[#B2F7EF] pb-3">

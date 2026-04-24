@@ -40,7 +40,7 @@ function Dashboard() {
             resReservations.json(),
           ]);
 
-        // 🔥 Gestion robuste des données
+    
         const getData = (res) => res?.data?.data || res?.data || [];
 
         const users = getData(dataUsers);

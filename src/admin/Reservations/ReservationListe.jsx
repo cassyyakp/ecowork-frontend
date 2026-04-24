@@ -95,7 +95,7 @@ function ReservationListe({ search }) {
                 {r.date_debut_reservation} → {r.date_fin_reservation}
               </p>
               <p className="text-sm font-bold text-[#7BDFF2]">
-                {r.prix_total_reservation} FCFA
+                {r.prix_total_reservation} €
               </p>
             </div>
             <div className="flex gap-2 mt-1">
@@ -159,7 +159,7 @@ function ReservationListe({ search }) {
                   {r.date_fin_reservation}
                 </td>
                 <td className="px-6 py-4 text-gray-500">
-                  {r.prix_total_reservation} FCFA
+                  {r.prix_total_reservation} €
                 </td>
                 <td className="px-6 py-4">
                   <span

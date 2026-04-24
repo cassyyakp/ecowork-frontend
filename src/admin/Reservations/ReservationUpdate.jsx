@@ -105,7 +105,7 @@ function ReservationUpdate() {
           <div className="bg-white border border-[#B2F7EF] rounded-xl px-4 py-3 mb-4 flex justify-between">
             <span className="text-sm text-gray-400">Prix total actuel</span>
             <span className="text-sm font-semibold text-[#3a3a3a]">
-              {prixTotal} FCFA
+              {prixTotal} €
             </span>
           </div>
         )}
