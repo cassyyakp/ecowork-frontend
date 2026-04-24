@@ -28,11 +28,11 @@ function ListeTemoignages() {
     return (
         <div className="py-16 px-8 bg-[#7BDFF2]">
             <div className="text-center mb-10">
-                <p className="text-4xl text-[#EFF7F6] font-semibold mb-2">
-                    Témoignages
+                <p className="text-xl italic text-[#EFF7F6]">
+                    ILS ONT TESTÉ,
                 </p>
-                <h2 className="text-3xl text-[#EFF7F6] font-bold">
-                    Ce que disent nos membres
+                <h2 className="text-4xl text-[#EFF7F6] font-bold">
+                    Ils en parlent !
                 </h2>
             </div>
 

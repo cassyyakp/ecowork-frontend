@@ -5,9 +5,9 @@ function BoutonBanner() {
 
     return (
         <div>
-            <button onClick={() => navigate('/espaces')}
+            <button onClick={() => navigate('/register')}
                 className="mt-6 px-6 py-3 rounded-xl font-semibold text-sm bg-[#F7D6E0] ">
-                Réservez dès maintentant
+                Inscrivez-vous maintenant !
             </button>
         </div>
     )

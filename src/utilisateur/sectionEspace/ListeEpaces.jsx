@@ -27,10 +27,16 @@ function ListeEspaces() {
           resEspaces.json(),
           resTypes.json(),
         ]);
-        const tousEspaces = Array.isArray(dataEspaces)
-          ? dataEspaces
-          : dataEspaces.data || [];
-        setEspaces(tousEspaces.filter((e) => [1, 4, 10].includes(e.id_espace)));
+          // const tousEspaces = Array.isArray(dataEspaces)
+          //   ? dataEspaces
+          //   : dataEspaces.data || [];
+        const tousEspaces = dataEspaces.data || [];
+
+        const derniersEspaces = [...tousEspaces]
+          .sort((a, b) => b.id_espace - a.id_espace)
+          .slice(0, 3);
+        setEspaces(derniersEspaces);
+
         setTypes(Array.isArray(dataTypes) ? dataTypes : dataTypes.data || []);
       } catch (err) {
         console.log(err);
