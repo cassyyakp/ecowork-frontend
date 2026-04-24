@@ -188,18 +188,18 @@ function CreateReservation() {
           {prixTotal && (
             <div className="bg-[#EFF7F6] border border-[#B2F7EF] rounded-xl px-4 py-4">
               <h1 className="text-2xl font-bold text-[#7BDFF2] text-center mb-4">
-                {prixTotal.toLocaleString()} FCFA
+                {prixTotal.toLocaleString()} €
               </h1>
               <div className="flex justify-between mb-2">
                 <span className="text-sm text-gray-400">Prix / jour</span>
                 <span className="text-sm text-[#3a3a3a]">
-                  {parseFloat(espace.prix_journalier).toLocaleString()} FCFA
+                  {parseFloat(espace.prix_journalier).toLocaleString()} €
                 </span>
               </div>
               <div className="flex justify-between mb-2">
                 <span className="text-sm text-gray-400">Frais (15%)</span>
                 <span className="text-sm text-[#3a3a3a]">
-                  {frais?.toLocaleString()} FCFA
+                  {frais?.toLocaleString()} €
                 </span>
               </div>
               <div className="flex justify-between border-t border-[#B2F7EF] pt-2 mt-2">
@@ -207,7 +207,7 @@ function CreateReservation() {
                   Total à payer
                 </span>
                 <span className="text-sm font-bold text-[#7BDFF2]">
-                  {prixTotal.toLocaleString()} FCFA
+                  {prixTotal.toLocaleString()} €
                 </span>
               </div>
             </div>

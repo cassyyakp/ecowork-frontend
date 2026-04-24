@@ -82,8 +82,8 @@ function ShowReservationUser() {
         ["Espace(s)", reservation.espaces?.map((e) => e.nom).join(", ") || "—"],
         ["Début", reservation.date_debut_reservation ?? "—"],
         ["Fin", reservation.date_fin_reservation ?? "—"],
-        ["Frais", `${formatPrix(reservation.frais_reservation)} FCFA`],
-        ["Total", `${formatPrix(reservation.prix_total_reservation)} FCFA`],
+        ["Frais", `${formatPrix(reservation.frais_reservation)} €`],
+        ["Total", `${formatPrix(reservation.prix_total_reservation)} €`],
         ["Statut", reservation.statut_reservation ?? "—"],
       ];
 
@@ -161,13 +161,13 @@ function ShowReservationUser() {
 
           <div className="flex justify-between border-b pb-3">
             <span className="text-sm text-gray-400">Frais</span>
-            <span>{formatPrix(reservation.frais_reservation)} FCFA</span>
+            <span>{formatPrix(reservation.frais_reservation)} €</span>
           </div>
 
           <div className="flex justify-between border-b pb-3">
             <span className="text-sm text-gray-400">Total</span>
             <span className="font-bold text-[#7BDFF2]">
-              {formatPrix(reservation.prix_total_reservation)} FCFA
+              {formatPrix(reservation.prix_total_reservation)} €
             </span>
           </div>
 

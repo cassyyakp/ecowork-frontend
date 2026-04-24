@@ -106,7 +106,7 @@ function HistoriqueReservations() {
                 <div className="flex justify-between items-center mt-3">
                   <p className="text-sm font-bold text-[#7BDFF2]">
                     {Number(r.prix_total_reservation || 0).toLocaleString()}{" "}
-                    FCFA
+                    €
                   </p>
 
                   <button

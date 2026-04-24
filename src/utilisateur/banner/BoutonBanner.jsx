@@ -15,7 +15,7 @@ function BoutonBanner() {
         <div>
             <button onClick={handleClick}
                 className="mt-6 px-6 py-3 rounded-xl font-semibold text-sm bg-[#F7D6E0] ">
-                Réservez dès maintenant !
+                Inscrivez-vous maintenant !
             </button>
         </div>
     )
