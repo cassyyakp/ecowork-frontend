@@ -1,21 +1,26 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { usePanier } from "../../context/PanierContext";
 
 function ShowEspace() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [espace, setEspace] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { ajouterEspace, panier } = usePanier();
 
   useEffect(() => {
     const fetchEspace = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/espaces/${id}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            Accept: "application/json",
+        const response = await fetch(
+          `http://localhost:8000/api/espaces/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Accept: "application/json",
+            },
           },
-        });
+        );
         const data = await response.json();
         setEspace(data.data);
       } catch (err) {
@@ -27,13 +32,22 @@ function ShowEspace() {
     fetchEspace();
   }, [id]);
 
-  if (loading) return <p className="text-sm text-gray-400 text-center mt-20">Chargement...</p>;
-  if (!espace) return <p className="text-sm text-gray-400 text-center mt-20">Espace introuvable.</p>;
+  if (loading)
+    return (
+      <p className="text-sm text-gray-400 text-center mt-20">Chargement...</p>
+    );
+  if (!espace)
+    return (
+      <p className="text-sm text-gray-400 text-center mt-20">
+        Espace introuvable.
+      </p>
+    );
+
+  const dejaDansPanier = panier.find((e) => e.id_espace === espace.id_espace);
+  const frais = parseFloat(espace.prix_journalier || 0) * 0.15;
 
   return (
     <div className="max-w-2xl mx-auto py-10 px-6">
-
-  
       {espace.photo_salle ? (
         <img
           src={espace.photo_salle}
@@ -46,30 +60,55 @@ function ShowEspace() {
         </div>
       )}
 
-
       <h1 className="text-2xl font-bold text-[#3a3a3a] mb-2">{espace.nom}</h1>
       <p className="text-sm text-gray-400 mb-6">{espace.surface} m²</p>
-
 
       <div className="flex flex-col gap-4 bg-[#EFF7F6] rounded-2xl p-6 border border-[#B2F7EF] mb-6">
         <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
           <span className="text-sm text-gray-400">Prix / jour</span>
           <span className="text-sm font-semibold text-[#7BDFF2]">
-            {parseFloat(espace.prix_reservation).toLocaleString()} €
+            {parseFloat(espace.prix_journalier || 0).toLocaleString()} FCFA
           </span>
         </div>
         <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
-          <span className="text-sm text-gray-400">Frais de réservation</span>
+          <span className="text-sm text-gray-400">
+            Frais de réservation (15%)
+          </span>
           <span className="text-sm font-medium text-[#3a3a3a]">
-            {parseFloat(espace.frais_reservation).toLocaleString()} €
+            {frais.toLocaleString()} FCFA
           </span>
         </div>
         <div className="flex justify-between">
           <span className="text-sm text-gray-400">Surface</span>
-          <span className="text-sm font-medium text-[#3a3a3a]">{espace.surface} m²</span>
+          <span className="text-sm font-medium text-[#3a3a3a]">
+            {espace.surface} m²
+          </span>
         </div>
       </div>
 
+      {/* Equipements */}
+      {espace.equipements && espace.equipements.length > 0 && (
+        <div className="mb-6">
+          <h2 className="text-lg font-bold text-[#3a3a3a] mb-4">
+            Équipements inclus
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {espace.equipements.map((item) => (
+              <div
+                key={item.id_equipement}
+                className="flex items-center justify-between bg-white border border-[#B2F7EF] px-4 py-3 rounded-xl"
+              >
+                <span className="text-sm text-[#3a3a3a] font-medium">
+                  {item.nom_equipement}
+                </span>
+                <span className="text-xs font-bold bg-[#7BDFF2] text-white px-2 py-1 rounded-full">
+                  x{item.nombre_equipement}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="flex gap-3">
         <button
@@ -79,13 +118,19 @@ function ShowEspace() {
           Retour
         </button>
         <button
-          onClick={() => navigate(`/reservations/create/${espace.id_espace}`)}
+          onClick={() => {
+            if (dejaDansPanier) {
+              navigate("/panier");
+            } else {
+              ajouterEspace(espace);
+              navigate("/panier");
+            }
+          }}
           className="flex-1 py-3 rounded-xl text-sm font-semibold bg-[#7BDFF2] text-white hover:bg-cyan-400 transition-all"
         >
-          Réserver
+          {dejaDansPanier ? "Voir panier" : "Ajouter au panier"}
         </button>
       </div>
-
     </div>
   );
 }

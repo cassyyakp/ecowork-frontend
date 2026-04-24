@@ -18,15 +18,25 @@ function Sidebar({ onClose }) {
 
   const handleLogout = () => {
     logout();
-    navigate("/login");
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    navigate("/", { replace: true });
+
+    window.location.reload();
   };
 
   return (
     <div
-      className={`flex flex-col min-h-screen h-screen overflow-y-auto w-64 px-4 py-6 shadow-md ${lowCarbon ? "bg-gray-100" : "bg-[#EFF7F6]"}`}
+      className={`flex flex-col min-h-screen h-screen overflow-y-auto w-64 px-4 py-6 shadow-md ${
+        lowCarbon ? "bg-gray-100" : "bg-[#EFF7F6]"
+      }`}
     >
       <div
-        className={`flex items-center justify-between py-6 border-b ${lowCarbon ? "border-gray-300" : "border-[#B2F7EF]"}`}
+        className={`flex items-center justify-between py-6 border-b ${
+          lowCarbon ? "border-gray-300" : "border-[#B2F7EF]"
+        }`}
       >
         <img
           src="/images/logo-ecowork.png"
@@ -41,33 +51,51 @@ function Sidebar({ onClose }) {
         </button>
       </div>
 
+      {/* NAV */}
       <nav className="flex flex-col gap-2 flex-1 py-6">
         {navLinks.map(({ label, path }) => {
           const isActive = location.pathname === path;
+
           return (
             <Link
               key={path}
               to={path}
               onClick={onClose}
-              className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200
-                ${
-                  isActive
-                    ? lowCarbon
-                      ? "bg-gray-400 text-white"
-                      : "bg-[#7BDFF2] text-white"
-                    : lowCarbon
-                      ? "text-gray-600 hover:bg-gray-200"
-                      : "text-[#3a3a3a] hover:bg-[#B2F7EF]"
-                }`}
+              className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+                isActive
+                  ? lowCarbon
+                    ? "bg-gray-400 text-white"
+                    : "bg-[#7BDFF2] text-white"
+                  : lowCarbon
+                    ? "text-gray-600 hover:bg-gray-200"
+                    : "text-[#3a3a3a] hover:bg-[#B2F7EF]"
+              }`}
             >
               {label}
             </Link>
           );
         })}
-      </nav>
 
+        <Link
+          to="/accueil"
+          onClick={onClose}
+          className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+            location.pathname === "/accueil"
+              ? lowCarbon
+                ? "bg-gray-400 text-white"
+                : "bg-[#7BDFF2] text-white"
+              : lowCarbon
+                ? "text-gray-600 hover:bg-gray-200"
+                : "text-[#3a3a3a] hover:bg-[#B2F7EF]"
+          }`}
+        >
+          Voir le site
+        </Link>
+      </nav>
       <div
-        className={`py-4 border-t ${lowCarbon ? "border-gray-300" : "border-[#B2F7EF]"}`}
+        className={`py-4 border-t ${
+          lowCarbon ? "border-gray-300" : "border-[#B2F7EF]"
+        }`}
       >
         <button
           onClick={toggle}
@@ -86,8 +114,11 @@ function Sidebar({ onClose }) {
         </button>
       </div>
 
+
       <div
-        className={`flex justify-center py-6 border-t ${lowCarbon ? "border-gray-300" : "border-[#B2F7EF]"}`}
+        className={`flex justify-center py-6 border-t ${
+          lowCarbon ? "border-gray-300" : "border-[#B2F7EF]"
+        }`}
       >
         <button
           onClick={handleLogout}

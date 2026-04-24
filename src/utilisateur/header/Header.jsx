@@ -2,12 +2,15 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ProfilDropdown from "./ProfilDropdwon";
 import { useLowCarbon } from "../../context/LowcarbonContext";
+import { usePanier } from "../../context/PanierContext";
 
 function Header() {
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { lowCarbon, toggle } = useLowCarbon();
+  const { panier } = usePanier();
+  const navigate = useNavigate();
 
   const handleProtectedLink = (routeConnecte) => {
     if (localStorage.getItem("token")) {
@@ -24,7 +27,6 @@ function Header() {
   return (
     <header className="w-full bg-white border-b border-[#B2F7EF] px-6 py-4">
       <div className="flex items-center justify-between">
-
         <div className="flex items-center">
           <img
             src="/images/logo-ecowork.png"
@@ -69,6 +71,20 @@ function Header() {
             </span>
           </button>
 
+          {/* Panier */}
+          <button
+            onClick={() => navigate("/panier")}
+            className="relative flex items-center px-3 py-2 rounded-xl hover:bg-[#EFF7F6] transition-all"
+          >
+            <span className="text-xl">🛒</span>
+            {panier.length > 0 && (
+              <span className="absolute -top-1 -right-1 bg-[#7BDFF2] text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                {panier.length}
+              </span>
+            )}
+          </button>
+
+          {/* Profil */}
           <div className="relative">
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -94,34 +110,47 @@ function Header() {
       </div>
 
       {/* Nav mobile */}
-      {
-        menuOpen && (
-          <nav className="md:hidden flex flex-col gap-3 pt-4 border-t border-[#B2F7EF] mt-4">
-            <Link
-              to="/accueil"
-              onClick={() => setMenuOpen(false)}
-              className={linkClass}
-            >
-              Accueil
-            </Link>
-
-            <button
-              onClick={() => handleProtectedLink("/espaces")}
-              className={`${linkClass} text-left`}
-            >
-              Espaces
-            </button>
-
-            <button
-              onClick={() => handleProtectedLink("/reservations")}
-              className={`${linkClass} text-left`}
-            >
-              Réservations
-            </button>
-          </nav>
-        )
-      }
-    </header >
+      {menuOpen && (
+        <nav className="md:hidden flex flex-col gap-3 pt-4 border-t border-[#B2F7EF] mt-4">
+          <Link
+            to="/accueil"
+            onClick={() => setMenuOpen(false)}
+            className="text-sm font-medium text-[#3a3a3a] hover:text-[#7BDFF2] transition-all"
+          >
+            Accueil
+          </Link>
+          <Link
+            to="/espaces"
+            onClick={() => setMenuOpen(false)}
+            className="text-sm font-medium text-[#3a3a3a] hover:text-[#7BDFF2] transition-all"
+          >
+            Espaces
+          </Link>
+          <Link
+            to="/reservations"
+            onClick={() => setMenuOpen(false)}
+            className="text-sm font-medium text-[#3a3a3a] hover:text-[#7BDFF2] transition-all"
+          >
+            Réservations
+          </Link>
+          {/* Panier mobile */}
+          <button
+            onClick={() => {
+              navigate("/panier");
+              setMenuOpen(false);
+            }}
+            className="text-left text-sm font-medium text-[#3a3a3a] hover:text-[#7BDFF2] transition-all flex items-center gap-2"
+          >
+            🛒 Panier
+            {panier.length > 0 && (
+              <span className="bg-[#7BDFF2] text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                {panier.length}
+              </span>
+            )}
+          </button>
+        </nav>
+      )}
+    </header>
   );
 }
 

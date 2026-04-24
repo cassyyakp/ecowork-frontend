@@ -9,17 +9,7 @@ function ProfilDropdown({ onClose }) {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    onClose();
-    navigate("/AuthPage");
-  };
-
-  const handleProfil = () => {
-    if (estConnecte) {
-      navigate("/profil");
-    } else {
-      navigate("/AuthPage");
-    }
-    onClose();
+    navigate("/");
   };
 
   return (
