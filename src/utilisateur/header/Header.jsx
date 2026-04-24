@@ -10,7 +10,6 @@ function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { lowCarbon, toggle } = useLowCarbon();
   const { panier } = usePanier();
-  const navigate = useNavigate();
 
   const handleProtectedLink = (routeConnecte) => {
     if (localStorage.getItem("token")) {
