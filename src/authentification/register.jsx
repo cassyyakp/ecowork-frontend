@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 export default function RegisterForm({ onSwitch }) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     nom: "",
@@ -67,7 +67,7 @@ export default function RegisterForm({ onSwitch }) {
 
       {/* ERROR */}
       {status === "error" && (
-        <div className="text-sm px-4 py-3 bg-[#F7D6E0] text-[#c0395a] rounded-xl mb-4 text-center">
+        <div data-cy="register-error" className="text-sm px-4 py-3 bg-[#F7D6E0] text-[#c0395a] rounded-xl mb-4 text-center">
           {errorMsg}
         </div>
       )}
@@ -77,6 +77,7 @@ export default function RegisterForm({ onSwitch }) {
         <div className="flex flex-col sm:flex-row gap-3 mb-3">
           <input
             type="text"
+            data-cy="register-nom"
             name="nom"
             placeholder="Nom"
             value={formData.nom}
@@ -86,6 +87,7 @@ export default function RegisterForm({ onSwitch }) {
           />
           <input
             type="text"
+            data-cy="register-prenom"
             name="prenom"
             placeholder="Prénom(s)"
             value={formData.prenom}
@@ -98,6 +100,7 @@ export default function RegisterForm({ onSwitch }) {
         <div className="mb-3">
           <input
             type="email"
+            data-cy="register-email"
             name="email"
             placeholder="Email"
             value={formData.email}
@@ -110,6 +113,7 @@ export default function RegisterForm({ onSwitch }) {
         <div className="mb-3">
           <input
             type="password"
+            data-cy="register-password"
             name="password"
             placeholder="Mot de passe"
             value={formData.password}
@@ -122,6 +126,7 @@ export default function RegisterForm({ onSwitch }) {
         <div className="mb-3">
           <input
             type="text"
+            data-cy="register-telephone"
             name="numero_telephone"
             placeholder="Téléphone"
             value={formData.numero_telephone}
@@ -134,6 +139,7 @@ export default function RegisterForm({ onSwitch }) {
         <div className="mb-4">
           <input
             type="text"
+            data-cy="register-adresse"
             name="adresse"
             placeholder="Adresse"
             value={formData.adresse}
@@ -145,6 +151,7 @@ export default function RegisterForm({ onSwitch }) {
 
         <button
           type="submit"
+          data-cy="register-submit"
           disabled={status === "loading"}
           className="w-full font-semibold py-3 rounded-xl text-sm transition duration-200 active:opacity-70 disabled:opacity-50 bg-[#7BDFF2] text-white shadow-sm"
         >

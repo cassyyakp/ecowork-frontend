@@ -6,7 +6,7 @@ function HistoriqueReservations() {
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // ✅ FORMAT DATE PROPRE
+
   const formatDate = (date) => {
     if (!date) return "—";
 
@@ -48,7 +48,7 @@ function HistoriqueReservations() {
     );
 
   return (
-    <div className="max-w-4xl mx-auto py-10 px-6">
+    <div data-cy="page-mes-reservations" className="max-w-4xl mx-auto py-10 px-6">
       <h2 className="text-2xl font-bold text-[#3a3a3a] mb-2">
         Mes réservations
       </h2>
@@ -73,6 +73,7 @@ function HistoriqueReservations() {
           {reservations.map((r) => (
             <div
               key={r.id_reservation}
+              data-cy="card-reservation"
               className="flex gap-4 bg-white border border-[#B2F7EF] rounded-2xl overflow-hidden hover:shadow-md transition-all"
             >
               {/* ESPACES */}

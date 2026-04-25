@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import CardEspace from "./CardEspace";
 import FiltreEspace from "./FiltreEspace";
 import TextEspace from "./TextEspace";
+import { useNavigate } from "react-router-dom";
 
 function PageEspace() {
+  const navigate = useNavigate();
   const utilisateur = JSON.parse(localStorage.getItem("user"));
 
 
@@ -112,7 +114,12 @@ function PageEspace() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {espacesFiltres.map((espace) => (
-          <CardEspace key={espace.id_espace} espace={espace} />
+          <div key={espace.id_espace}
+            data-cy="card-espace" 
+            onClick={() => navigate(`/espaces/${espace.id_espace}`)}
+            className="cursor-pointer">
+            <CardEspace espace={espace} />
+          </div>
         ))}
       </div>
     </div>

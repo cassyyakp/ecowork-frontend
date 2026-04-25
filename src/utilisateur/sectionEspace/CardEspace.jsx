@@ -32,7 +32,7 @@ function CardEspace({ espace }) {
         <p className="text-xs mt-1 text-[#888]">{espace.surface} m²</p>
         <div className="flex justify-between items-center mt-4">
           <p className="font-bold text-sm text-[#7BDFF2]">
-            {parseFloat(espace.prix_journalier || 0).toLocaleString()}  €
+            {parseFloat(espace.prix_journalier).toLocaleString()}  €
             <span className="text-xs text-gray-400"> / jour</span>
           </p>
           <div className="flex gap-2">

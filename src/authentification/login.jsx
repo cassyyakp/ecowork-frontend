@@ -32,9 +32,14 @@ function Login({ onSwitch }) {
 
       const data = await response.json();
 
+       
+
       if (!response.ok) {
         throw new Error(data.message || "Identifiants incorrects.");
       }
+
+      
+
 
       login(data.token, data.user);
       setStatus("success");
@@ -79,6 +84,7 @@ function Login({ onSwitch }) {
           </label>
           <input
             type="email"
+            data-cy="login-email"
             name="email"
             value={formData.email}
             onChange={handleChange}
@@ -94,6 +100,7 @@ function Login({ onSwitch }) {
           </label>
           <input
             type="password"
+            data-cy="login-password"
             name="password"
             value={formData.password}
             onChange={handleChange}
@@ -105,6 +112,7 @@ function Login({ onSwitch }) {
 
         <button
           type="submit"
+          data-cy="login-submit"
           disabled={status === "loading"}
           className="w-full font-semibold py-3 rounded-xl text-sm transition duration-200 active:opacity-70 disabled:opacity-50 bg-[#7BDFF2] text-white shadow-sm"
         >
@@ -116,6 +124,7 @@ function Login({ onSwitch }) {
         Pas encore de compte ?{" "}
         <button
           onClick={onSwitch}
+          data-cy="switch-to-register"
           className="font-semibold text-[#7BDFF2] hover:underline focus:outline-none"
         >
           S'inscrire

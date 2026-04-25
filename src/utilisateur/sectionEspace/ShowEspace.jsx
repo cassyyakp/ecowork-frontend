@@ -36,18 +36,18 @@ function ShowEspace() {
     return (
       <p className="text-sm text-gray-400 text-center mt-20">Chargement...</p>
     );
-  if (!espace)
-    return (
-      <p className="text-sm text-gray-400 text-center mt-20">
-        Espace introuvable.
-      </p>
-    );
+  // if (!espace)
+  //   return (
+  //     <p className="text-sm text-gray-400 text-center mt-20">
+  //       Espace introuvable.
+  //     </p>
+  //   );
 
   const dejaDansPanier = panier.find((e) => e.id_espace === espace.id_espace);
   const frais = parseFloat(espace.prix_journalier || 0) * 0.15;
 
   return (
-    <div className="max-w-2xl mx-auto py-10 px-6">
+    <div data-cy="page-show-espace" className="max-w-2xl mx-auto py-10 px-6">
       {espace.photo_salle ? (
         <img
           src={espace.photo_salle}
@@ -60,7 +60,7 @@ function ShowEspace() {
         </div>
       )}
 
-      <h1 className="text-2xl font-bold text-[#3a3a3a] mb-2">{espace.nom}</h1>
+      <h1 data-cy="espace-nom" className="text-2xl font-bold text-[#3a3a3a] mb-2">{espace.nom}</h1>
       <p className="text-sm text-gray-400 mb-6">{espace.surface} m²</p>
 
       <div className="flex flex-col gap-4 bg-[#EFF7F6] rounded-2xl p-6 border border-[#B2F7EF] mb-6">
@@ -118,6 +118,7 @@ function ShowEspace() {
           Retour
         </button>
         <button
+          data-cy="btn-ajouter-panier"
           onClick={() => {
             if (dejaDansPanier) {
               navigate("/panier");

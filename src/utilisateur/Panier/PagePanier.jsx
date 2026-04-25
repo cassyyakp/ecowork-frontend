@@ -6,7 +6,7 @@ function PagePanier() {
   const navigate = useNavigate();
   const { panier, retirerEspace, viderPanier } = usePanier();
 
-  // ✅ État initial mis à jour avec mode_paiement
+
   const [formData, setFormData] = useState({
     date_debut_reservation: "",
     date_fin_reservation: "",
@@ -18,15 +18,15 @@ function PagePanier() {
 
   const user = JSON.parse(localStorage.getItem("user"));
 
-  // Calcul du nombre de jours
+
   const nbJours =
     formData.date_debut_reservation && formData.date_fin_reservation
       ? Math.max(
-          1,
-          (new Date(formData.date_fin_reservation) -
-            new Date(formData.date_debut_reservation)) /
-            (1000 * 60 * 60 * 24),
-        )
+        1,
+        (new Date(formData.date_fin_reservation) -
+          new Date(formData.date_debut_reservation)) /
+        (1000 * 60 * 60 * 24),
+      )
       : 0;
 
   const prixJournalierTotal = panier.reduce(
@@ -34,14 +34,14 @@ function PagePanier() {
     0,
   );
 
-  // ✅ Calculs adaptés au mode de paiement
+
   const frais = prixJournalierTotal * 0.15;
   const prixTotal =
     formData.mode_paiement === "totalite"
       ? prixJournalierTotal * nbJours + frais
       : frais;
 
-  // ✅ Fonction date limite solde (J-2)
+
   const getDateLimiteSolde = () => {
     if (!formData.date_debut_reservation) return null;
     const date = new Date(formData.date_debut_reservation);
@@ -75,7 +75,7 @@ function PagePanier() {
           date_debut_reservation: formData.date_debut_reservation,
           date_fin_reservation: formData.date_fin_reservation,
           id_utilisateur: user.id_utilisateur,
-          mode_paiement: formData.mode_paiement, // ✅ Ajouté ici
+          mode_paiement: formData.mode_paiement,
           espaces: panier.map((e) => e.id_espace),
         }),
       });
@@ -112,11 +112,11 @@ function PagePanier() {
     );
 
   return (
-    <div className="max-w-2xl mx-auto py-10 px-6">
+    <div data-cy="page-panier" className="max-w-2xl mx-auto py-10 px-6">
       <h2 className="text-2xl font-bold text-[#3a3a3a] mb-6">Mon panier</h2>
 
       {status === "error" && (
-        <div className="text-sm px-4 py-3 bg-[#F7D6E0] text-red-500 rounded-xl mb-5 text-center">
+        <div data-cy="panier-error" className="text-sm px-4 py-3 bg-[#F7D6E0] text-red-500 rounded-xl mb-5 text-center">
           {errorMsg}
         </div>
       )}
@@ -126,6 +126,7 @@ function PagePanier() {
         {panier.map((espace) => (
           <div
             key={espace.id_espace}
+            data-cy="panier-item"
             className="flex gap-4 bg-white border border-[#B2F7EF] rounded-2xl overflow-hidden"
           >
             <div className="w-24 h-24 flex-shrink-0 bg-[#B2F7EF]">
@@ -146,7 +147,7 @@ function PagePanier() {
                 <p className="font-bold text-sm text-[#3a3a3a]">{espace.nom}</p>
                 <p className="text-xs text-gray-400">{espace.surface} m²</p>
                 <p className="text-sm font-semibold text-[#7BDFF2] mt-1">
-                  {parseFloat(espace.prix_journalier).toLocaleString()} FCFA /
+                  {parseFloat(espace.prix_journalier).toLocaleString()} € /
                   jour
                 </p>
               </div>
@@ -175,6 +176,7 @@ function PagePanier() {
               <input
                 type="date"
                 name="date_debut_reservation"
+                data-cy="panier-date-debut"
                 value={formData.date_debut_reservation}
                 onChange={handleChange}
                 required
@@ -189,6 +191,7 @@ function PagePanier() {
               <input
                 type="date"
                 name="date_fin_reservation"
+                data-cy="panier-date-fin"
                 value={formData.date_fin_reservation}
                 onChange={handleChange}
                 required
@@ -208,6 +211,7 @@ function PagePanier() {
             </label>
             <select
               name="mode_paiement"
+              data-cy="panier-mode-paiement"
               value={formData.mode_paiement}
               onChange={handleChange}
               className="w-full border-2 border-[#B2F7EF] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-cyan-400 bg-white"
@@ -237,19 +241,19 @@ function PagePanier() {
 
           {/* Récap prix dynamique */}
           {nbJours > 0 && (
-            <div className="bg-[#EFF7F6] border border-[#B2F7EF] rounded-xl px-4 py-4">
+            <div data-cy="panier-recap-prix" className="bg-[#EFF7F6] border border-[#B2F7EF] rounded-xl px-4 py-4">
               <div className="flex justify-between mb-2">
                 <span className="text-sm text-gray-400">
                   Location ({nbJours}j)
                 </span>
                 <span className="text-sm text-[#3a3a3a]">
-                  {(prixJournalierTotal * nbJours).toLocaleString()} FCFA
+                  {(prixJournalierTotal * nbJours).toLocaleString()} €
                 </span>
               </div>
               <div className="flex justify-between mb-2">
                 <span className="text-sm text-gray-400">Frais (15%)</span>
                 <span className="text-sm text-[#3a3a3a]">
-                  {frais.toLocaleString()} FCFA
+                  {frais.toLocaleString()} €
                 </span>
               </div>
               <div className="flex justify-between border-t border-[#B2F7EF] pt-2 mt-2">
@@ -258,7 +262,7 @@ function PagePanier() {
                   {formData.mode_paiement === "totalite" ? "Total" : "Acompte"})
                 </span>
                 <span className="text-sm font-bold text-[#7BDFF2]">
-                  {prixTotal.toLocaleString()} FCFA
+                  {prixTotal.toLocaleString()} €
                 </span>
               </div>
             </div>
@@ -274,6 +278,7 @@ function PagePanier() {
             </button>
             <button
               type="submit"
+              data-cy="panier-submit"
               disabled={status === "loading" || nbJours === 0}
               className="flex-1 py-3 rounded-xl text-sm font-semibold bg-[#7BDFF2] text-white hover:bg-cyan-400 transition-all disabled:opacity-50"
             >
