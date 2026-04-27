@@ -1,17 +1,19 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ProfilDropdown from "./ProfilDropdwon";
 import { useLowCarbon } from "../../context/LowcarbonContext";
+import { usePanier } from "../../context/PanierContext";
 
 function Header() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { lowCarbon, toggle } = useLowCarbon();
+  const { panier } = usePanier();
+  const navigate = useNavigate();
 
   return (
     <header className="w-full bg-white border-b border-[#B2F7EF] px-6 py-4">
       <div className="flex items-center justify-between">
-
         <div className="flex items-center">
           <img
             src="/images/logo-ecowork.png"
@@ -41,75 +43,90 @@ function Header() {
           </Link>
         </nav>
 
-      <div className="flex items-center gap-3">
-        <button
-          onClick={toggle}
-          title={lowCarbon ? "Mode normal" : "Mode low carbon"}
-          className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium border border-[#B2F7EF] hover:bg-[#EFF7F6] transition-all"
-        >
-          <img
-            src="/images/low-carbon.webp"
-            alt="low carbon"
-            className="w-4 h-4 object-contain"
-          />
-          <span className="hidden sm:inline">
-            {lowCarbon ? "Mode normal" : "Low carbon"}
-          </span>
-        </button>
-
-        <div className="relative">
+        <div className="flex items-center gap-3">
           <button
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-[#EFF7F6] transition-all"
+            onClick={toggle}
+            title={lowCarbon ? "Mode normal" : "Mode low carbon"}
+            className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium border border-[#B2F7EF] hover:bg-[#EFF7F6] transition-all"
           >
-            <div className="w-9 h-9 rounded-full bg-[#7BDFF2] flex items-center justify-center">
-              <img src="/images/user.webp" alt="user" className="w-4 h-4" />
-            </div>
-            <span className="text-xs text-gray-400 hidden sm:inline">▼</span>
+            <img
+              src="/images/low-carbon.webp"
+              alt="low carbon"
+              className="w-4 h-4 object-contain"
+            />
+            <span className="hidden sm:inline">
+              {lowCarbon ? "Mode normal" : "Low carbon"}
+            </span>
           </button>
-          {dropdownOpen && (
-            <ProfilDropdown onClose={() => setDropdownOpen(false)} />
-          )}
+    
+          <button
+            onClick={() => navigate("/panier")}
+            className="relative flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-[#EFF7F6] transition-all"
+          >
+            <img src="images/panier.svg" alt="Panier" className="w-5 h-5" />
+
+            {panier.length > 0 && (
+              <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[#7BDFF2] text-white text-xs flex items-center justify-center font-bold">
+                {panier.length}
+              </span>
+            )}
+          </button>
+          <div className="relative">
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-[#EFF7F6] transition-all"
+            >
+              <div className="w-9 h-9 rounded-full bg-[#7BDFF2] flex items-center justify-center">
+                <img src="/images/user.webp" alt="user" className="w-4 h-4" />
+              </div>
+              <span className="text-xs text-gray-400 hidden sm:inline">▼</span>
+            </button>
+            {dropdownOpen && (
+              <ProfilDropdown onClose={() => setDropdownOpen(false)} />
+            )}
+          </div>
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="md:hidden p-2 rounded-xl border border-[#B2F7EF]"
+          >
+            ☰
+          </button>
         </div>
-
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden p-2 rounded-xl border border-[#B2F7EF]"
-        >
-          ☰
-        </button>
       </div>
-    </div>
 
-      {/* Nav mobile */ }
-  {
-    menuOpen && (
-      <nav className="md:hidden flex flex-col gap-3 pt-4 border-t border-[#B2F7EF] mt-4">
-        <Link
-          to="/accueil"
-          onClick={() => setMenuOpen(false)}
-          className="text-sm font-medium text-[#3a3a3a] hover:text-[#7BDFF2] transition-all"
-        >
-          Accueil
-        </Link>
-        <Link
-          to="/espaces"
-          onClick={() => setMenuOpen(false)}
-          className="text-sm font-medium text-[#3a3a3a] hover:text-[#7BDFF2] transition-all"
-        >
-          Espaces
-        </Link>
-        <Link
-          to="/reservations"
-          onClick={() => setMenuOpen(false)}
-          className="text-sm font-medium text-[#3a3a3a] hover:text-[#7BDFF2] transition-all"
-        >
-          Réservations
-        </Link>
-      </nav>
-    )
-  }
-    </header >
+      {menuOpen && (
+        <nav className="md:hidden flex flex-col gap-3 pt-4 border-t border-[#B2F7EF] mt-4">
+          <Link
+            to="/accueil"
+            onClick={() => setMenuOpen(false)}
+            className="text-sm font-medium text-[#3a3a3a] hover:text-[#7BDFF2] transition-all"
+          >
+            Accueil
+          </Link>
+          <Link
+            to="/espaces"
+            onClick={() => setMenuOpen(false)}
+            className="text-sm font-medium text-[#3a3a3a] hover:text-[#7BDFF2] transition-all"
+          >
+            Espaces
+          </Link>
+          <Link
+            to="/reservations"
+            onClick={() => setMenuOpen(false)}
+            className="text-sm font-medium text-[#3a3a3a] hover:text-[#7BDFF2] transition-all"
+          >
+            Réservations
+          </Link>
+          <Link
+            to="/panier"
+            onClick={() => setMenuOpen(false)}
+            className="text-sm font-medium text-[#3a3a3a] hover:text-[#7BDFF2] transition-all"
+          >
+            🛒 Panier {panier.length > 0 && `(${panier.length})`}
+          </Link>
+        </nav>
+      )}
+    </header>
   );
 }
 

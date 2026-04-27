@@ -51,7 +51,7 @@ function CardEspace({ espace }) {
                   : "bg-[#F7D6E0] text-[#3a3a3a] hover:bg-pink-200"
                 }`}
             >
-              {dejaDansPanier ? "Voir panier" : "Ajouter"}
+              {dejaDansPanier ? "Voir panier" : "Ajouter au panier"}
             </button>
           </div>
         </div>

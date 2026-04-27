@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import jsPDF from "jspdf";
 
 function ShowReservationUser() {
   const { id } = useParams();
@@ -24,8 +23,6 @@ function ShowReservationUser() {
         );
 
         const data = await response.json();
-
-        // 🔥 sécurité : empêcher accès autre user
         if (
           user &&
           data.data &&
@@ -52,55 +49,13 @@ function ShowReservationUser() {
       .replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   };
 
-  const generatePDF = () => {
-    const doc = new jsPDF();
-    const pageWidth = doc.internal.pageSize.getWidth();
-
-    const logo = new Image();
-    logo.src = "/images/logo-ecowork.png";
-
-    logo.onload = () => {
-      doc.addImage(logo, "PNG", 14, 10, 40, 20);
-
-      doc.setFontSize(20);
-      doc.setFont("helvetica", "bold");
-      doc.text("FACTURE", pageWidth / 2, 20, { align: "center" });
-
-      doc.setFontSize(11);
-      doc.setFont("helvetica", "normal");
-      doc.text(
-        `Réservation N° ${reservation.id_reservation}`,
-        pageWidth / 2,
-        28,
-        { align: "center" },
-      );
-
-      doc.line(14, 36, pageWidth - 14, 36);
-
-      const rows = [
-        ["Utilisateur", reservation.utilisateur ?? "—"],
-        ["Espace(s)", reservation.espaces?.map((e) => e.nom).join(", ") || "—"],
-        ["Début", reservation.date_debut_reservation ?? "—"],
-        ["Fin", reservation.date_fin_reservation ?? "—"],
-        ["Frais", `${formatPrix(reservation.frais_reservation)} €`],
-        ["Total", `${formatPrix(reservation.prix_total_reservation)} €`],
-        ["Statut", reservation.statut_reservation ?? "—"],
-      ];
-
-      let y = 75;
-
-      rows.forEach(([label, value]) => {
-        doc.setFont("helvetica", "bold");
-        doc.text(label, 14, y);
-
-        doc.setFont("helvetica", "normal");
-        doc.text(String(value), pageWidth - 14, y, { align: "right" });
-
-        y += 10;
-      });
-
-      doc.save(`reservation-${reservation.id_reservation}.pdf`);
-    };
+  const downloadFacture = () => {
+    if (!reservation.facture) return;
+    const url = `http://localhost:8000/storage/${reservation.facture}`;
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = reservation.facture.split("/").pop();
+    a.click();
   };
 
   if (loading)
@@ -122,7 +77,6 @@ function ShowReservationUser() {
           Détail réservation
         </h2>
 
-    
         {reservation.espaces?.length > 0 ? (
           <div className="flex gap-3 overflow-x-auto mb-6">
             {reservation.espaces.map((espace) => (
@@ -140,7 +94,6 @@ function ShowReservationUser() {
           </div>
         )}
 
-  
         <div className="flex flex-col gap-4">
           <div className="flex justify-between border-b pb-3">
             <span className="text-sm text-gray-400">Espace(s)</span>
@@ -187,12 +140,21 @@ function ShowReservationUser() {
             Retour
           </button>
 
-          <button
-            onClick={generatePDF}
-            className="flex-1 py-3 rounded-xl bg-[#7BDFF2] text-white"
-          >
-            Télécharger facture
-          </button>
+          {reservation.facture ? (
+            <button
+              onClick={downloadFacture}
+              className="flex-1 py-3 rounded-xl bg-[#7BDFF2] text-white"
+            >
+              Télécharger facture
+            </button>
+          ) : (
+            <button
+              disabled
+              className="flex-1 py-3 rounded-xl bg-gray-200 text-gray-400 cursor-not-allowed"
+            >
+              Facture indisponible
+            </button>
+          )}
         </div>
       </div>
     </div>

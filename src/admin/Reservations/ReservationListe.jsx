@@ -37,7 +37,7 @@ function ReservationListe({ search }) {
   };
 
   const handleDelete = async (id) => {
-    if (!confirm("Supprimer cette réservation ?")) return;
+    if (!window.confirm("Supprimer cette réservation ?")) return;
     try {
       await fetch(`http://localhost:8000/api/reservations/${id}`, {
         method: "DELETE",
@@ -57,6 +57,7 @@ function ReservationListe({ search }) {
   );
 
   if (loading) return <p className="text-sm text-gray-400">Chargement...</p>;
+
   if (filtered.length === 0)
     return <p className="text-sm text-gray-400">Aucune réservation trouvée.</p>;
 
@@ -90,6 +91,7 @@ function ReservationListe({ search }) {
                 {r.statut_reservation}
               </span>
             </div>
+
             <div className="flex justify-between items-center">
               <p className="text-xs text-gray-400">
                 {r.date_debut_reservation} → {r.date_fin_reservation}
@@ -98,6 +100,20 @@ function ReservationListe({ search }) {
                 {r.prix_total_reservation} €
               </p>
             </div>
+
+            {r.facture ? (
+              <a
+                href={`http://localhost:8000/storage/${r.facture}`}
+                target="_blank"
+                rel="noreferrer"
+                className="text-[#7BDFF2] text-xs font-medium hover:underline"
+              >
+                📄 {r.facture.split("/").pop()}
+              </a>
+            ) : (
+              <span className="text-xs text-gray-400">Aucune facture</span>
+            )}
+
             <div className="flex gap-2 mt-1">
               <button
                 onClick={() =>
@@ -107,6 +123,7 @@ function ReservationListe({ search }) {
               >
                 Voir
               </button>
+
               <button
                 onClick={() =>
                   navigate(`/admin/reservations/update/${r.id_reservation}`)
@@ -115,6 +132,7 @@ function ReservationListe({ search }) {
               >
                 Modifier
               </button>
+
               <button
                 onClick={() => handleDelete(r.id_reservation)}
                 className="flex-1 py-2 rounded-xl text-xs font-medium bg-[#F7D6E0] text-red-500 hover:bg-red-200 transition-all"
@@ -137,9 +155,11 @@ function ReservationListe({ search }) {
               <th className="px-6 py-4">Date fin</th>
               <th className="px-6 py-4">Prix total</th>
               <th className="px-6 py-4">Statut</th>
+              <th className="px-6 py-4">Facture</th>
               <th className="px-6 py-4">Actions</th>
             </tr>
           </thead>
+
           <tbody>
             {filtered.map((r) => (
               <tr
@@ -149,18 +169,23 @@ function ReservationListe({ search }) {
                 <td className="px-6 py-4 font-medium text-[#3a3a3a]">
                   {r.utilisateur || "—"}
                 </td>
+
                 <td className="px-6 py-4 text-gray-500">
                   {r.espaces?.map((e) => e.nom).join(", ") || "—"}
                 </td>
+
                 <td className="px-6 py-4 text-gray-500">
                   {r.date_debut_reservation}
                 </td>
+
                 <td className="px-6 py-4 text-gray-500">
                   {r.date_fin_reservation}
                 </td>
+
                 <td className="px-6 py-4 text-gray-500">
                   {r.prix_total_reservation} €
                 </td>
+
                 <td className="px-6 py-4">
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-semibold ${
@@ -174,6 +199,22 @@ function ReservationListe({ search }) {
                     {r.statut_reservation}
                   </span>
                 </td>
+
+                <td className="px-6 py-4">
+                  {r.facture ? (
+                    <a
+                      href={`http://localhost:8000/storage/${r.facture}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-[#7BDFF2] text-xs font-medium hover:underline"
+                    >
+                      {r.facture.split("/").pop()}
+                    </a>
+                  ) : (
+                    <span className="text-xs text-gray-400">Aucune</span>
+                  )}
+                </td>
+
                 <td className="px-6 py-4">
                   <div className="flex gap-2">
                     <button
@@ -184,6 +225,7 @@ function ReservationListe({ search }) {
                     >
                       Voir
                     </button>
+
                     <button
                       onClick={() =>
                         navigate(
@@ -194,6 +236,7 @@ function ReservationListe({ search }) {
                     >
                       Modifier
                     </button>
+
                     <button
                       onClick={() => handleDelete(r.id_reservation)}
                       className="px-4 py-2 rounded-xl text-sm font-medium bg-[#F7D6E0] text-red-500 hover:bg-red-200 transition-all"
@@ -210,6 +253,7 @@ function ReservationListe({ search }) {
 
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-2">
         <p className="text-xs text-gray-400">{total} réservation(s) au total</p>
+
         <div className="flex gap-2">
           <button
             onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
@@ -218,9 +262,11 @@ function ReservationListe({ search }) {
           >
             ← Précédent
           </button>
+
           <span className="px-4 py-2 text-sm text-gray-400">
             {currentPage} / {lastPage}
           </span>
+
           <button
             onClick={() => setCurrentPage((p) => Math.min(lastPage, p + 1))}
             disabled={currentPage === lastPage}

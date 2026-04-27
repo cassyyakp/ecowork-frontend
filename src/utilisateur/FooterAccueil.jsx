@@ -13,7 +13,7 @@ function FooterAccueil() {
                         pour des espaces de travail modernes et éco-responsables.
                     </p>
                 </div>
-
+{/* 
                 <div>
                     <h4 className="font-bold text-[#3a3a3a] text-sm mb-3">
                         Navigation
@@ -24,7 +24,7 @@ function FooterAccueil() {
                         <li><a href="/reservations" className="hover:text-[#7BDFF2]">Réservations</a></li>
                         <li><a href="/profil" className="hover:text-[#7BDFF2]">Mon profil</a></li>
                     </ul>
-                </div>
+                </div> */}
 
                 <div>
                     <h4 className="font-bold text-[#3a3a3a] text-sm mb-3">

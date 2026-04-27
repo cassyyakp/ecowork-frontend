@@ -40,7 +40,6 @@ function Dashboard() {
             resReservations.json(),
           ]);
 
-    
         const getData = (res) => res?.data?.data || res?.data || [];
 
         const users = getData(dataUsers);
@@ -122,9 +121,9 @@ function Dashboard() {
           <a
             href={card.lien}
             key={index}
-            className="block bg-white rounded-2xl p-5 hover:shadow-md transition-all"
+            className="block bg-white rounded-2xl p-5 hover:shadow-md transition-all text-center"
           >
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex justify-center mb-3">
               <img
                 src={card.icon}
                 alt={card.label}
@@ -164,16 +163,12 @@ function Dashboard() {
               {reservationsRecentes.map((r, index) => (
                 <tr key={index} style={{ borderBottom: "1px solid #B2F7EF" }}>
                   <td className="py-2 px-3">#{index + 1}</td>
-
                   <td className="py-2 px-3">{r.date_debut_reservation}</td>
-
                   <td className="py-2 px-3">{r.date_fin_reservation}</td>
-
                   <td className="py-2 px-3">
                     {parseFloat(r.prix_total_reservation || 0).toLocaleString()}{" "}
                     €
                   </td>
-
                   <td className="py-2 px-3">
                     <span
                       className="px-2 py-1 rounded-full text-xs font-medium"
