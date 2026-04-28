@@ -1,9 +1,7 @@
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import SuccessModal from "../modal/sucessmodal";
 
 export default function RegisterForm({ onSwitch }) {
-  // const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     nom: "",
     prenom: "",
@@ -15,6 +13,7 @@ export default function RegisterForm({ onSwitch }) {
 
   const [status, setStatus] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,8 +42,7 @@ export default function RegisterForm({ onSwitch }) {
       }
 
       setStatus("success");
-      // navigate("/login");
-      onSwitch();
+      setShowModal(true);
     } catch (err) {
       setStatus("error");
       setErrorMsg(err.message);
@@ -53,7 +51,17 @@ export default function RegisterForm({ onSwitch }) {
 
   return (
     <div className="w-full">
-      {/* HEADER */}
+      {showModal && (
+        <SuccessModal
+          message="Compte créé avec succès !"
+          subMessage="Bienvenue sur EcoWork. Vous pouvez maintenant vous connecter."
+          onClose={() => {
+            setShowModal(false);
+            onSwitch();
+          }}
+        />
+      )}
+
       <div className="text-center mb-6 sm:mb-8">
         <div className="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] mx-auto mb-3">
           <img
@@ -65,14 +73,15 @@ export default function RegisterForm({ onSwitch }) {
         <p className="text-sm text-[#666]">Créez votre compte</p>
       </div>
 
-      {/* ERROR */}
       {status === "error" && (
-        <div data-cy="register-error" className="text-sm px-4 py-3 bg-[#F7D6E0] text-[#c0395a] rounded-xl mb-4 text-center">
+        <div
+          data-cy="register-error"
+          className="text-sm px-4 py-3 bg-[#F7D6E0] text-[#c0395a] rounded-xl mb-4 text-center"
+        >
           {errorMsg}
         </div>
       )}
 
-      {/* FORM */}
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col sm:flex-row gap-3 mb-3">
           <input

@@ -45,7 +45,11 @@ function CreateEquipement() {
           Accept: "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          nom_equipement: formData.nom_equipement,
+          nombre_equipement: formData.nombre_equipement,
+          espaces: [parseInt(formData.id_espace)],
+        }),
       });
       navigate("/admin/equipements");
     } catch (err) {
@@ -99,7 +103,7 @@ function CreateEquipement() {
           <input
             type="number"
             name="nombre_equipement"
-            value={formData.nombre}
+            value={formData.nombre_equipement}
             onChange={handleChange}
             placeholder="Ex: 2"
             className="w-full border-2 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-cyan-400 bg-white border-[#B2F7EF]"
@@ -147,3 +151,4 @@ function CreateEquipement() {
 }
 
 export default CreateEquipement;
+  

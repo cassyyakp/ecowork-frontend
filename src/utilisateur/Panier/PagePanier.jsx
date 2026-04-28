@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { usePanier } from "../../context/PanierContext";
+import SuccessModal from "../../modal/sucessmodal";
 
 function PagePanier() {
   const navigate = useNavigate();
   const { panier, retirerEspace, viderPanier } = usePanier();
-
 
   const [formData, setFormData] = useState({
     date_debut_reservation: "",
@@ -15,18 +15,18 @@ function PagePanier() {
 
   const [status, setStatus] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("user"));
-
 
   const nbJours =
     formData.date_debut_reservation && formData.date_fin_reservation
       ? Math.max(
-        1,
-        (new Date(formData.date_fin_reservation) -
-          new Date(formData.date_debut_reservation)) /
-        (1000 * 60 * 60 * 24),
-      )
+          1,
+          (new Date(formData.date_fin_reservation) -
+            new Date(formData.date_debut_reservation)) /
+            (1000 * 60 * 60 * 24),
+        )
       : 0;
 
   const prixJournalierTotal = panier.reduce(
@@ -34,13 +34,11 @@ function PagePanier() {
     0,
   );
 
-
   const frais = prixJournalierTotal * 0.15;
   const prixTotal =
     formData.mode_paiement === "totalite"
       ? prixJournalierTotal * nbJours + frais
       : frais;
-
 
   const getDateLimiteSolde = () => {
     if (!formData.date_debut_reservation) return null;
@@ -89,16 +87,16 @@ function PagePanier() {
         throw new Error(errors);
       }
 
-      viderPanier();
       setStatus("success");
-      navigate("/reservations");
+      setShowModal(true);
+      viderPanier();
     } catch (err) {
       setStatus("error");
       setErrorMsg(err.message);
     }
   };
 
-  if (panier.length === 0)
+  if (panier.length === 0 && !showModal)
     return (
       <div className="text-center py-20">
         <p className="text-gray-400 text-sm mb-4">Votre panier est vide.</p>
@@ -113,15 +111,28 @@ function PagePanier() {
 
   return (
     <div data-cy="page-panier" className="max-w-2xl mx-auto py-10 px-6">
+      {showModal && (
+        <SuccessModal
+          message="Réservation confirmée !"
+          subMessage="Votre réservation a bien été enregistrée."
+          onClose={() => {
+            setShowModal(false);
+            navigate("/reservations");
+          }}
+        />
+      )}
+
       <h2 className="text-2xl font-bold text-[#3a3a3a] mb-6">Mon panier</h2>
 
       {status === "error" && (
-        <div data-cy="panier-error" className="text-sm px-4 py-3 bg-[#F7D6E0] text-red-500 rounded-xl mb-5 text-center">
+        <div
+          data-cy="panier-error"
+          className="text-sm px-4 py-3 bg-[#F7D6E0] text-red-500 rounded-xl mb-5 text-center"
+        >
           {errorMsg}
         </div>
       )}
 
-      {/* Liste des espaces */}
       <div className="flex flex-col gap-3 mb-6">
         {panier.map((espace) => (
           <div
@@ -147,8 +158,7 @@ function PagePanier() {
                 <p className="font-bold text-sm text-[#3a3a3a]">{espace.nom}</p>
                 <p className="text-xs text-gray-400">{espace.surface} m²</p>
                 <p className="text-sm font-semibold text-[#7BDFF2] mt-1">
-                  {parseFloat(espace.prix_journalier).toLocaleString()} € /
-                  jour
+                  {parseFloat(espace.prix_journalier).toLocaleString()} € / jour
                 </p>
               </div>
               <button
@@ -162,7 +172,6 @@ function PagePanier() {
         ))}
       </div>
 
-      {/* Formulaire dates & paiement */}
       <div className="border-2 border-[#B2F7EF] rounded-2xl p-6 bg-white shadow-sm mb-6">
         <h3 className="text-sm font-semibold text-[#3a3a3a] mb-4">
           Choisir les dates et le paiement
@@ -204,7 +213,6 @@ function PagePanier() {
             </div>
           </div>
 
-          {/* ✅ Nouveau champ Mode de paiement */}
           <div>
             <label className="block text-sm text-[#3a3a3a] font-medium mb-1">
               Mode de paiement
@@ -221,7 +229,6 @@ function PagePanier() {
             </select>
           </div>
 
-          {/* ✅ Alerte frais de réservation */}
           {formData.mode_paiement === "reservation" &&
             formData.date_debut_reservation && (
               <div className="bg-yellow-50 border border-yellow-200 rounded-xl px-4 py-3">
@@ -239,9 +246,11 @@ function PagePanier() {
               </div>
             )}
 
-          {/* Récap prix dynamique */}
           {nbJours > 0 && (
-            <div data-cy="panier-recap-prix" className="bg-[#EFF7F6] border border-[#B2F7EF] rounded-xl px-4 py-4">
+            <div
+              data-cy="panier-recap-prix"
+              className="bg-[#EFF7F6] border border-[#B2F7EF] rounded-xl px-4 py-4"
+            >
               <div className="flex justify-between mb-2">
                 <span className="text-sm text-gray-400">
                   Location ({nbJours}j)
