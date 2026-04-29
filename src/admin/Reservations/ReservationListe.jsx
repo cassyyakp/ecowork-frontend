@@ -52,6 +52,8 @@ function ReservationListe({ search }) {
     }
   };
 
+  const formatDate = (date) => date?.split("T")[0]?.split(" ")[0] ?? "—";
+
   const filtered = reservations.filter((r) =>
     (r.utilisateur ?? "").toLowerCase().includes((search ?? "").toLowerCase()),
   );
@@ -94,7 +96,8 @@ function ReservationListe({ search }) {
 
             <div className="flex justify-between items-center">
               <p className="text-xs text-gray-400">
-                {r.date_debut_reservation} → {r.date_fin_reservation}
+                {formatDate(r.date_debut_reservation)} →{" "}
+                {formatDate(r.date_fin_reservation)}
               </p>
               <p className="text-sm font-bold text-[#7BDFF2]">
                 {r.prix_total_reservation} €
@@ -175,11 +178,11 @@ function ReservationListe({ search }) {
                 </td>
 
                 <td className="px-6 py-4 text-gray-500">
-                  {r.date_debut_reservation}
+                  {formatDate(r.date_debut_reservation)}
                 </td>
 
                 <td className="px-6 py-4 text-gray-500">
-                  {r.date_fin_reservation}
+                  {formatDate(r.date_fin_reservation)}
                 </td>
 
                 <td className="px-6 py-4 text-gray-500">

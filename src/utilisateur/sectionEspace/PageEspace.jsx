@@ -8,7 +8,6 @@ function PageEspace() {
   const navigate = useNavigate();
   const utilisateur = JSON.parse(localStorage.getItem("user"));
 
-
   const [espaces, setEspaces] = useState([]);
   const [types, setTypes] = useState([]);
   const [reservations, setReservations] = useState([]);
@@ -38,7 +37,6 @@ function PageEspace() {
         let tousEspaces = dataEspaces.data || [];
         const lastPage = dataEspaces.meta?.last_page ?? 1;
 
-
         if (lastPage > 1) {
           const autresPages = await Promise.all(
             Array.from({ length: lastPage - 1 }, (_, i) =>
@@ -51,9 +49,11 @@ function PageEspace() {
             tousEspaces = [...tousEspaces, ...(page.data || [])];
           });
         }
+
         const mesReservations = (dataReservations.data || []).filter(
-          (r) => r.id_utilisateur === utilisateur?.id_utilisateur
+          (r) => r.id_utilisateur === utilisateur?.id_utilisateur,
         );
+
         setReservations(mesReservations);
         setEspaces(tousEspaces);
         setTypes(Array.isArray(dataTypes) ? dataTypes : dataTypes.data || []);
@@ -63,6 +63,7 @@ function PageEspace() {
         setLoading(false);
       }
     };
+
     fetchData();
   }, []);
 
@@ -71,16 +72,14 @@ function PageEspace() {
     return e.id_type_espace === filtre;
   });
 
-  const reservationsPassees = reservations.filter(
-    (r) => new Date(r.date_fin_reservation) < new Date()
-  );
   return (
     <div className="py-5 px-8">
-
       <div className="relative bg-gray-50 text-center mx-auto rounded-3xl w-full max-w-[700px] p-6 sm:p-10 mb-8 overflow-hidden border-2 border-[#F7D6E0]">
-
         <h1 className="text-3xl sm:text-4xl">
-          Bienvenue <span className="text-[#7BDFF2] font-bold">{utilisateur?.prenom} {utilisateur?.nom}</span>
+          Bienvenue{" "}
+          <span className="text-[#7BDFF2] font-bold">
+            {utilisateur?.prenom} {utilisateur?.nom}
+          </span>
         </h1>
         <p className="text-md mt-3 text-gray-500">
           Ton expérience commence maintenant!! <br />
@@ -89,22 +88,28 @@ function PageEspace() {
 
         <div className="flex gap-6 sm:gap-12 justify-center mt-6">
           <div>
-            <p className="text-4xl font-bold text-[#3a3a3a]">{espaces.length}</p>
+            <p className="text-4xl font-bold text-[#3a3a3a]">
+              {espaces.length}
+            </p>
             <p className="text-xs text-center uppercase tracking-wider text-gray-400 mt-1">
               Espaces disponibles
             </p>
           </div>
 
           <div>
-            <p className="text-4xl font-bold text-[#3a3a3a]">{reservationsPassees.length}</p>
+            <p className="text-4xl font-bold text-[#3a3a3a]">
+              {reservations.length}
+            </p>
             <p className="text-xs text-center uppercase tracking-wider text-gray-400 mt-1">
-              Réservations passées
+              Réservations totales
             </p>
           </div>
         </div>
       </div>
 
-      <p className="text-center font-bold text-3xl mt-20 ">NOS ESPACES DISPONIBLES</p>
+      <p className="text-center font-bold text-3xl mt-20">
+        NOS ESPACES DISPONIBLES
+      </p>
 
       <div className="mt-12 mb-12 flex justify-end">
         <FiltreEspace types={types} filtre={filtre} setFiltre={setFiltre} />
@@ -114,10 +119,12 @@ function PageEspace() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {espacesFiltres.map((espace) => (
-          <div key={espace.id_espace}
-            data-cy="card-espace" 
+          <div
+            key={espace.id_espace}
+            data-cy="card-espace"
             onClick={() => navigate(`/espaces/${espace.id_espace}`)}
-            className="cursor-pointer">
+            className="cursor-pointer"
+          >
             <CardEspace espace={espace} />
           </div>
         ))}

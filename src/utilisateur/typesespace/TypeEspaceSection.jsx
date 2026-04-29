@@ -3,9 +3,10 @@
   import API_URL from "../../config";
 
   const icones = {
-    "Bureau de travail": "/images/office-desk.webp",
     "Salle de réunion": "/images/reunion.webp",
-    "Conférence": "/images/conference.webp",
+    "Espace coworking": "/images/workspace.png",
+    "Salle de conférence": "/images/conference.webp",
+    "Bureau privé" :"/images/office-desk.webp"
   };
 
   function TypeEspaceSection() {

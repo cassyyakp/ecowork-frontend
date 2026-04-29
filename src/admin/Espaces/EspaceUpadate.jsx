@@ -173,7 +173,7 @@ function EspaceUpdate() {
               <option value="">-- Choisir un type --</option>
               {typeEspaces.map((type) => (
                 <option key={type.id_type_espace} value={type.id_type_espace}>
-                  {type.libelle}
+                  {type.libelle_type_espace}
                 </option>
               ))}
             </select>

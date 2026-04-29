@@ -163,8 +163,12 @@ function Dashboard() {
               {reservationsRecentes.map((r, index) => (
                 <tr key={index} style={{ borderBottom: "1px solid #B2F7EF" }}>
                   <td className="py-2 px-3">#{index + 1}</td>
-                  <td className="py-2 px-3">{r.date_debut_reservation}</td>
-                  <td className="py-2 px-3">{r.date_fin_reservation}</td>
+                  <td className="py-2 px-3">
+                    {r.date_debut_reservation?.split(" ")[0]}
+                  </td>
+                  <td className="py-2 px-3">
+                    {r.date_fin_reservation?.split(" ")[0]}
+                  </td>
                   <td className="py-2 px-3">
                     {parseFloat(r.prix_total_reservation || 0).toLocaleString()}{" "}
                     €

@@ -117,13 +117,6 @@ function Header() {
           >
             Réservations
           </Link>
-          <Link
-            to="/panier"
-            onClick={() => setMenuOpen(false)}
-            className="text-sm font-medium text-[#3a3a3a] hover:text-[#7BDFF2] transition-all"
-          >
-            🛒 Panier {panier.length > 0 && `(${panier.length})`}
-          </Link>
         </nav>
       )}
     </header>

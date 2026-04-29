@@ -123,6 +123,7 @@ function EspaceList({ search }) {
               <th className="px-6 py-4">Image</th>
               <th className="px-6 py-4">Nom</th>
               <th className="px-6 py-4">Surface</th>
+              <th className="px-6 py-4">Prix / jour</th>
               <th className="px-6 py-4">Actions</th>
             </tr>
           </thead>
@@ -149,6 +150,9 @@ function EspaceList({ search }) {
                   {espace.nom}
                 </td>
                 <td className="px-6 py-4 text-gray-500">{espace.surface} m²</td>
+                <td className="px-6 py-4 text-gray-500">
+                  {espace.prix_journalier} €
+                </td>
                 <td className="px-6 py-4">
                   <div className="flex gap-2">
                     <button
