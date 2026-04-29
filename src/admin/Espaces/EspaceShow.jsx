@@ -11,7 +11,7 @@ function EspaceShow() {
     const fetchEspace = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/api/espaces/${id}`,
+          `${import.meta.env.VITE_API_URL}/espaces/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

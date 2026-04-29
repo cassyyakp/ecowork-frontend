@@ -22,7 +22,7 @@ function CreateReservation() {
     const fetchEspace = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/api/espaces/${id}`,
+          `${import.meta.env.VITE_API_URL}/espaces/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -72,20 +72,23 @@ function CreateReservation() {
     setErrorMsg("");
 
     try {
-      const response = await fetch("http://localhost:8000/api/reservations", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          Accept: "application/json",
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/reservations`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            date_debut_reservation: formData.date_debut_reservation,
+            date_fin_reservation: formData.date_fin_reservation,
+            id_utilisateur: user.id_utilisateur,
+            espaces: [parseInt(id)],
+          }),
         },
-        body: JSON.stringify({
-          date_debut_reservation: formData.date_debut_reservation,
-          date_fin_reservation: formData.date_fin_reservation,
-          id_utilisateur: user.id_utilisateur,
-          espaces: [parseInt(id)], // ✅ tableau d'espaces
-        }),
-      });
+      );
 
       const data = await response.json();
 

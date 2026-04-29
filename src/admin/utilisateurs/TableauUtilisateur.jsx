@@ -10,7 +10,7 @@ function TableauUtilisateur({
 
   return (
     <div className="flex flex-col gap-3">
-      {/* MOBILE */}
+      
       <div className="flex flex-col gap-3 md:hidden">
         {!loading && utilisateursFiltres.length === 0 && (
           <p className="text-center py-6 text-gray-400 text-sm">
@@ -58,7 +58,7 @@ function TableauUtilisateur({
         ))}
       </div>
 
-      {/* DESKTOP */}
+   
       <div className="hidden md:block overflow-x-auto rounded-2xl border border-[#B2F7EF] mt-2">
         <table className="w-full text-sm text-left">
           <thead className="bg-[#EFF7F6] text-[#3a3a3a] font-semibold">

@@ -45,7 +45,7 @@ function ListeUtilisateur() {
     if (!window.confirm("Voulez-vous vraiment supprimer cet utilisateur ?"))
       return;
     try {
-      await fetch(`http://localhost:8000/api/utilisateurs/${id}`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/utilisateurs/${id}`, {
         method: "DELETE",
         headers: {
           Accept: "application/json",

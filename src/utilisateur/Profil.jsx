@@ -40,7 +40,7 @@ function Profil() {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:8000/api/utilisateurs/${user.id_utilisateur}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/utilisateurs/${user.id_utilisateur}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

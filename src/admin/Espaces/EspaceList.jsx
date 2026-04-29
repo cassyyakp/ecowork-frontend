@@ -40,7 +40,7 @@ function EspaceList({ search }) {
   const handleDelete = async (id) => {
     if (!confirm("Supprimer cet espace ?")) return;
     try {
-      await fetch(`http://localhost:8000/api/espaces/${id}`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/espaces/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

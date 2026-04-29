@@ -56,7 +56,7 @@ function EditEquipement() {
   const handleSubmit = async () => {
     setSaving(true);
     try {
-      await fetch(`http://localhost:8000/api/equipementsalles/${id}`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/equipementsalles/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

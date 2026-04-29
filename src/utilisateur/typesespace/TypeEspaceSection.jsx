@@ -16,7 +16,7 @@
     useEffect(() => {
       const fetchTypes = async () => {
         try {
-          const response = await fetch("http://localhost:8000/api/typeespaces", {
+          const response = await fetch(`${import.meta.env.VITE_API_URL}/typeespaces`, {
             headers: {
             // Authorization: `Bearer ${localStorage.getItem("token")}`,
               Accept: "application/json",

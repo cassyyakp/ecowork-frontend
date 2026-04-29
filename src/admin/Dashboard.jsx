@@ -26,10 +26,10 @@ function Dashboard() {
       try {
         const [resUsers, resEspaces, resEquipements, resReservations] =
           await Promise.all([
-            fetch("http://localhost:8000/api/utilisateurs", { headers }),
-            fetch("http://localhost:8000/api/espaces", { headers }),
-            fetch("http://localhost:8000/api/equipements", { headers }),
-            fetch("http://localhost:8000/api/reservations", { headers }),
+            fetch(`${import.meta.env.VITE_API_URL}/utilisateurs`, { headers }),
+            fetch(`${import.meta.env.VITE_API_URL}/espaces`, { headers }),
+            fetch(`${import.meta.env.VITE_API_URL}/equipements`, { headers }),
+            fetch(`${import.meta.env.VITE_API_URL}/reservations`, { headers }),
           ]);
 
         const [dataUsers, dataEspaces, dataEquipements, dataReservations] =

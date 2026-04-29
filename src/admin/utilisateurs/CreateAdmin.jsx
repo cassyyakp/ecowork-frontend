@@ -23,7 +23,7 @@ function CreateAdmin() {
   const handleSubmit = async () => {
     setSaving(true);
     try {
-      await fetch("http://localhost:8000/api/admin/register", {
+      await fetch(`${import.meta.env.VITE_API_URL}/admin/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,14 +50,14 @@ function CreateAdmin() {
         <i className="fi fi-rr-arrow-left"></i>
         Retour
       </button>
-      {/* Titre + bouton retour */}
+    
       jsx
       <div className="max-w-lg mx-auto px-4 lg:px-0 py-6">
         <div className="bg-[#EFF7F6] p-6 lg:p-10 rounded-2xl border border-[#B2F7EF]">
           <div className="w-full bg-[#EFF7F6] p-10 max-w-md rounded-xl">
             <h1 className="text-font text-3xl">AJOUTER UN ADMIN</h1>
 
-            {/* Formulaire */}
+            
             <div className="max-w-lg mt-10 space-y-4">
               {[
                 { label: "Nom", name: "nom", type: "text" },
@@ -90,7 +90,6 @@ function CreateAdmin() {
                 </div>
               ))}
 
-              {/* Boutons */}
               <div className="flex gap-3 mt-6">
                 <button
                   onClick={handleSubmit}

@@ -14,7 +14,7 @@ function CreateEquipement() {
   useEffect(() => {
     const fetchEspaces = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/espaces", {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/espaces`,{
           headers: {
             Accept: "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,

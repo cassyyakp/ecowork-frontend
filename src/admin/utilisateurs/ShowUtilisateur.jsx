@@ -11,7 +11,7 @@ function ShowUtilisateur() {
     const fetchUtilisateur = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/api/utilisateurs/${id}`,
+          `${import.meta.env.VITE_API_URL}/utilisateurs/${id}`,
           {
             headers: {
               Accept: "application/json",

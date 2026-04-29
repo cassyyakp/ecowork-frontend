@@ -13,7 +13,7 @@ function ShowReservationUser() {
     const fetchReservation = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/api/reservations/${id}`,
+          `${import.meta.env.VITE_API_URL}/reservations/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -51,7 +51,7 @@ function ShowReservationUser() {
 
   const downloadFacture = () => {
     if (!reservation.facture) return;
-    const url = `http://localhost:8000/storage/${reservation.facture}`;
+    const url = `${import.meta.env.VITE_API_URL.replace("/api", "")}/storage/${reservation.facture}`;
     const a = document.createElement("a");
     a.href = url;
     a.download = reservation.facture.split("/").pop();

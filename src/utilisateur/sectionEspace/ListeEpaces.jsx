@@ -19,7 +19,7 @@ function ListeEspaces() {
     const fetchData = async () => {
       try {
         const resEspaces = await fetch(
-          `http://localhost:8000/api/espaces?page=1`,
+          `${import.meta.env.VITE_API_URL}/espaces?page=1`,
           { headers },
         );
         const dataEspaces = await resEspaces.json();
@@ -30,7 +30,7 @@ function ListeEspaces() {
         if (lastPage > 1) {
           const autresPages = await Promise.all(
             Array.from({ length: lastPage - 1 }, (_, i) =>
-              fetch(`http://localhost:8000/api/espaces?page=${i + 2}`, {
+              fetch(`${import.meta.env.VITE_API_URL}/espaces?page=${i + 2}`, {
                 headers,
               }).then((r) => r.json()),
             ),
@@ -45,9 +45,12 @@ function ListeEspaces() {
           .slice(0, 3);
         setEspaces(derniersEspaces);
 
-        const resTypes = await fetch(`http://localhost:8000/api/typeespaces`, {
-          headers,
-        });
+        const resTypes = await fetch(
+          `${import.meta.env.VITE_API_URL}/typeespaces`,
+          {
+            headers,
+          },
+        );
         const dataTypes = await resTypes.json();
         setTypes(Array.isArray(dataTypes) ? dataTypes : dataTypes.data || []);
       } catch (err) {

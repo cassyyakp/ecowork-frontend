@@ -20,7 +20,7 @@ function ReservationUpdate() {
     const fetchReservation = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/api/reservations/${id}`,
+          `${import.meta.env.VITE_API_URL}/reservations/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

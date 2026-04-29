@@ -6,7 +6,6 @@ function HistoriqueReservations() {
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(true);
 
-
   const formatDate = (date) => {
     if (!date) return "—";
 
@@ -21,7 +20,7 @@ function HistoriqueReservations() {
     const fetchReservations = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8000/api/me/reservations",
+          `${import.meta.env.VITE_API_URL}/me/reservations`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -48,7 +47,10 @@ function HistoriqueReservations() {
     );
 
   return (
-    <div data-cy="page-mes-reservations" className="max-w-4xl mx-auto py-10 px-6">
+    <div
+      data-cy="page-mes-reservations"
+      className="max-w-4xl mx-auto py-10 px-6"
+    >
       <h2 className="text-2xl font-bold text-[#3a3a3a] mb-2">
         Mes réservations
       </h2>
@@ -76,7 +78,6 @@ function HistoriqueReservations() {
               data-cy="card-reservation"
               className="flex gap-4 bg-white border border-[#B2F7EF] rounded-2xl overflow-hidden hover:shadow-md transition-all"
             >
-              {/* ESPACES */}
               <div className="w-36 h-36 flex-shrink-0 bg-[#B2F7EF] flex items-center justify-center">
                 {r.espaces?.length > 0 ? (
                   <div className="text-xs text-center px-2">
@@ -87,7 +88,6 @@ function HistoriqueReservations() {
                 )}
               </div>
 
-              {/* CONTENT */}
               <div className="flex flex-1 flex-col justify-between py-4 pr-4">
                 <div className="flex justify-between items-start">
                   <div>

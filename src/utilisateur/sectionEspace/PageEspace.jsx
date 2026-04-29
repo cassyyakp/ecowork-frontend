@@ -24,9 +24,9 @@ function PageEspace() {
     const fetchData = async () => {
       try {
         const [resEspaces, resTypes, resReservations] = await Promise.all([
-          fetch("http://localhost:8000/api/espaces?page=1", { headers }),
-          fetch("http://localhost:8000/api/typeespaces", { headers }),
-          fetch("http://localhost:8000/api/reservations", { headers }),
+          fetch(`${import.meta.env.VITE_API_URL}/espaces?page=1`, { headers }),
+          fetch(`${import.meta.env.VITE_API_URL}/typeespaces`, { headers }),
+          fetch(`${import.meta.env.VITE_API_URL}/reservations`, { headers }),
         ]);
         const [dataEspaces, dataTypes, dataReservations] = await Promise.all([
           resEspaces.json(),
@@ -40,7 +40,7 @@ function PageEspace() {
         if (lastPage > 1) {
           const autresPages = await Promise.all(
             Array.from({ length: lastPage - 1 }, (_, i) =>
-              fetch(`http://localhost:8000/api/espaces?page=${i + 2}`, {
+              fetch(`${import.meta.env.VITE_API_URL}/espaces?page=${i + 2}`, {
                 headers,
               }).then((r) => r.json()),
             ),

@@ -39,7 +39,7 @@ function ReservationListe({ search }) {
   const handleDelete = async (id) => {
     if (!window.confirm("Supprimer cette réservation ?")) return;
     try {
-      await fetch(`http://localhost:8000/api/reservations/${id}`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/reservations/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

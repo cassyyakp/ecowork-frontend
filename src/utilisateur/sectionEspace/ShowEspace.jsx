@@ -13,7 +13,7 @@ function ShowEspace() {
     const fetchEspace = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/api/espaces/${id}`,
+          `${import.meta.env.VITE_API_URL}/espaces/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -60,7 +60,12 @@ function ShowEspace() {
         </div>
       )}
 
-      <h1 data-cy="espace-nom" className="text-2xl font-bold text-[#3a3a3a] mb-2">{espace.nom}</h1>
+      <h1
+        data-cy="espace-nom"
+        className="text-2xl font-bold text-[#3a3a3a] mb-2"
+      >
+        {espace.nom}
+      </h1>
       <p className="text-sm text-gray-400 mb-6">{espace.surface} m²</p>
 
       <div className="flex flex-col gap-4 bg-[#EFF7F6] rounded-2xl p-6 border border-[#B2F7EF] mb-6">
@@ -86,7 +91,6 @@ function ShowEspace() {
         </div>
       </div>
 
-      {/* Equipements */}
       {espace.equipements && espace.equipements.length > 0 && (
         <div className="mb-6">
           <h2 className="text-lg font-bold text-[#3a3a3a] mb-4">

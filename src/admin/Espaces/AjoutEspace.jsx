@@ -19,12 +19,15 @@ export default function EspaceAjout() {
   useEffect(() => {
     const fetchTypeEspaces = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/typeespaces", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            Accept: "application/json",
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/typeespaces`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Accept: "application/json",
+            },
           },
-        });
+        );
         const data = await response.json();
         // console.log(data);
         setTypeEspaces(data.data ?? []);

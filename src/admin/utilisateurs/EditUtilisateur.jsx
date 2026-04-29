@@ -18,7 +18,7 @@ function EditUtilisateur() {
     const fetchUtilisateur = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/api/utilisateurs/${id}`,
+          `${import.meta.env.VITE_API_URL}/utilisateurs/${id}`,
           {
             headers: {
               Accept: "application/json",
@@ -32,7 +32,7 @@ function EditUtilisateur() {
           nom: u.nom || "",
           prenom: u.prenom || "",
           email: u.email || "",
-          telephone: u.numero_telephone || "", 
+          telephone: u.numero_telephone || "",
           adresse: u.adresse || "",
         });
       } catch (err) {
