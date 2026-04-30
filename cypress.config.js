@@ -5,7 +5,7 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: "http://localhost:5173",
+    baseUrl: "https://front-ecowork.ifran-b3dev.com/",
     setupNodeEvents(on, config) {
       
     },
