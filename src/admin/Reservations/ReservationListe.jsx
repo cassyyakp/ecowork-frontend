@@ -17,7 +17,7 @@ function ReservationListe({ search }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:8000/api/reservations?page=${page}`,
+        `${import.meta.env.VITE_API_URL}/reservations?page=${page}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -106,7 +106,7 @@ function ReservationListe({ search }) {
 
             {r.facture ? (
               <a
-                href={`http://localhost:8000/storage/${r.facture}`}
+                href={`https://api-ecowork.ifran-b3dev.com/storage/${r.facture}`}
                 target="_blank"
                 rel="noreferrer"
                 className="text-[#7BDFF2] text-xs font-medium hover:underline"
@@ -147,7 +147,7 @@ function ReservationListe({ search }) {
         ))}
       </div>
 
-      {/* DESKTOP */}
+     
       <div className="hidden md:block overflow-x-auto rounded-2xl border border-[#B2F7EF]">
         <table className="w-full text-sm text-left">
           <thead className="bg-[#EFF7F6] text-[#3a3a3a] font-semibold">
@@ -206,7 +206,7 @@ function ReservationListe({ search }) {
                 <td className="px-6 py-4">
                   {r.facture ? (
                     <a
-                      href={`http://localhost:8000/storage/${r.facture}`}
+                      href={`https://api-ecowork.ifran-b3dev.com/storage/${r.facture}`}
                       target="_blank"
                       rel="noreferrer"
                       className="text-[#7BDFF2] text-xs font-medium hover:underline"

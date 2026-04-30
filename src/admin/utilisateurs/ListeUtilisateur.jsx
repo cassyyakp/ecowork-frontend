@@ -21,7 +21,7 @@ function ListeUtilisateur() {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:8000/api/utilisateurs?page=${page}`,
+        `${import.meta.env.VITE_API_URL}/utilisateurs?page=${page}`,
         {
           headers: {
             Accept: "application/json",

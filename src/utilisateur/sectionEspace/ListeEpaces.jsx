@@ -1,19 +1,14 @@
 import { useState, useEffect } from "react";
 import CardEspace from "./CardEspace";
-import FiltreEspace from "./FiltreEspace";
 import TextEspace from "./TextEspace";
 
-function ListeEspaces() {
+function ListeEspaces({ filtreType }) {
   const [espaces, setEspaces] = useState([]);
-  const [types, setTypes] = useState([]);
-  const [filtre, setFiltre] = useState("tous");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // const token = localStorage.getItem("token");
     const headers = {
       Accept: "application/json",
-      // Authorization: `Bearer ${token}`,
     };
 
     const fetchData = async () => {
@@ -44,15 +39,6 @@ function ListeEspaces() {
           .sort((a, b) => b.id_espace - a.id_espace)
           .slice(0, 3);
         setEspaces(derniersEspaces);
-
-        const resTypes = await fetch(
-          `${import.meta.env.VITE_API_URL}/typeespaces`,
-          {
-            headers,
-          },
-        );
-        const dataTypes = await resTypes.json();
-        setTypes(Array.isArray(dataTypes) ? dataTypes : dataTypes.data || []);
       } catch (err) {
         console.log(err);
       } finally {
@@ -63,15 +49,14 @@ function ListeEspaces() {
   }, []);
 
   const espacesFiltres = espaces.filter((e) => {
-    if (filtre === "tous") return true;
-    return e.id_type_espace === Number(filtre);
+    if (!filtreType) return true;
+    return e.id_type_espace === filtreType;
   });
 
   return (
     <div className="py-16 px-8">
       <div className="flex justify-between items-start mb-10">
         <TextEspace />
-        <FiltreEspace types={types} filtre={filtre} setFiltre={setFiltre} />
       </div>
 
       {loading && <p className="text-center text-gray-400">Chargement...</p>}

@@ -51,11 +51,8 @@ function ShowReservationUser() {
 
   const downloadFacture = () => {
     if (!reservation.facture) return;
-    const url = `${import.meta.env.VITE_API_URL.replace("/api", "")}/storage/${reservation.facture}`;
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = reservation.facture.split("/").pop();
-    a.click();
+    const url = `https://api-ecowork.ifran-b3dev.com/storage/${reservation.facture}`;
+    window.open(url, "_blank");
   };
 
   if (loading)

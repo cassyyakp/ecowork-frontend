@@ -51,7 +51,6 @@ function CreateAdmin() {
         Retour
       </button>
     
-      jsx
       <div className="max-w-lg mx-auto px-4 lg:px-0 py-6">
         <div className="bg-[#EFF7F6] p-6 lg:p-10 rounded-2xl border border-[#B2F7EF]">
           <div className="w-full bg-[#EFF7F6] p-10 max-w-md rounded-xl">

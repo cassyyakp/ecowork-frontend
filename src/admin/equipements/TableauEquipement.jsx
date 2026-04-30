@@ -40,7 +40,7 @@ function TableauEquipement({ refresh, search }) {
     if (!window.confirm("Voulez-vous vraiment supprimer cet équipement ?"))
       return;
     try {
-      await fetch(`http://localhost:8000/api/equipements/${id}`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/equipements/${id}`, {
         method: "DELETE",
         headers: {
           Accept: "application/json",

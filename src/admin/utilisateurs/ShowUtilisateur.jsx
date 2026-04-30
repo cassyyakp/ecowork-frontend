@@ -50,7 +50,7 @@ function ShowUtilisateur() {
           </div>
           <div className="flex justify-between border-b border-default pb-3">
             <span className="font-medium text-gray-500">Prénoms</span>
-            <span>{utilisateur.prenoms}</span>
+            <span>{utilisateur.prenom}</span>
           </div>
           <div className="flex justify-between border-b border-default pb-3">
             <span className="font-medium text-gray-500">Email</span>
@@ -71,20 +71,13 @@ function ShowUtilisateur() {
           </div>
           <div className="flex justify-between border-b border-default pb-3">
             <span className="font-medium text-gray-500">Téléphone</span>
-            <span>{utilisateur.telephone}</span>
+            <span>{utilisateur.numero_telephone}</span>
           </div>
           <div className="flex justify-between border-b border-default pb-3">
             <span className="font-medium text-gray-500">Adresse</span>
             <span>{utilisateur.adresse}</span>
           </div>
-          <div className="flex justify-between border-b border-default pb-3">
-            <span className="font-medium text-gray-500">Créé le</span>
-            <span>{utilisateur.created_at}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="font-medium text-gray-500">Modifié le</span>
-            <span>{utilisateur.updated_at}</span>
-          </div>
+          
 
           <div className="flex gap-3 mt-6">
             <button

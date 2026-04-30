@@ -72,7 +72,7 @@ function ShowEspace() {
         <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
           <span className="text-sm text-gray-400">Prix / jour</span>
           <span className="text-sm font-semibold text-[#7BDFF2]">
-            {parseFloat(espace.prix_journalier || 0).toLocaleString()} FCFA
+            {parseFloat(espace.prix_journalier || 0).toLocaleString()} €
           </span>
         </div>
         <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
@@ -80,7 +80,7 @@ function ShowEspace() {
             Frais de réservation (15%)
           </span>
           <span className="text-sm font-medium text-[#3a3a3a]">
-            {frais.toLocaleString()} FCFA
+            {frais.toLocaleString()} €
           </span>
         </div>
         <div className="flex justify-between">

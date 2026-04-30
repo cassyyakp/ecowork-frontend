@@ -61,19 +61,15 @@ function EspaceShow() {
           <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
             <span className="text-sm text-gray-400">Prix réservation</span>
             <span className="text-sm font-medium text-[#3a3a3a]">
-              {espace.prix_reservation} FCFA
+              {espace.prix_journalier} €
             </span>
           </div>
           <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
-            <span className="text-sm text-gray-400">Frais réservation</span>
-            <span className="text-sm font-medium text-[#3a3a3a]">
-              {espace.frais_reservation} €
+            <span className="text-sm text-gray-400">
+              Frais réservation (15%)
             </span>
-          </div>
-          <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
-            <span className="text-sm text-gray-400">Créé le</span>
             <span className="text-sm font-medium text-[#3a3a3a]">
-              {espace.created_at}
+              {(espace.prix_journalier * 0.15).toFixed(2)} €
             </span>
           </div>
         </div>

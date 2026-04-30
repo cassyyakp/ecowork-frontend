@@ -3,7 +3,7 @@
 
 describe('Parcours complet d\'un utilisateur de la connexion jusqu\'à la réservation', () => {
 
-  // utilisateur doit exister dans la BD
+ 
   const utilisateur = {
     id_utilisateur: 1, 
     prenom: 'Cassy',

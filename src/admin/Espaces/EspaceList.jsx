@@ -17,7 +17,7 @@ function EspaceList({ search }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:8000/api/espaces?page=${page}&t=${Date.now()}`,
+        `${import.meta.env.VITE_API_URL}/espaces?page=${page}&t=${Date.now()}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

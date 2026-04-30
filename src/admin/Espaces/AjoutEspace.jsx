@@ -59,7 +59,7 @@ export default function EspaceAjout() {
         }
       });
 
-      const response = await fetch("http://localhost:8000/api/espaces", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/espaces`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

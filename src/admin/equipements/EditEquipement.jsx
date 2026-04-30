@@ -17,13 +17,13 @@ function EditEquipement() {
     const fetchData = async () => {
       try {
         const [resEquipement, resEspaces] = await Promise.all([
-          fetch(`http://localhost:8000/api/equipements/${id}`, {
+          fetch(`${import.meta.env.VITE_API_URL}/equipements/${id}`, {
             headers: {
               Accept: "application/json",
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }),
-          fetch("http://localhost:8000/api/espaces", {
+         fetch(`${import.meta.env.VITE_API_URL}/espaces`, {
             headers: {
               Accept: "application/json",
               Authorization: `Bearer ${localStorage.getItem("token")}`,

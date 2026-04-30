@@ -47,7 +47,7 @@ function Login({ onSwitch }) {
       if (data.user.id_type_compte === 1) {
         navigate("/admin/dashboard");
       } else {
-        navigate("/accueil");
+        navigate("/espaces");
       }
     } catch (err) {
       setStatus("error");

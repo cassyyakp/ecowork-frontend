@@ -45,24 +45,19 @@ function ShowEquipement() {
       <div className="max-w-lg mx-auto mt-10 bg-[#EFF7F6] border border-[#B2F7EF] rounded-2xl p-6 space-y-4">
         <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
           <span className="font-medium text-gray-500 text-sm">Nom</span>
-          <span className="text-sm">{equipement.nom}</span>
+          <span className="text-sm">{equipement.nom_equipement}</span>
         </div>
         <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
           <span className="font-medium text-gray-500 text-sm">Nombre</span>
-          <span className="text-sm">{equipement.nombre}</span>
+          <span className="text-sm">{equipement.nombre_equipement}</span>
         </div>
         <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
           <span className="font-medium text-gray-500 text-sm">Espace</span>
-          <span className="text-sm">{equipement.espace?.nom || "-"}</span>
+          <span className="text-sm">
+            {equipement.espaces?.map((e) => e.nom).join(", ") || "-"}
+          </span>
         </div>
-        <div className="flex justify-between border-b border-[#B2F7EF] pb-3">
-          <span className="font-medium text-gray-500 text-sm">Créé le</span>
-          <span className="text-sm">{equipement.created_at}</span>
-        </div>
-        <div className="flex justify-between">
-          <span className="font-medium text-gray-500 text-sm">Modifié le</span>
-          <span className="text-sm">{equipement.updated_at}</span>
-        </div>
+
         <div className="flex gap-3 mt-6">
           <button
             onClick={() => navigate(`/admin/equipements/${id}/edit`)}

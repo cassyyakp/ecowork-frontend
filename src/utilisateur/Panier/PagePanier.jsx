@@ -62,7 +62,7 @@ function PagePanier() {
     setErrorMsg("");
 
     try {
-      const response = await fetch("http://localhost:8000/api/reservations", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/reservations`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

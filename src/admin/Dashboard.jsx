@@ -148,51 +148,41 @@ function Dashboard() {
         ) : reservationsRecentes.length === 0 ? (
           <p className="text-gray-400 text-sm">Aucune réservation</p>
         ) : (
-          <table className="w-full text-sm">
-            <thead>
-              <tr style={{ borderBottom: "2px solid #B2F7EF" }}>
-                <th className="text-left py-2 px-3">#</th>
-                <th className="text-left py-2 px-3">Début</th>
-                <th className="text-left py-2 px-3">Fin</th>
-                <th className="text-left py-2 px-3">Prix total</th>
-                <th className="text-left py-2 px-3">Statut</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {reservationsRecentes.map((r, index) => (
-                <tr key={index} style={{ borderBottom: "1px solid #B2F7EF" }}>
-                  <td className="py-2 px-3">#{index + 1}</td>
-                  <td className="py-2 px-3">
-                    {r.date_debut_reservation?.split(" ")[0]}
-                  </td>
-                  <td className="py-2 px-3">
-                    {r.date_fin_reservation?.split(" ")[0]}
-                  </td>
-                  <td className="py-2 px-3">
-                    {parseFloat(r.prix_total_reservation || 0).toLocaleString()}{" "}
-                    €
-                  </td>
-                  <td className="py-2 px-3">
-                    <span
-                      className="px-2 py-1 rounded-full text-xs font-medium"
-                      style={{
-                        backgroundColor:
-                          r.statut_reservation === "soldee"
-                            ? "#B2F7EF"
-                            : r.statut_reservation === "annulee"
-                              ? "#F7D6E0"
-                              : "#FFF3CD",
-                        color: "#3a3a3a",
-                      }}
-                    >
-                      {r.statut_reservation}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="flex flex-col gap-3">
+            {reservationsRecentes.map((r, index) => (
+              <div
+                key={index}
+                className="bg-[#EFF7F6] rounded-xl p-4 flex flex-col gap-2"
+              >
+                <div className="flex justify-between items-center">
+                  <span className="text-xs font-bold text-[#3a3a3a]">
+                    #{index + 1}
+                  </span>
+                  <span
+                    className="px-2 py-1 rounded-full text-xs font-medium"
+                    style={{
+                      backgroundColor:
+                        r.statut_reservation === "soldee"
+                          ? "#B2F7EF"
+                          : r.statut_reservation === "annulee"
+                            ? "#F7D6E0"
+                            : "#FFF3CD",
+                      color: "#3a3a3a",
+                    }}
+                  >
+                    {r.statut_reservation}
+                  </span>
+                </div>
+                <div className="flex justify-between text-xs text-gray-400">
+                  <span>Début: {r.date_debut_reservation?.split(" ")[0]}</span>
+                  <span>Fin: {r.date_fin_reservation?.split(" ")[0]}</span>
+                </div>
+                <div className="text-sm font-bold text-[#7BDFF2]">
+                  {parseFloat(r.prix_total_reservation || 0).toLocaleString()} €
+                </div>
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </div>
